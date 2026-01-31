@@ -32,6 +32,15 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/work-samples-page/work-samples-details/work-sample-details.component').then(m => m.WorkSampleDetailsComponent)
     },
 
+    {
+        path: 'posts',
+        loadComponent: () => import('./pages/posts-page/posts-list/posts-list.component').then(m => m.PostsListComponent)
+    },
+    {
+        path: 'posts/:id',
+        loadComponent: () => import('./pages/posts-page/post-details/post-details.component').then(m => m.PostDetailsComponent)
+    },
+
 
     { path: '**', component: ErrorPageComponent },
 ];
