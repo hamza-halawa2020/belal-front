@@ -14,5 +14,24 @@ export const routes: Routes = [
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
     { path: 'contacts', component: ContactPageComponent },
 
+    {
+        path: 'services',
+        loadComponent: () => import('./pages/services-page/services-list/services-list.component').then(m => m.ServicesListComponent)
+    },
+    {
+        path: 'services/:id',
+        loadComponent: () => import('./pages/services-page/service-details/service-details.component').then(m => m.ServiceDetailsComponent)
+    },
+
+    {
+        path: 'work-samples',
+        loadComponent: () => import('./pages/work-samples-page/work-samples-list/work-samples-list.component').then(m => m.WorkSamplesListComponent)
+    },
+    {
+        path: 'work-samples/:id',
+        loadComponent: () => import('./pages/work-samples-page/work-samples-details/work-sample-details.component').then(m => m.WorkSampleDetailsComponent)
+    },
+
+
     { path: '**', component: ErrorPageComponent },
 ];

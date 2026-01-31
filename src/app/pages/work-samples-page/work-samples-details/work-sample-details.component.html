@@ -1,0 +1,77 @@
+<section class="work-sample-details-area">
+    <div class="container">
+        <!-- Loading State -->
+        <div class="text-center py-5" *ngIf="isLoading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading && workSample">
+            <div class="details-header animate__animated animate__fadeIn">
+                <!-- Use standard src for now -->
+                <img [src]="workSample.image_url" [alt]="workSample.title" class="main-img">
+                <h1 class="animate__animated animate__fadeInUp">{{ workSample.title }}</h1>
+            </div>
+
+            <!-- Key Info Cards -->
+            <div class="info-cards animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="info-card" *ngIf="workSample.money_capital">
+                    <div class="icon-box"><i class="fa-solid fa-coins"></i></div>
+                    <h4>{{ 'MONEY_CAPITAL' | translate }}</h4>
+                    <p>{{ workSample.money_capital }}</p>
+                </div>
+                <div class="info-card" *ngIf="workSample.rate_of_return">
+                    <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                    <h4>{{ 'RATE_OF_RETURN' | translate }}</h4>
+                    <p>{{ workSample.rate_of_return }}</p>
+                </div>
+                <div class="info-card" *ngIf="workSample.status !== undefined">
+                    <div class="icon-box"><i class="fa-solid fa-check-circle"></i></div>
+                    <h4>{{ 'STATUS' | translate }}</h4>
+                    <p>{{ workSample.status === 1 ? ('ACTIVE' | translate) : ('INACTIVE' | translate) }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="content-wrapper animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                        <!-- Description -->
+                        <div class="content-section" *ngIf="workSample.description">
+                            <h3>{{ 'DESCRIPTION' | translate }}</h3>
+                            <div [innerHTML]="workSample.description"></div>
+                        </div>
+
+                        <!-- Services -->
+                        <div class="content-section" *ngIf="workSample.services">
+                            <h3>{{ 'SERVICES' | translate }}</h3>
+                            <div [innerHTML]="workSample.services"></div>
+                        </div>
+
+                        <!-- Study Content -->
+                        <div class="content-section" *ngIf="workSample.study_content">
+                            <h3>{{ 'STUDY_CONTENT' | translate }}</h3>
+                            <div [innerHTML]="workSample.study_content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Sidebar: Financial Metrics -->
+                    <div class="content-section animate__animated animate__fadeInUp" style="animation-delay: 0.6s;"
+                        *ngIf="workSample.financial_metrics">
+                        <h3>{{ 'FINANCIAL_METRICS' | translate }}</h3>
+                        <div [innerHTML]="workSample.financial_metrics"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-btn-container animate__animated animate__fadeIn" style="animation-delay: 0.8s;">
+                <a routerLink="/work-samples" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    {{ 'BACK_TO_LIST' | translate }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
