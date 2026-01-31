@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { ServicesService } from '../services.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { ContentCardComponent } from '../../../shared/components/content-card/content-card.component';
 
 @Component({
     selector: 'app-services-list',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslateModule, NgOptimizedImage, PaginationComponent],
+    imports: [CommonModule, RouterLink, TranslateModule, NgOptimizedImage, PaginationComponent, ContentCardComponent],
     templateUrl: './services-list.component.html',
     styleUrls: ['./services-list.component.scss']
 })

@@ -12,37 +12,12 @@
         </div>
 
         <div class="row" *ngIf="!isLoading">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 animate__animated animate__fadeInUp"
-                [style.animation-delay]="i * 0.1 + 's'" *ngFor="let service of services; let i = index">
-                <div class="service-card">
-                    <div class="card-img">
-                        <!-- Use standard src to ensure compatibility -->
-                        <img [src]="service.image_url" [alt]="service.title">
-                        <div class="overlay"></div>
-                        <!-- Decorative Icon based on index for variety -->
-                        <div class="service-icon">
-                            <i class="fa-solid" [ngClass]="{
-                                'fa-laptop-code': i % 4 === 0,
-                                'fa-chart-pie': i % 4 === 1,
-                                'fa-bullhorn': i % 4 === 2,
-                                'fa-mobile-screen': i % 4 === 3
-                            }"></i>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3>
-                            <a [routerLink]="['/services', service.id]">{{ service.title }}</a>
-                        </h3>
-                        <div class="desc-preview" [innerHTML]="service.description"></div>
-
-                        <div class="card-footer">
-                            <a [routerLink]="['/services', service.id]" class="read-more-link">
-                                {{ 'READ_MORE' | translate }}
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let service of services; let i = index">
+                <app-content-card 
+                    [item]="service" 
+                    [routePath]="'/services'" 
+                    [animationDelay]="i * 0.1">
+                </app-content-card>
             </div>
 
             <div class="col-12 text-center py-5" *ngIf="services.length === 0">
@@ -53,34 +28,6 @@
         </div>
 
         <!-- Pagination -->
-        <div class="row mt-5" *ngIf="meta && meta.last_page > 1">
-            <div class="col-12 d-flex justify-content-center">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item" [class.disabled]="meta.current_page === 1">
-                            <button class="page-link" (click)="onPageChange(meta.current_page - 1)"
-                                aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </button>
-                        </li>
-
-                        <ng-container *ngFor="let page of pages">
-                            <li class="page-item" *ngIf="page !== -1" [class.active]="page === meta.current_page">
-                                <button class="page-link" (click)="onPageChange(page)">{{ page }}</button>
-                            </li>
-                            <li class="page-item disabled" *ngIf="page === -1">
-                                <span class="page-link">...</span>
-                            </li>
-                        </ng-container>
-
-                        <li class="page-item" [class.disabled]="meta.current_page === meta.last_page">
-                            <button class="page-link" (click)="onPageChange(meta.current_page + 1)" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
 </section>

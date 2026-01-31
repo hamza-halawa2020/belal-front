@@ -12,28 +12,12 @@
         </div>
 
         <div class="row" *ngIf="!isLoading">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 animate__animated animate__fadeInUp"
-                [style.animation-delay]="i * 0.1 + 's'" *ngFor="let sample of workSamples; let i = index">
-                <div class="work-sample-card">
-                    <div class="card-img">
-                        <!-- Use standard src to ensure compatibility with external domains without extra config -->
-                        <img [src]="sample.image_url" [alt]="sample.title">
-                        <div class="overlay"></div>
-                    </div>
-                    <div class="card-content">
-                        <h3>
-                            <a [routerLink]="['/work-samples', sample.id]">{{ sample.title }}</a>
-                        </h3>
-                        <div class="description-preview" [innerHTML]="sample.description"></div>
-
-                        <div class="card-footer">
-                            <a [routerLink]="['/work-samples', sample.id]" class="read-more-btn">
-                                {{ 'READ_MORE' | translate }}
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let sample of workSamples; let i = index">
+                <app-content-card 
+                    [item]="sample" 
+                    [routePath]="'/work-samples'" 
+                    [animationDelay]="i * 0.1">
+                </app-content-card>
             </div>
 
             <div class="col-12 text-center py-5" *ngIf="workSamples.length === 0">

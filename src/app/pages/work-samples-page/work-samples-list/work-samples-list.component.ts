@@ -3,13 +3,13 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WorkSamplesService } from '../work-samples.service';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { ContentCardComponent } from '../../../shared/components/content-card/content-card.component';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
     selector: 'app-work-samples-list',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslateModule, NgOptimizedImage, PaginationComponent],
+    imports: [CommonModule, RouterLink, TranslateModule, NgOptimizedImage, PaginationComponent, ContentCardComponent],
     templateUrl: './work-samples-list.component.html',
     styleUrls: ['./work-samples-list.component.scss']
 })
