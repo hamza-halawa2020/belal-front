@@ -362,6 +362,8 @@
   "LOGIN_FAILED": "Login failed. Please try again.",
   "CREATE_ACCOUNT": "Create account",
   "CONFIRM_PASSWORD": "Confirm Password *",
+  "NO_SLIDER_IMAGES": "No images in slider currently",
+  "SLIDER_LOADING": "Loading images...",
   "DO_YOU_HAVE_ACCOUNT": "Do You Have Account?",
   "REGISTER_SUCCESS": "Registered successfully!",
   "REGISTER_FAILED": "Registration failed. Please try again.",

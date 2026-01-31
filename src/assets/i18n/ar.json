@@ -597,6 +597,8 @@
   "LOGIN_FAILED": "فشل تسجيل الدخول. حاول مرة أخرى.",
   "CREATE_ACCOUNT": "إنشاء حساب",
   "CONFIRM_PASSWORD": "تأكيد كلمة المرور *",
+  "NO_SLIDER_IMAGES": "لا توجد صور في السلايدر حالياً",
+  "SLIDER_LOADING": "جاري تحميل الصور...",
   "DO_YOU_HAVE_ACCOUNT": "هل لديك حساب؟",
   "REGISTER_SUCCESS": "تم التسجيل بنجاح!",
   "REGISTER_FAILED": "فشل التسجيل. حاول مرة أخرى.",

@@ -1,16 +1,49 @@
-<div class="new-class position-relative">
-    <div class="main-slider mx-auto">
+<div class="main-slider-wrapper position-relative">
+    <!-- Loading State -->
+    <div *ngIf="!sliderData" class="slider-loading">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">{{ 'SLIDER_LOADING' | translate }}</span>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="sliderData && sliderData.length === 0" class="slider-empty">
+        <div class="empty-content">
+            <i class="fa-regular fa-images"></i>
+            <p>{{ 'NO_SLIDER_IMAGES' | translate }}</p>
+        </div>
+    </div>
+
+    <!-- Main Slider -->
+    <div class="main-slider mx-auto" *ngIf="sliderData && sliderData.length > 0">
         <owl-carousel-o [options]="currentOptions" #owlCarousel>
             <ng-template carouselSlide *ngFor="let slide of sliderData; let i = index">
-                <div class="text-center">
-                    <a href="{{ slide.link }}">
+                <div class="slide-item">
+                    <a [href]="slide.link || '#'" class="slide-link">
                         <div class="image-container">
-                            <img [ngSrc]="image + slide.image" class="carousel-image" [alt]="slide.title"
-                                [priority]="i === 0" width="1200" height="500" />
+                            <!-- Main Image -->
+                            <img [ngSrc]="slide.image_url" class="carousel-image" [alt]="slide.title || 'Slider Image'"
+                                [priority]="i === 0" width="1920" height="800" />
+
+                            <!-- Gradient Overlay -->
+                            <div class="gradient-overlay"></div>
+
+                            <!-- Content Overlay -->
                             <div class="overlay-content">
-                                <h3 class="fw-semibold">{{ slide.title }}</h3>
-                                <div class="fw-medium">
-                                    {{ slide.description }}
+                                <div class="content-wrapper animate-fade-in">
+                                    <h2 class="slide-title" *ngIf="slide.title">
+                                        {{ slide.title }}
+                                    </h2>
+                                    <p class="slide-description" *ngIf="slide.description">
+                                        {{ slide.description }}
+                                    </p>
+                                    <div class="slide-cta" *ngIf="slide.link">
+                                        <span class="cta-button">
+                                            {{ 'READ_MORE' | translate }}
+                                            <i class="fa-solid ms-2"
+                                                [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -21,11 +54,13 @@
 
         <!-- Custom Navigation Buttons -->
         <div class="custom-nav">
-            <button class="nav-btn prev-btn" (click)="prevSlide()">
-                <i class="fa-solid fa-chevron-left"></i>
+            <button class="nav-btn prev-btn" (click)="prevSlide()" [attr.aria-label]="'PREVIOUS' | translate">
+                <i class="fa-solid"
+                    [ngClass]="{'fa-chevron-left': translate.currentLang === 'en', 'fa-chevron-right': translate.currentLang === 'ar'}"></i>
             </button>
-            <button class="nav-btn next-btn" (click)="nextSlide()">
-                <i class="fa-solid fa-chevron-right"></i>
+            <button class="nav-btn next-btn" (click)="nextSlide()" [attr.aria-label]="'NEXT' | translate">
+                <i class="fa-solid"
+                    [ngClass]="{'fa-chevron-right': translate.currentLang === 'en', 'fa-chevron-left': translate.currentLang === 'ar'}"></i>
             </button>
         </div>
     </div>

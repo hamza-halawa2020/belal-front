@@ -9,7 +9,7 @@ import {
 import { MainSliderService } from './main-slider.service';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-main-slider',
@@ -22,6 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
         NgClass,
         HttpClientModule,
         NgOptimizedImage,
+        TranslateModule
     ],
     templateUrl: './main-slider.component.html',
     styleUrls: ['./main-slider.component.scss'],
@@ -76,7 +77,7 @@ export class MainSlider implements OnInit {
     constructor(
         public router: Router,
         private mainSliderService: MainSliderService,
-        private translate: TranslateService
+        public translate: TranslateService
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'
@@ -99,8 +100,8 @@ export class MainSlider implements OnInit {
             next: (response: any) => {
                 // The API returns data in response.data
                 this.sliderData = response.data || [];
-                // Set the image base URL from environment
-                this.image = environment.imgUrl;
+                // Since API returns full image_url, we don't need to prepend imgUrl
+                this.image = '';
             },
             error: (error) => {
                 console.error('Error fetching slider data:', error);
