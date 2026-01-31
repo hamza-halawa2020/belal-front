@@ -97,8 +97,15 @@ export class MainSlider implements OnInit {
     fetchSliderData() {
         this.mainSliderService.index().subscribe({
             next: (response: any) => {
-                this.sliderData = Object.values(response)[0];
+                // The API returns data in response.data
+                this.sliderData = response.data || [];
+                // Set the image base URL from environment
+                this.image = environment.imgUrl;
             },
+            error: (error) => {
+                console.error('Error fetching slider data:', error);
+                this.sliderData = [];
+            }
         });
     }
 
