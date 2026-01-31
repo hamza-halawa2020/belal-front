@@ -1,0 +1,30 @@
+import { NgClass, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+    selector: 'app-footer',
+    standalone: true,
+    imports: [RouterLink, NgIf, NgClass, TranslateModule],
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+})
+export class FooterComponent {
+    email: string = 'info@gorhom.com';
+    phone: string = '+201034100565';
+
+    accordionState: { [key: string]: boolean } = {
+        getInTouch: false,
+        categories: false,
+        policies: false,
+        stayConnected: false,
+        newsletter: false,
+    };
+
+    constructor(public router: Router) { }
+
+    toggleAccordion(section: string) {
+        this.accordionState[section] = !this.accordionState[section];
+    }
+}
