@@ -43,7 +43,8 @@
               "src/assets/css/magnific-popup.css",
               "src/assets/css/niceselect.css",
               "src/assets/css/shop.css",
-              "src/assets/css/style.css"
+              "src/assets/css/style.css",
+              "src/assets/css/placeholder-images.css"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
