@@ -1,8 +1,8 @@
 // WhatsApp Floating Button with Animation
 .whatsapp-float {
     position: fixed;
-    bottom: 100px; // فوق زر العودة للأعلى
-    left: 30px;
+    bottom: 25px; // فوق زر العودة للأعلى
+    left: 30px; // دايماً في الشمال
     width: 60px;
     height: 60px;
     background: #25d366;
@@ -104,7 +104,7 @@
 @media (max-width: 768px) {
     .whatsapp-float {
         bottom: 80px;
-        left: 20px;
+        left: 20px; // دايماً في الشمال
         width: 50px;
         height: 50px;
 
@@ -117,28 +117,12 @@
 @media (max-width: 480px) {
     .whatsapp-float {
         bottom: 70px;
-        left: 15px;
+        left: 15px; // دايماً في الشمال
         width: 45px;
         height: 45px;
 
         i {
             font-size: 20px;
-        }
-    }
-}
-
-// RTL Support
-:host-context([dir="rtl"]) {
-    .whatsapp-float {
-        left: auto;
-        right: 30px;
-
-        @media (max-width: 768px) {
-            right: 20px;
-        }
-
-        @media (max-width: 480px) {
-            right: 15px;
         }
     }
 }
