@@ -1,0 +1,44 @@
+// Custom Cursor Component Styles
+:host {
+  pointer-events: none;
+  z-index: 9999;
+}
+
+// Keep default cursor visible on all devices with proper cursors for clickables
+@media (hover: hover) and (pointer: fine) {
+  :global(body) {
+    cursor: auto !important; /* Show default cursor */
+  }
+  
+  :global(*) {
+    cursor: auto !important; /* Show default cursor */
+  }
+  
+  /* Show pointer cursor on clickable elements */
+  :global(a), :global(button), :global(.btn), :global([role="button"]), 
+  :global(input[type="submit"]), :global(input[type="button"]), 
+  :global(.clickable), :global([onclick]), :global(.cursor-pointer) {
+    cursor: pointer !important;
+  }
+  
+  /* Show text cursor on text inputs */
+  :global(input[type="text"]), :global(input[type="email"]), :global(input[type="password"]), 
+  :global(input[type="search"]), :global(textarea), :global([contenteditable]) {
+    cursor: text !important;
+  }
+  
+  /* Show resize cursor on resizable elements */
+  :global([resize]), :global(textarea[resize]) {
+    cursor: nw-resize !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  :global(body) {
+    cursor: auto !important;
+  }
+  
+  :global(*) {
+    cursor: auto !important;
+  }
+}

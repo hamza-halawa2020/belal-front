@@ -4,11 +4,12 @@ import { RouterOutlet, Router, Event, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { WhatsappFloatComponent } from './common/whatsapp-float/whatsapp-float.component';
+import { CustomCursorComponent } from './shared/components/custom-cursor/custom-cursor.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, NavbarComponent, WhatsappFloatComponent],
+    imports: [RouterOutlet, NavbarComponent, WhatsappFloatComponent, CustomCursorComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })

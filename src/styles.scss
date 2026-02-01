@@ -615,3 +615,28 @@ p {
         left: 49.2%;
     }
 }
+
+/* Custom Cursor Global Styles - Show default cursor with pointer on clickables */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: auto !important; /* Keep default cursor visible */
+  }
+  
+  /* Show pointer cursor on clickable elements */
+  a, button, .btn, [role="button"], input[type="submit"], input[type="button"], 
+  .clickable, [onclick], .cursor-pointer {
+    cursor: pointer !important;
+  }
+  
+  /* Show text cursor on text inputs */
+  input[type="text"], input[type="email"], input[type="password"], 
+  input[type="search"], textarea, [contenteditable] {
+    cursor: text !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
