@@ -1,120 +1,111 @@
-<!-- Page Banner -->
-<section class="page-banner">
-    <div class="container">
-        <div class="banner-content text-center">
-            <h1 class="animate__animated animate__fadeInUp">{{ 'SUCCESS_PARTNERS' | translate }}</h1>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">{{ 'PARTNERS_SUBTITLE' | translate }}</p>
-            <nav aria-label="breadcrumb" class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ 'PARTNERS' | translate }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</section>
 
-<!-- Partners Section -->
-<section class="partners-area">
+<section class="partener-area">
     <div class="container">
-        <div class="section-title text-center">
-            <h2>{{ 'OUR_SUCCESS_PARTNERS' | translate }}</h2>
-            <p>{{ 'PARTNERS_DESC' | translate }}</p>
+        <div class="section-title text-center mt-5">
+            <h2>{{ 'SUCCESS_PARTNERS' | translate }}</h2>
+            <p class="mt-5">{{ 'PARTNERS_SUBTITLE' | translate }}</p>
         </div>
 
-        <!-- Loading State -->
         <div class="row" *ngIf="isLoading">
             <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
                 <div class="skeleton-loader"></div>
             </div>
         </div>
 
-        <!-- Partners Grid -->
-        <div class="row" *ngIf="!isLoading">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let partner of partners; let i = index">
-                <div class="partner-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
-                    <div class="partner-image">
-                        <img [src]="partner.image_url" [alt]="partner.name">
-                        <div class="overlay">
-                            <div class="partner-actions">
-                                <button class="action-btn" (click)="openPartnerLink(partner.link)" *ngIf="partner.link">
-                                    <i class="fa-solid fa-external-link"></i>
-                                    {{ 'VISIT_WEBSITE' | translate }}
-                                </button>
+                <!-- Partnership Benefits Section -->
+        <section class="partnership-benefits" *ngIf="!isLoading && partners.length > 0">
+            <div class="">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="benefits-content">
+                            <h2>{{ 'WHY_PARTNER_WITH_US' | translate }}</h2>
+                            <p>{{ 'PARTNERSHIP_INTRO' | translate }}</p>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <div class="benefit-text">
+                                    <h4>{{ 'MUTUAL_SUCCESS' | translate }}</h4>
+                                    <p>{{ 'MUTUAL_SUCCESS_DESC' | translate }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div class="benefit-text">
+                                    <h4>{{ 'GROWTH_OPPORTUNITIES' | translate }}</h4>
+                                    <p>{{ 'GROWTH_OPPORTUNITIES_DESC' | translate }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="benefit-text">
+                                    <h4>{{ 'COLLABORATIVE_APPROACH' | translate }}</h4>
+                                    <p>{{ 'COLLABORATIVE_APPROACH_DESC' | translate }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="partner-info">
-                        <h3>{{ partner.name }}</h3>
-                        <div class="partner-link" *ngIf="partner.link">
-                            <i class="fa-solid fa-link"></i>
-                            <span>{{ partner.link }}</span>
+                    <div class="col-lg-6">
+                        <div class="benefits-image">
+                            <div class="image-placeholder">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- No Partners Message -->
-            <div class="col-12 text-center py-5" *ngIf="partners.length === 0">
-                <div class="alert alert-info">
-                    <i class="fa-solid fa-info-circle"></i>
-                    {{ 'NO_PARTNERS_FOUND' | translate }}
-                </div>
-            </div>
-        </div>
+        <!-- Partners Section -->
+        <section class="partners-area my-5">
+            <div class="">
+     
 
-        <!-- Pagination -->
-        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)" *ngIf="!isLoading && meta"></app-pagination>
-    </div>
-</section>
+                <!-- Partners Grid -->
+                <div class="row" *ngIf="!isLoading">
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let partner of partners; let i = index">
+                        <div class="partner-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
+                            <div class="partner-image">
+                                <img [src]="partner.image_url" [alt]="partner.name">
+                                <div class="overlay">
+                                    <div class="partner-actions">
+                                        <button class="action-btn" (click)="openPartnerLink(partner.link)" *ngIf="partner.link">
+                                            <i class="fa-solid fa-external-link"></i>
+                                            {{ 'VISIT_WEBSITE' | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="partner-info">
+                                <h3>{{ partner.name }}</h3>
+                                <div class="partner-link" *ngIf="partner.link">
+                                    <i class="fa-solid fa-link"></i>
+                                    <span>{{ partner.link }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<!-- Partnership Benefits Section -->
-<section class="partnership-benefits" *ngIf="!isLoading && partners.length > 0">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="benefits-content">
-                    <h2>{{ 'WHY_PARTNER_WITH_US' | translate }}</h2>
-                    <p>{{ 'PARTNERSHIP_INTRO' | translate }}</p>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-handshake"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>{{ 'MUTUAL_SUCCESS' | translate }}</h4>
-                            <p>{{ 'MUTUAL_SUCCESS_DESC' | translate }}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>{{ 'GROWTH_OPPORTUNITIES' | translate }}</h4>
-                            <p>{{ 'GROWTH_OPPORTUNITIES_DESC' | translate }}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <div class="benefit-text">
-                            <h4>{{ 'COLLABORATIVE_APPROACH' | translate }}</h4>
-                            <p>{{ 'COLLABORATIVE_APPROACH_DESC' | translate }}</p>
+                    <!-- No Partners Message -->
+                    <div class="col-12 text-center py-5" *ngIf="partners.length === 0">
+                        <div class="alert alert-info">
+                            <i class="fa-solid fa-info-circle"></i>
+                            {{ 'NO_PARTNERS_FOUND' | translate }}
                         </div>
                     </div>
                 </div>
+
+                <!-- Pagination -->
+                <app-pagination [meta]="meta" (pageChange)="onPageChange($event)" *ngIf="!isLoading && meta"></app-pagination>
             </div>
-            <div class="col-lg-6">
-                <div class="benefits-image">
-                    <div class="image-placeholder">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
+
     </div>
 </section>

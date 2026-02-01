@@ -1,27 +1,21 @@
-<!-- Page Banner -->
-<section class="page-banner">
-    <div class="page-banner-bg">
-        <div class="container">
-            <div class="page-banner-content">
-                <h1>{{ 'CONTACT_US' | translate }}</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
-                        <li class="breadcrumb-item active">{{ 'CONTACT_US' | translate }}</li>
-                    </ol>
-                </nav>
+<section class="contact-area">
+    <div class="container">
+        <div class="section-title text-center mt-5">
+            <h2>{{ 'GET_IN_TOUCH' | translate }}</h2>
+            <p class="mt-5">{{ 'CONTACT_INFO_TITLE' | translate }}</p>
+        </div>
+
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
             </div>
         </div>
-    </div>
-</section>
+
 
 <!-- Contact Info Cards -->
 <section class="contact-info-section section-padding">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <span class="subtitle">{{ 'GET_IN_TOUCH' | translate }}</span>
-            <h2>{{ 'CONTACT_INFO_TITLE' | translate }}</h2>
-        </div>
+  
         
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
@@ -61,7 +55,7 @@
 
 <!-- Contact Form Section -->
 <section class="contact-form-section">
-    <div class="container">
+    <div class="">
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="contact-form-wrapper">
@@ -94,4 +88,6 @@
     </div>
 </section>
 
-<app-footer />
+
+    </div>
+</section>

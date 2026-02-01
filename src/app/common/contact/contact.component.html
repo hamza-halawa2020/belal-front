@@ -28,12 +28,7 @@
 
 <!-- Contact Form -->
 <div class="contact-area">
-    <div class="container">
-        <div class="section-title text-center">
-            <h2>{{ 'GET_IN_TOUCH' | translate }}</h2>
-            <p>{{ "CONTACT_FORM_DESC" | translate }}</p>
-        </div>
-        
+    <div class="">       
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">

@@ -1,11 +1,11 @@
 <section class="feasibility-studies-area">
     <div class="container">
-        <div class="section-title text-center">
-            <h2>{{ 'FEASIBILITY_STUDIES' | translate }}</h2>
-            <p>{{ 'FEASIBILITY_STUDIES_DESC' | translate }}</p>
+        <div class="section-title text-center mt-5">
+            <h2 class="">{{ 'FEASIBILITY_STUDIES' | translate }}</h2>
+            <p class="mt-5">{{ 'FEASIBILITY_STUDIES_DESC' | translate }}</p>
         </div>
 
-        <div class="row" *ngIf="isLoading">
+       <div class="row" *ngIf="isLoading">
             <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
                 <div class="skeleton-loader"></div>
             </div>
