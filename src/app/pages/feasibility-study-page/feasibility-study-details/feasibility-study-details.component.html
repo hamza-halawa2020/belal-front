@@ -1,0 +1,77 @@
+<section class="feasibility-study-details-area">
+    <div class="container">
+        <!-- Loading State -->
+        <div class="text-center py-5" *ngIf="isLoading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading && study">
+            <div class="details-header animate__animated animate__fadeIn">
+                <img [src]="getImageUrl(study.image)" [alt]="study.title" class="main-img">
+                <h1 class="animate__animated animate__fadeInUp">{{ study.title }}</h1>
+                <div class="category-badge" *ngIf="study.category">
+                    <span class="badge bg-primary">{{ study.category.title }}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="content-wrapper animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        
+                        <div class="content-section" *ngIf="study.description">
+                            <h3>{{ 'DESCRIPTION' | translate }}</h3>
+                            <div [innerHTML]="study.description"></div>
+                        </div>
+
+                        <div class="content-section" *ngIf="study.services">
+                            <h3>{{ 'SERVICES' | translate }}</h3>
+                            <div [innerHTML]="study.services"></div>
+                        </div>
+
+                        <div class="content-section" *ngIf="study.study_content">
+                            <h3>{{ 'STUDY_CONTENT' | translate }}</h3>
+                            <div [innerHTML]="study.study_content"></div>
+                        </div>
+
+                        <div class="content-section" *ngIf="study.financial_metrics">
+                            <h3>{{ 'FINANCIAL_METRICS' | translate }}</h3>
+                            <div [innerHTML]="study.financial_metrics"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar animate__animated animate__fadeInRight" style="animation-delay: 0.3s;">
+                        <div class="info-card">
+                            <h4>{{ 'STUDY_INFO' | translate }}</h4>
+                            
+                            <div class="info-item" *ngIf="study.money_capital">
+                                <strong>{{ 'MONEY_CAPITAL' | translate }}:</strong>
+                                <span>{{ study.money_capital }}</span>
+                            </div>
+
+                            <div class="info-item" *ngIf="study.rate_of_return">
+                                <strong>{{ 'RATE_OF_RETURN' | translate }}:</strong>
+                                <span>{{ study.rate_of_return }}</span>
+                            </div>
+
+                            <div class="info-item" *ngIf="study.category">
+                                <strong>{{ 'CATEGORY' | translate }}:</strong>
+                                <span>{{ study.category.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-btn-container animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+                <a routerLink="/feasibility-studies" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    {{ 'BACK_TO_STUDIES' | translate }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

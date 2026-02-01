@@ -1,0 +1,64 @@
+<section class="category-details-area">
+    <div class="container">
+        <!-- Loading State -->
+        <div class="text-center py-5" *ngIf="isLoading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading && category">
+            <!-- Category Header -->
+            <div class="category-header animate__animated animate__fadeIn">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <img [src]="category.image_url" [alt]="category.title" class="category-img">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="category-info">
+                            <h1 class="animate__animated animate__fadeInUp">{{ category.title }}</h1>
+                            <div class="studies-count" *ngIf="category.feasibility_studies">
+                                <i class="fa-solid fa-chart-line"></i>
+                                {{ category.feasibility_studies.length }} {{ 'FEASIBILITY_STUDIES_AVAILABLE' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feasibility Studies Section -->
+            <div class="studies-section animate__animated animate__fadeInUp" style="animation-delay: 0.2s;" *ngIf="category.feasibility_studies && category.feasibility_studies.length > 0">
+                <div class="section-title">
+                    <h2>{{ 'FEASIBILITY_STUDIES_IN_CATEGORY' | translate }}</h2>
+                    <p>{{ 'EXPLORE_STUDIES_IN_CATEGORY' | translate }}</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let study of category.feasibility_studies; let i = index">
+                        <app-content-card 
+                            [item]="study" 
+                            [routePath]="'/feasibility-studies'" 
+                            [animationDelay]="i * 0.1">
+                        </app-content-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Studies Message -->
+            <div class="no-studies animate__animated animate__fadeInUp" style="animation-delay: 0.2s;" *ngIf="!category.feasibility_studies || category.feasibility_studies.length === 0">
+                <div class="alert alert-info text-center">
+                    <i class="fa-solid fa-info-circle"></i>
+                    {{ 'NO_STUDIES_IN_CATEGORY' | translate }}
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-btn-container animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+                <a routerLink="/categories" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    {{ 'BACK_TO_CATEGORIES' | translate }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

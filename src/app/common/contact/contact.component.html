@@ -1,101 +1,113 @@
 <!-- Success Message as a Toast -->
-<div *ngIf="successMessage" class="toast-container position-fixed top-0 end-0 p-3">
+<div *ngIf="successMessage" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto text-success">{{
-                "SUCCESS" | translate
-                }}</strong>
+        <div class="toast-header bg-success text-white">
+            <i class="fa-solid fa-check-circle me-2"></i>
+            <strong class="me-auto">{{ "SUCCESS" | translate }}</strong>
+            <button type="button" class="btn-close btn-close-white" (click)="successMessage = ''"></button>
         </div>
         <div class="toast-body">
-            <h6>
-                {{ successMessage }}
-            </h6>
+            {{ successMessage }}
         </div>
     </div>
 </div>
 
 <!-- Error Message as a Toast -->
-<div *ngIf="errorMessage" class="toast-container position-fixed top-0 end-0 p-3">
+<div *ngIf="errorMessage" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto text-danger">{{
-                "ERROR" | translate
-                }}</strong>
+        <div class="toast-header bg-danger text-white">
+            <i class="fa-solid fa-exclamation-triangle me-2"></i>
+            <strong class="me-auto">{{ "ERROR" | translate }}</strong>
+            <button type="button" class="btn-close btn-close-white" (click)="errorMessage = ''"></button>
         </div>
         <div class="toast-body">
-            <h6>
-                {{ errorMessage }}
-            </h6>
+            {{ errorMessage }}
         </div>
     </div>
 </div>
 
 <!-- Contact Form -->
-<!-- <div class="contact-area bg-f3f3f3 border-top pb-5 pt-5">
+<div class="contact-area">
     <div class="container">
         <div class="section-title text-center">
-            <p [innerHTML]="'GET_IN_TOUCH' | translate"></p>
-            <div>
-                {{ "EMAIL_DISCLAIMER" | translate }}
+            <h2>{{ 'GET_IN_TOUCH' | translate }}</h2>
+            <p>{{ "CONTACT_FORM_DESC" | translate }}</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="name">{{ 'FULL_NAME' | translate }} *</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    [placeholder]="'ENTER_YOUR_NAME' | translate"
+                                    class="form-control"
+                                    [class.is-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+                                    formControlName="name"
+                                />
+                                <div class="invalid-feedback" *ngIf="getFieldError('name')">
+                                    {{ getFieldError('name') }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="phone">{{ 'PHONE_NUMBER' | translate }} *</label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    [placeholder]="'ENTER_YOUR_PHONE' | translate"
+                                    class="form-control"
+                                    [class.is-invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+                                    formControlName="phone"
+                                />
+                                <div class="invalid-feedback" *ngIf="getFieldError('phone')">
+                                    {{ getFieldError('phone') }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="message">{{ 'MESSAGE' | translate }} *</label>
+                                <textarea
+                                    id="message"
+                                    rows="6"
+                                    class="form-control"
+                                    [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+                                    [placeholder]="'WRITE_YOUR_MESSAGE' | translate"
+                                    formControlName="message"
+                                ></textarea>
+                                <div class="invalid-feedback" *ngIf="getFieldError('message')">
+                                    {{ getFieldError('message') }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12 text-center">
+                            <button 
+                                class="submit-btn" 
+                                type="submit" 
+                                [disabled]="isSubmitting || contactForm.invalid"
+                            >
+                                <span *ngIf="!isSubmitting">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    {{ "SEND_MESSAGE" | translate }}
+                                </span>
+                                <span *ngIf="isSubmitting">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    {{ "SENDING" | translate }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-            <div class="contact-form text-center mx-auto">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                [placeholder]="'FULL_NAME' | translate"
-                                class="form-control"
-                                formControlName="name"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="form-group">
-                            <input
-                                type="email"
-                                [placeholder]="'EMAIL_ADDRESS' | translate"
-                                class="form-control"
-                                formControlName="email"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                [placeholder]="'PHONE' | translate"
-                                class="form-control"
-                                formControlName="phone"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                [placeholder]="'TITLE' | translate"
-                                class="form-control"
-                                formControlName="title"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="form-group mb-0">
-                            <textarea
-                                class="form-control"
-                                [placeholder]="'WRITE_MESSAGE' | translate"
-                                formControlName="message"
-                            ></textarea>
-                        </div>
-                    </div>
-                </div>
-                <button class="default-btn" type="submit">
-                    {{ "SEND_MESSAGE" | translate }}
-                </button>
-            </div>
-        </form>
     </div>
-</div> -->
+</div>

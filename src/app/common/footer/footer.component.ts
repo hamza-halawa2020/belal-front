@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,21 +10,30 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit, OnDestroy {
     email: string = 'info@gorhom.com';
     phone: string = '+201034100565';
 
-    accordionState: { [key: string]: boolean } = {
-        getInTouch: false,
-        categories: false,
-        policies: false,
-        stayConnected: false,
-        newsletter: false,
-    };
-
     constructor(public router: Router) { }
 
-    toggleAccordion(section: string) {
-        this.accordionState[section] = !this.accordionState[section];
+    ngOnInit() {
+        // Initialize any setup if needed
+    }
+
+    ngOnDestroy() {
+        // Cleanup if needed
+    }
+
+    subscribeNewsletter(email: string) {
+        if (email && this.isValidEmail(email)) {
+            // Handle newsletter subscription
+            console.log('Newsletter subscription for:', email);
+            // You can add actual subscription logic here
+        }
+    }
+
+    private isValidEmail(email: string): boolean {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 }

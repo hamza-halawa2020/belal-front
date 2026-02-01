@@ -53,7 +53,15 @@ body.loaded #loading-screen {
 body {
     margin: 0;
     padding: 0;
+    padding-top: 70px; /* Add padding for fixed navbar */
     color: #4c0048;
+}
+
+/* Responsive navbar padding */
+@media (max-width: 767px) {
+    body {
+        padding-top: 60px;
+    }
 }
 @font-face {
     font-family: 'Font Awesome 6 Free';

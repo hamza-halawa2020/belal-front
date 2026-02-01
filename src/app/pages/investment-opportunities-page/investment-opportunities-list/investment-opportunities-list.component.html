@@ -1,0 +1,33 @@
+<section class="investment-opportunities-area">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'INVESTMENT_OPPORTUNITIES' | translate }}</h2>
+            <p>{{ 'INVESTMENT_OPPORTUNITIES_DESC' | translate }}</p>
+        </div>
+
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!isLoading">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let opportunity of opportunities; let i = index">
+                <app-content-card 
+                    [item]="opportunity" 
+                    [routePath]="'/investment-opportunities'" 
+                    [animationDelay]="i * 0.1">
+                </app-content-card>
+            </div>
+
+            <div class="col-12 text-center py-5" *ngIf="opportunities.length === 0">
+                <div class="alert alert-info">
+                    {{ 'NO_OPPORTUNITIES_FOUND' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+</section>

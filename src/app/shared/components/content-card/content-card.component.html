@@ -1,6 +1,6 @@
 <div class="content-card animate__animated animate__fadeInUp" [style.animation-delay]="animationDelay + 's'">
     <div class="card-img">
-        <img [src]="item.image_url" [alt]="item.title">
+        <img [src]="getImageUrl()" [alt]="item.title">
         <div class="overlay"></div>
     </div>
     <div class="card-content">

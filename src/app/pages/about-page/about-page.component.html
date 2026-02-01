@@ -1,176 +1,150 @@
-<app-navbar />
-
-<app-page-banner />
-
-<!-- START TOP PROMO FEATURES -->
-<section class="tp_feature">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4 col-sm-4 col-xs-12 no-padding wow fadeInUp" data-wow-duration="1s"
-                data-wow-delay="0.2s" data-wow-offset="0">
-                <div class="single_tp">
-                    <h3>{{ "QUALITY_EDUCATION" | translate }}</h3>
-                    <p>{{ "QUALITY_EDUCATION_DESC" | translate }}</p>
-                </div>
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="page-banner-bg">
+        <div class="container">
+            <div class="page-banner-content">
+                <h1>{{ 'ABOUT_US' | translate }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
+                        <li class="breadcrumb-item active">{{ 'ABOUT_US' | translate }}</li>
+                    </ol>
+                </nav>
             </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-4 col-xs-12 no-padding wow fadeInUp" data-wow-duration="1s"
-                data-wow-delay="0.3s" data-wow-offset="0">
-                <div class="single_tp">
-                    <h3>{{ "EXPERIENCED_TEACHERS" | translate }}</h3>
-                    <p>{{ "EXPERIENCED_TEACHERS_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-4 col-xs-12 no-padding wow fadeInUp" data-wow-duration="1s"
-                data-wow-delay="0.4s" data-wow-offset="0">
-                <div class="single_tp">
-                    <h3>{{ "LIFETIME_SUPPORT" | translate }}</h3>
-                    <p>{{ "LIFETIME_SUPPORT_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
         </div>
-        <!-- END ROW -->
     </div>
-    <!-- END CONTAINER -->
 </section>
-<!-- END TOP PROMO FEATURES -->
 
-<!-- START ABOUT US HOME ONE -->
-<section class="ab_one section-padding">
+<!-- About Content -->
+<section class="about-section section-padding">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"
-                data-wow-offset="0">
-                <div class="ab_img">
-                    <!-- <img src="assets/images/1.jpg" class="img-fluid" alt="image" width="600" height="400" /> -->
+        <!-- Company Overview -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <div class="section-title">
+                        <span class="subtitle">{{ 'WHO_WE_ARE_TITLE' | translate }}</span>
+                        <h2>{{ 'LEARN_NEW_SKILLS' | translate }}</h2>
+                    </div>
+                    <p class="lead">{{ 'ABOUT_US_DESC_1' | translate }}</p>
+                    <p>{{ 'ABOUT_US_DESC_2' | translate }}</p>
+                    
+                    <div class="about-stats">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <h3>15+</h3>
+                                    <p>{{ 'YEARS_EXPERIENCE' | translate }}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <h3>500+</h3>
+                                    <p>{{ 'HAPPY_STUDENTS' | translate }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--- END COL -->
-            <div class="col-lg-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
-                data-wow-offset="0">
-                <div class="ab_content">
-                    <h2 [innerHTML]="'LEARN_NEW_SKILLS' | translate"></h2>
-                    <p>{{ "ABOUT_US_DESC_1" | translate }}</p>
-                    <p>
-                        <strong>{{ "ABOUT_US_DESC_2" | translate }}</strong>
-                    </p>
+            <div class="col-lg-6">
+                <div class="about-image">
+                    <div class="image-wrapper">
+                        <img src="assets/images/about-image.jpg" alt="About Gorhom" class="img-fluid rounded">
+                        <div class="image-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--- END COL -->
         </div>
-        <!--- END ROW -->
-    </div>
-    <!--- END CONTAINER -->
-</section>
-<!-- END ABOUT US HOME ONE -->
 
-<!-- START WHY CHOOSE US-->
-<section class="marketing_content_area section-padding">
-    <div class="container">
-        <div class="section-title">
-            <h2>{{ "WHY_CHOOSE_PENN" | translate }}</h2>
-            <p [innerHTML]="'FIND_BEST_FEATURES' | translate"></p>
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="section-title text-center mb-5">
+                <span class="subtitle">{{ 'WHY_CHOOSE_PENN' | translate }}</span>
+                <h2>{{ 'FIND_BEST_FEATURES' | translate }}</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4>{{ 'LEARN_ANYWHERE' | translate }}</h4>
+                        <p>{{ 'LEARN_ANYWHERE_DESC' | translate }}</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>{{ 'EXPERT_INSTRUCTOR' | translate }}</h4>
+                        <p>{{ 'EXPERT_INSTRUCTOR_DESC' | translate }}</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck-fast"></i>
+                        </div>
+                        <h4>{{ 'TEAM_MANAGEMENT' | translate }}</h4>
+                        <p>{{ 'TEAM_MANAGEMENT_DESC' | translate }}</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h4>{{ 'COURSE_PLANNING' | translate }}</h4>
+                        <p>{{ 'COURSE_PLANNING_DESC' | translate }}</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h4>{{ 'TEACHER_MONITORING' | translate }}</h4>
+                        <p>{{ 'TEACHER_MONITORING_DESC' | translate }}</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>{{ 'STRONG_SUPPORT' | translate }}</h4>
+                        <p>{{ 'STRONG_SUPPORT_DESC' | translate }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-book ss_one"><i class="fa-solid fa-certificate"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "LEARN_ANYWHERE" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "LEARN_ANYWHERE_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-heart ss_two"><i class="fa-solid fa-leaf"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "EXPERT_INSTRUCTOR" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "EXPERT_INSTRUCTOR_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-user ss_three"><i class="fa-solid fa-truck-fast"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "TEAM_MANAGEMENT" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "TEAM_MANAGEMENT_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-eye ss_four"><i class="fa-solid fa-box-open"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "COURSE_PLANNING" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "COURSE_PLANNING_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-light-bulb ss_five"><i class="fa-solid fa-tags"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "TEACHER_MONITORING" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "TEACHER_MONITORING_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-                data-wow-offset="0">
-                <div class="single_feature_one">
-                    <div class="sf_top">
-                        <span class="ti-email ss_six"><i class="fa-solid fa-headset"></i></span>
-                        <h2>
-                            <a target="_blank">{{
-                                "STRONG_SUPPORT" | translate
-                                }}</a>
-                        </h2>
-                    </div>
-                    <p>{{ "STRONG_SUPPORT_DESC" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-        </div>
-        <!-- END ROW -->
     </div>
-    <!-- END CONTAINER -->
 </section>
-<!-- END WHY CHOOSE US -->
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2>{{ 'READY_TO_START' | translate }}</h2>
+            <p>{{ 'CTA_DESCRIPTION' | translate }}</p>
+            <div class="cta-buttons">
+                <a routerLink="/request-feasibility-study" class="btn btn-primary">{{ 'REQUEST_STUDY' | translate }}</a>
+                <a routerLink="/contacts" class="btn btn-outline">{{ 'CONTACT_US' | translate }}</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <app-footer />
-
-<app-back-to-top />

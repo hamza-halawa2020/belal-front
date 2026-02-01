@@ -1,69 +1,97 @@
-<app-navbar />
-
-<app-page-banner />
-
-<div class="border-bottom"></div>
-
-<!-- Contact Info -->
-
-<!-- START ADDRESS -->
-<section class="address_area section-padding">
-    <div class="container">
-        <div class="row text-center">
-            <div
-                class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="0.1s"
-                data-wow-offset="0"
-            >
-                <div class="single_address">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <h4>{{ "OUR_LOCATION" | translate }}</h4>
-                    <p>
-                        {{ "LOCATION_ADDRESS" | translate }}
-                    </p>
-                </div>
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="page-banner-bg">
+        <div class="container">
+            <div class="page-banner-content">
+                <h1>{{ 'CONTACT_US' | translate }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
+                        <li class="breadcrumb-item active">{{ 'CONTACT_US' | translate }}</li>
+                    </ol>
+                </nav>
             </div>
-            <!-- END COL -->
-            <div
-                class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="0.2s"
-                data-wow-offset="0"
-            >
-                <div class="single_address sabr">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                    <h4>{{ "TELEPHONE" | translate }}</h4>
-                    <p>{{ "TELEPHONE_1" | translate }}</p>
-                    <p>{{ "TELEPHONE_2" | translate }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
-            <div
-                class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="0.3s"
-                data-wow-offset="0"
-            >
-                <div class="single_address">
-                    <i class="fa-solid fa-envelope"></i>
-                    <h4>{{ "SEND_EMAIL" | translate }}</h4>
-                    <p>{{ infoEmail }}</p>
-                    <p>{{ adminEmail }}</p>
-                </div>
-            </div>
-            <!-- END COL -->
         </div>
-        <!--- END ROW -->
     </div>
-    <!--- END CONTAINER -->
 </section>
-<!-- END ADDRESS -->
 
-<!-- End Contact Info -->
+<!-- Contact Info Cards -->
+<section class="contact-info-section section-padding">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <span class="subtitle">{{ 'GET_IN_TOUCH' | translate }}</span>
+            <h2>{{ 'CONTACT_INFO_TITLE' | translate }}</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>{{ 'OUR_LOCATION' | translate }}</h4>
+                    <p>{{ 'LOCATION_ADDRESS' | translate }}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4>{{ 'TELEPHONE' | translate }}</h4>
+                    <p><a href="tel:{{ phone1 }}">{{ phone1 }}</a></p>
+                    <p><a href="tel:{{ phone2 }}">{{ phone2 }}</a></p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>{{ 'SEND_EMAIL' | translate }}</h4>
+                    <p><a href="mailto:{{ infoEmail }}">{{ infoEmail }}</a></p>
+                    <p><a href="mailto:{{ adminEmail }}">{{ adminEmail }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<app-contact />
+<!-- Contact Form Section -->
+<section class="contact-form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="contact-form-wrapper">
+                    <div class="section-title text-center mb-4">
+                        <h2>{{ 'CONTACT_FORM_TITLE' | translate }}</h2>
+                        <p>{{ 'EMAIL_DISCLAIMER' | translate }}</p>
+                    </div>
+                    
+                    <app-contact />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section (Optional) -->
+<section class="map-section">
+    <div class="container-fluid p-0">
+        <div class="map-wrapper">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d31.123456!3d30.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDA3JzI0LjQiTiAzMcKwMDcnMjQuNCJF!5e0!3m2!1sen!2seg!4v1234567890123"
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
 
 <app-footer />
-
-<app-back-to-top />

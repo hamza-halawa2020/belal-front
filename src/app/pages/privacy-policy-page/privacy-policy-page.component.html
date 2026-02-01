@@ -1,43 +1,87 @@
-<app-navbar />
-
-<app-page-banner />
-
-<div class="pb-120 border-bottom"></div>
-
-<!-- Privacy Policy -->
-<div class="privacy-policy-area ptb-120">
-    <div class="container">
-        <div class="privacy-policy-content">
-            <h4>{{ "PRIVACY_OVERVIEW" | translate }}</h4>
-            <p>{{ "PRIVACY_INTRO" | translate }}</p>
-            <h4>{{ "GENERAL_PERMISSION_TITLE" | translate }}</h4>
-            <p>{{ "GENERAL_PERMISSION_DESC" | translate }}</p>
-            <p>{{ "SHIPPING_OPTIONS" | translate }}</p>
-            <h4>{{ "CONFIDENTIAL_INFO_TITLE" | translate }}</h4>
-            <p>{{ "PAYMENT_METHODS_ACCEPTED" | translate }}</p>
-            <ul>
-                <li>{{ "CREDIT_CARD_PRIVACY" | translate }}</li>
-                <li>{{ "FAST_CHECKOUT_PRIVACY" | translate }}</li>
-                <li>{{ "PAYPAL_PRIVACY" | translate }}</li>
-            </ul>
-            <h4>{{ "LINKING_TITLE" | translate }}</h4>
-            <p>{{ "RETURN_POLICY_PRIVACY" | translate }}</p>
-            <h4>{{ "INTELLECTUAL_PROPERTY_TITLE" | translate }}</h4>
-            <p>{{ "INTELLECTUAL_PROPERTY_DESC" | translate }}</p>
-            <p>{{ "INTELLECTUAL_PROPERTY_DESC_2" | translate }}</p>
-            <h4>{{ "SECURITY_STORAGE_TITLE" | translate }}</h4>
-            <p>{{ "SECURITY_STORAGE_DESC" | translate }}</p>
-            <ol>
-                <li>{{ "CREDIT_CARD_PRIVACY" | translate }}</li>
-                <li>{{ "FAST_CHECKOUT_PRIVACY" | translate }}</li>
-                <li>{{ "PAYPAL_PRIVACY" | translate }}</li>
-            </ol>
-            <p>{{ "LAST_UPDATED" | translate }}: 25 {{ "JANUARY" | translate }} 2024</p>
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="page-banner-bg">
+        <div class="container">
+            <div class="page-banner-content">
+                <h1>{{ 'PRIVACY_POLICY' | translate }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
+                        <li class="breadcrumb-item active">{{ 'PRIVACY_POLICY' | translate }}</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
-<!-- End Privacy Policy -->
+</section>
+
+<!-- Privacy Policy Content -->
+<section class="policy-content-section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="policy-content">
+                    <div class="policy-header">
+                        <h2>{{ 'PRIVACY_POLICY' | translate }}</h2>
+                        <p class="last-updated">{{ 'LAST_UPDATED' | translate }}: 25 {{ 'JANUARY' | translate }} 2024</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'PRIVACY_OVERVIEW' | translate }}</h3>
+                        <p>{{ 'PRIVACY_INTRO' | translate }}</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'GENERAL_PERMISSION_TITLE' | translate }}</h3>
+                        <p>{{ 'GENERAL_PERMISSION_DESC' | translate }}</p>
+                        <p>{{ 'SHIPPING_OPTIONS' | translate }}</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'CONFIDENTIAL_INFO_TITLE' | translate }}</h3>
+                        <p>{{ 'PAYMENT_METHODS_ACCEPTED' | translate }}</p>
+                        <ul class="policy-list">
+                            <li>{{ 'CREDIT_CARD_PRIVACY' | translate }}</li>
+                            <li>{{ 'FAST_CHECKOUT_PRIVACY' | translate }}</li>
+                            <li>{{ 'PAYPAL_PRIVACY' | translate }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'LINKING_TITLE' | translate }}</h3>
+                        <p>{{ 'RETURN_POLICY_PRIVACY' | translate }}</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'INTELLECTUAL_PROPERTY_TITLE' | translate }}</h3>
+                        <p>{{ 'INTELLECTUAL_PROPERTY_DESC' | translate }}</p>
+                        <p>{{ 'INTELLECTUAL_PROPERTY_DESC_2' | translate }}</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h3>{{ 'SECURITY_STORAGE_TITLE' | translate }}</h3>
+                        <p>{{ 'SECURITY_STORAGE_DESC' | translate }}</p>
+                        <ol class="policy-list numbered">
+                            <li>{{ 'CREDIT_CARD_PRIVACY' | translate }}</li>
+                            <li>{{ 'FAST_CHECKOUT_PRIVACY' | translate }}</li>
+                            <li>{{ 'PAYPAL_PRIVACY' | translate }}</li>
+                        </ol>
+                    </div>
+
+                    <div class="policy-footer">
+                        <div class="contact-info">
+                            <h4>{{ 'CONTACT_US' | translate }}</h4>
+                            <p>{{ 'PRIVACY_CONTACT_DESC' | translate }}</p>
+                            <div class="contact-details">
+                                <p><strong>{{ 'EMAIL' | translate }}:</strong> <a href="mailto:privacy&#64;gorhom.com">privacy&#64;gorhom.com</a></p>
+                                <p><strong>{{ 'PHONE' | translate }}:</strong> <a href="tel:+201034100565">+201034100565</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <app-footer />
-
-<app-back-to-top />

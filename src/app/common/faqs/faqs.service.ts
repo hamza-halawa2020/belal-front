@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FaqsService {
     private apiUrl = environment.backEndUrl;
-    private data = '/faqs';
+
     constructor(private http: HttpClient) {}
-    index() {
-        return this.http.get(`${this.apiUrl}${this.data}`);
+
+    getFaqsList(page: number = 1): Observable<any> {
+        return this.http.get(`${this.apiUrl}/faqs?page=${page}`);
     }
 }

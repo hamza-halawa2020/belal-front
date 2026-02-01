@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { RouterOutlet, Router, Event, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { NavbarComponent } from './common/navbar/navbar.component';
+import { WhatsappFloatComponent } from './common/whatsapp-float/whatsapp-float.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet],
+    imports: [RouterOutlet, NavbarComponent, WhatsappFloatComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })

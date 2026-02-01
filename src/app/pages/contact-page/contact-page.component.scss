@@ -1,0 +1,266 @@
+// Colors
+$primary: #667eea;
+$secondary: #764ba2;
+$dark: #2c3e50;
+$white: #ffffff;
+$gray-light: #f8f9fa;
+$gray: #6c757d;
+
+// Page Banner (Same as About)
+.page-banner {
+    background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .page-banner-content {
+        text-align: center;
+        color: $white;
+        position: relative;
+        z-index: 1;
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .breadcrumb {
+            background: transparent;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+
+            .breadcrumb-item {
+                font-size: 1.1rem;
+
+                a {
+                    color: rgba($white, 0.8);
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: $white;
+                    }
+                }
+
+                &.active {
+                    color: $white;
+                }
+
+                &:not(:last-child)::after {
+                    content: '/';
+                    margin: 0 10px;
+                    color: rgba($white, 0.6);
+                }
+            }
+        }
+    }
+}
+
+// Contact Info Section
+.contact-info-section {
+    padding: 100px 0;
+    background: $gray-light;
+
+    .section-title {
+        .subtitle {
+            display: inline-block;
+            background: linear-gradient(135deg, $primary, $secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: $dark;
+            margin-bottom: 20px;
+        }
+    }
+
+    .contact-info-card {
+        background: $white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+            .contact-icon {
+                transform: scale(1.1);
+                background: linear-gradient(135deg, $primary, $secondary);
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: $gray-light;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: all 0.3s ease;
+
+            i {
+                font-size: 32px;
+                color: $primary;
+                transition: color 0.3s ease;
+            }
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: $dark;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: $gray;
+            line-height: 1.6;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a {
+                color: $gray;
+                text-decoration: none;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+
+// Contact Form Section
+.contact-form-section {
+    padding: 100px 0;
+    background: $white;
+
+    .contact-form-wrapper {
+        background: $gray-light;
+        padding: 60px 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+        .section-title {
+            h2 {
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: $dark;
+                margin-bottom: 15px;
+            }
+
+            p {
+                color: $gray;
+                font-size: 1rem;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Map Section
+.map-section {
+    .map-wrapper {
+        position: relative;
+        overflow: hidden;
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            filter: grayscale(30%);
+            transition: filter 0.3s ease;
+
+            &:hover {
+                filter: grayscale(0%);
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .page-banner {
+        padding: 100px 0 60px;
+
+        .page-banner-content h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .contact-info-section {
+        padding: 60px 0;
+
+        .section-title h2 {
+            font-size: 2rem;
+        }
+
+        .contact-info-card {
+            padding: 30px 20px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .contact-form-section {
+        padding: 60px 0;
+
+        .contact-form-wrapper {
+            padding: 40px 20px;
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    .map-section .map-wrapper iframe {
+        height: 300px;
+    }
+}
+
+// Section Padding
+.section-padding {
+    padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+}

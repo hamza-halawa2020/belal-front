@@ -41,6 +41,58 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/posts-page/post-details/post-details.component').then(m => m.PostDetailsComponent)
     },
 
+    {
+        path: 'feasibility-studies',
+        loadComponent: () => import('./pages/feasibility-study-page/feasibility-study-list/feasibility-study-list.component').then(m => m.FeasibilityStudyListComponent)
+    },
+    {
+        path: 'feasibility-studies/:id',
+        loadComponent: () => import('./pages/feasibility-study-page/feasibility-study-details/feasibility-study-details.component').then(m => m.FeasibilityStudyDetailsComponent)
+    },
+
+    {
+        path: 'request-feasibility-study',
+        loadComponent: () => import('./pages/feasibility-study-request-page/feasibility-study-request-form/feasibility-study-request-form.component').then(m => m.FeasibilityStudyRequestFormComponent)
+    },
+
+    {
+        path: 'investment-opportunities',
+        loadComponent: () => import('./pages/investment-opportunities-page/investment-opportunities-list/investment-opportunities-list.component').then(m => m.InvestmentOpportunitiesListComponent)
+    },
+    {
+        path: 'investment-opportunities/:id',
+        loadComponent: () => import('./pages/investment-opportunities-page/investment-opportunities-details/investment-opportunities-details.component').then(m => m.InvestmentOpportunitiesDetailsComponent)
+    },
+
+    {
+        path: 'categories',
+        loadComponent: () => import('./pages/categories-page/categories-list/categories-list.component').then(m => m.CategoriesListComponent)
+    },
+    {
+        path: 'categories/:id',
+        loadComponent: () => import('./pages/categories-page/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
+    },
+
+    {
+        path: 'faqs',
+        loadComponent: () => import('./pages/faqs-page/faqs-page.component').then(m => m.FaqsPageComponent)
+    },
+
+    {
+        path: 'team',
+        loadComponent: () => import('./pages/staff-page/staff-list/staff-list.component').then(m => m.StaffListComponent)
+    },
+
+    {
+        path: 'partners',
+        loadComponent: () => import('./pages/success-partners-page/success-partners-list/success-partners-list.component').then(m => m.SuccessPartnersListComponent)
+    },
+
+    {
+        path: 'testimonials',
+        loadComponent: () => import('./pages/reviews-page/reviews-list/reviews-list.component').then(m => m.ReviewsListComponent)
+    },
+
 
     { path: '**', component: ErrorPageComponent },
 ];

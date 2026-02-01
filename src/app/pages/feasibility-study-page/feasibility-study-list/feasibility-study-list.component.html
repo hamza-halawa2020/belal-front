@@ -1,0 +1,33 @@
+<section class="feasibility-studies-area">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'FEASIBILITY_STUDIES' | translate }}</h2>
+            <p>{{ 'FEASIBILITY_STUDIES_DESC' | translate }}</p>
+        </div>
+
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!isLoading">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let study of studies; let i = index">
+                <app-content-card 
+                    [item]="study" 
+                    [routePath]="'/feasibility-studies'" 
+                    [animationDelay]="i * 0.1">
+                </app-content-card>
+            </div>
+
+            <div class="col-12 text-center py-5" *ngIf="studies.length === 0">
+                <div class="alert alert-info">
+                    {{ 'NO_STUDIES_FOUND' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+</section>

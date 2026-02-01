@@ -1,19 +1,40 @@
+// Global styles for the app component
+:host {
+    display: block;
+    min-height: 100vh;
+}
 
+// Add padding to account for fixed navbar
+:global(body) {
+    padding-top: 70px !important;
+    margin: 0;
+}
 
-/* Max width 767px */
-@media only screen and (max-width : 767px) {}
+// Responsive padding adjustments
+@media (max-width: 767px) {
+    :global(body) {
+        padding-top: 60px !important;
+    }
+}
 
-/* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+// Ensure smooth scrolling
+:global(html) {
+    scroll-behavior: smooth;
+}
 
-/* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {}
+// RTL support
+:global([dir="rtl"]) {
+    text-align: right;
+    
+    * {
+        direction: rtl;
+    }
+}
 
-/* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {}
-
-/* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
-
-/* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
+:global([dir="ltr"]) {
+    text-align: left;
+    
+    * {
+        direction: ltr;
+    }
+}

@@ -1,0 +1,49 @@
+<section class="categories-area">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'CATEGORIES' | translate }}</h2>
+            <p>{{ 'CATEGORIES_DESC' | translate }}</p>
+        </div>
+
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!isLoading">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let category of categories; let i = index">
+                <div class="category-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
+                    <div class="card-img">
+                        <img [src]="category.image_url" [alt]="category.title">
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3>
+                            <a [routerLink]="['/categories', category.id]">{{ category.title }}</a>
+                        </h3>
+                        <div class="studies-count" *ngIf="category.feasibility_studies">
+                            <i class="fa-solid fa-chart-line"></i>
+                            {{ category.feasibility_studies.length }} {{ 'FEASIBILITY_STUDIES' | translate }}
+                        </div>
+                        <div class="card-footer">
+                            <a [routerLink]="['/categories', category.id]" class="view-btn">
+                                {{ 'VIEW_CATEGORY' | translate }}
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 text-center py-5" *ngIf="categories.length === 0">
+                <div class="alert alert-info">
+                    {{ 'NO_CATEGORIES_FOUND' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+</section>

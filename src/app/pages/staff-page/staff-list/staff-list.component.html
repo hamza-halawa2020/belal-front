@@ -1,0 +1,71 @@
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="container">
+        <div class="banner-content text-center">
+            <h1 class="animate__animated animate__fadeInUp">{{ 'OUR_TEAM' | translate }}</h1>
+            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">{{ 'MEET_OUR_EXPERTS' | translate }}</p>
+            <nav aria-label="breadcrumb" class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ 'TEAM' | translate }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Staff Section -->
+<section class="staff-area">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'OUR_PROFESSIONAL_TEAM' | translate }}</h2>
+            <p>{{ 'TEAM_DESC' | translate }}</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <!-- Staff Grid -->
+        <div class="row" *ngIf="!isLoading">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let member of staff; let i = index">
+                <div class="staff-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
+                    <div class="staff-image">
+                        <img [src]="member.image_url" [alt]="member.name">
+                        <div class="overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>{{ member.name }}</h3>
+                        <p class="job-title">{{ member.job_title }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Staff Message -->
+            <div class="col-12 text-center py-5" *ngIf="staff.length === 0">
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-info-circle"></i>
+                    {{ 'NO_STAFF_FOUND' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)" *ngIf="!isLoading && meta"></app-pagination>
+    </div>
+</section>

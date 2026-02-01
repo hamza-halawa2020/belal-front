@@ -1,0 +1,83 @@
+<nav class="main-navbar" [class.sticky]="isSticky">
+    <div class="navbar-container">
+        <!-- Brand Logo -->
+        <div class="navbar-brand">
+            <a routerLink="/" (click)="closeMobileMenu()">
+                <img src="assets/images/logo.svg" alt="Gorhom" class="logo">
+                <span class="brand-text">{{ 'gorhom' | translate }}</span>
+            </a>
+        </div>
+
+        <!-- Desktop Navigation Menu -->
+        <div class="navbar-menu" [class.active]="!isCollapsed">
+            <ul class="nav-links">
+                <li *ngFor="let item of menuItems">
+                    <a 
+                        [routerLink]="item.route" 
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: item.route === '/'}"
+                        (click)="closeMobileMenu()"
+                    >
+                        {{ item.label | translate }}
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Action Buttons -->
+            <div class="navbar-actions">
+                <!-- Language Switcher -->
+                <div class="language-switcher" ngbDropdown placement="bottom-end">
+                    <button 
+                        class="lang-btn" 
+                        ngbDropdownToggle 
+                        id="languageDropdown"
+                    >
+                        <span class="flag">{{ getCurrentLanguageData().flag }}</span>
+                        <span class="lang-name">{{ getCurrentLanguageData().name }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button 
+                            class="dropdown-item" 
+                            *ngFor="let lang of languages"
+                            [class.active]="lang.code === currentLanguage"
+                            (click)="switchLanguage(lang.code)"
+                        >
+                            <span class="flag">{{ lang.flag }}</span>
+                            <span>{{ lang.name }}</span>
+                            <i class="fas fa-check" *ngIf="lang.code === currentLanguage"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <a 
+                    routerLink="/request-feasibility-study" 
+                    class="btn btn-primary"
+                    (click)="closeMobileMenu()"
+                >
+                    {{ 'REQUEST_STUDY' | translate }}
+                </a>
+                
+                <a 
+                    routerLink="/contacts" 
+                    class="btn btn-outline"
+                    (click)="closeMobileMenu()"
+                >
+                    {{ 'CONTACT_US' | translate }}
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button 
+            class="mobile-toggle" 
+            (click)="toggleMobileMenu()"
+            [class.active]="!isCollapsed"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>

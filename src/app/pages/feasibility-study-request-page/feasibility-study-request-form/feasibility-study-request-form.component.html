@@ -1,0 +1,176 @@
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="container">
+        <div class="banner-content text-center">
+            <h1 class="animate__animated animate__fadeInUp">{{ 'REQUEST_FEASIBILITY_STUDY' | translate }}</h1>
+            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">{{ 'REQUEST_STUDY_SUBTITLE' | translate }}</p>
+            <nav aria-label="breadcrumb" class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a routerLink="/">{{ 'HOME' | translate }}</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/feasibility-studies">{{ 'FEASIBILITY_STUDIES' | translate }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ 'REQUEST_STUDY' | translate }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Success Message Toast -->
+<div *ngIf="successMessage" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <i class="fa-solid fa-check-circle me-2"></i>
+            <strong class="me-auto">{{ "SUCCESS" | translate }}</strong>
+            <button type="button" class="btn-close btn-close-white" (click)="successMessage = ''"></button>
+        </div>
+        <div class="toast-body">
+            {{ successMessage }}
+        </div>
+    </div>
+</div>
+
+<!-- Error Message Toast -->
+<div *ngIf="errorMessage" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <i class="fa-solid fa-exclamation-triangle me-2"></i>
+            <strong class="me-auto">{{ "ERROR" | translate }}</strong>
+            <button type="button" class="btn-close btn-close-white" (click)="errorMessage = ''"></button>
+        </div>
+        <div class="toast-body">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>
+
+<!-- Request Form Section -->
+<section class="request-form-area">
+    <div class="container">
+        <div class="row">
+            <!-- Form Column -->
+            <div class="col-lg-8">
+                <div class="request-form-wrapper">
+                    <div class="form-header">
+                        <h2>{{ 'TELL_US_ABOUT_PROJECT' | translate }}</h2>
+                        <p>{{ 'REQUEST_FORM_DESC' | translate }}</p>
+                    </div>
+                    
+                    <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" class="request-form">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="name">{{ 'FULL_NAME' | translate }} *</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        [placeholder]="'ENTER_YOUR_NAME' | translate"
+                                        class="form-control"
+                                        [class.is-invalid]="requestForm.get('name')?.invalid && requestForm.get('name')?.touched"
+                                        formControlName="name"
+                                    />
+                                    <div class="invalid-feedback" *ngIf="getFieldError('name')">
+                                        {{ getFieldError('name') }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="phone">{{ 'PHONE_NUMBER' | translate }} *</label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        [placeholder]="'ENTER_YOUR_PHONE' | translate"
+                                        class="form-control"
+                                        [class.is-invalid]="requestForm.get('phone')?.invalid && requestForm.get('phone')?.touched"
+                                        formControlName="phone"
+                                    />
+                                    <div class="invalid-feedback" *ngIf="getFieldError('phone')">
+                                        {{ getFieldError('phone') }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="message">{{ 'PROJECT_DETAILS' | translate }} *</label>
+                                    <textarea
+                                        id="message"
+                                        rows="8"
+                                        class="form-control"
+                                        [class.is-invalid]="requestForm.get('message')?.invalid && requestForm.get('message')?.touched"
+                                        [placeholder]="'PROJECT_DETAILS_PLACEHOLDER' | translate"
+                                        formControlName="message"
+                                    ></textarea>
+                                    <div class="invalid-feedback" *ngIf="getFieldError('message')">
+                                        {{ getFieldError('message') }}
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        {{ 'PROJECT_DETAILS_HINT' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12 text-center">
+                                <button 
+                                    class="submit-btn" 
+                                    type="submit" 
+                                    [disabled]="isSubmitting || requestForm.invalid"
+                                >
+                                    <span *ngIf="!isSubmitting">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                        {{ "SUBMIT_REQUEST" | translate }}
+                                    </span>
+                                    <span *ngIf="isSubmitting">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        {{ "SUBMITTING" | translate }}
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Info Column -->
+            <div class="col-lg-4">
+                <div class="request-info">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <h3>{{ 'WHY_REQUEST_STUDY' | translate }}</h3>
+                        </div>
+                        
+                        <div class="info-list">
+                            <div class="info-item">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>{{ 'BENEFIT_1' | translate }}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>{{ 'BENEFIT_2' | translate }}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>{{ 'BENEFIT_3' | translate }}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>{{ 'BENEFIT_4' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h4>{{ 'NEED_HELP' | translate }}</h4>
+                        <p>{{ 'CONTACT_HELP_TEXT' | translate }}</p>
+                        <a routerLink="/contacts" class="contact-btn">
+                            <i class="fa-solid fa-phone"></i>
+                            {{ 'CONTACT_US' | translate }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
