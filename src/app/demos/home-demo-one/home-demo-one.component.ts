@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
@@ -17,6 +17,7 @@ import { HomeService, HomeData } from './home.service';
         NgClass,
         NgFor,
         NgIf,
+        SlicePipe,
         HttpClientModule,
         TranslateModule,
         CarouselModule,
@@ -52,29 +53,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         successPartners: 75
     };
 
-    defaultServices = [
-        {
-            id: 1,
-            title: 'دراسات الجدوى',
-            description: 'نقدم دراسات جدوى شاملة ومفصلة لمساعدتك في اتخاذ قرارات استثمارية مدروسة',
-            icon: 'fa-chart-bar',
-            link: '/feasibility-studies'
-        },
-        {
-            id: 2,
-            title: 'الفرص الاستثمارية',
-            description: 'اكتشف أفضل الفرص الاستثمارية المتاحة مع تحليل مفصل للمخاطر والعوائد',
-            icon: 'fa-lightbulb',
-            link: '/investment-opportunities'
-        },
-        {
-            id: 3,
-            title: 'الاستشارات المالية',
-            description: 'احصل على استشارات مالية متخصصة من فريق من الخبراء في مجال الاستثمار',
-            icon: 'fa-handshake',
-            link: '/services'
-        }
-    ];
+    defaultServices: any[] = [];
 
     partnersCarouselOptions: OwlOptions = {
         loop: true,
@@ -140,6 +119,12 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.loadHomeData();
+        this.updateDefaultServices();
+        
+        // Subscribe to language changes
+        this.translate.onLangChange.subscribe(() => {
+            this.updateDefaultServices();
+        });
     }
     
     
@@ -236,6 +221,32 @@ loadHomeData(): void {
 
     retryLoadData(): void {
         this.loadHomeData();
+    }
+
+    updateDefaultServices(): void {
+        this.defaultServices = [
+            {
+                id: 1,
+                title: this.translate.instant('DEFAULT_SERVICE_1_TITLE'),
+                description: this.translate.instant('DEFAULT_SERVICE_1_DESC'),
+                icon: 'fa-chart-bar',
+                link: '/feasibility-studies'
+            },
+            {
+                id: 2,
+                title: this.translate.instant('DEFAULT_SERVICE_2_TITLE'),
+                description: this.translate.instant('DEFAULT_SERVICE_2_DESC'),
+                icon: 'fa-lightbulb',
+                link: '/investment-opportunities'
+            },
+            {
+                id: 3,
+                title: this.translate.instant('DEFAULT_SERVICE_3_TITLE'),
+                description: this.translate.instant('DEFAULT_SERVICE_3_DESC'),
+                icon: 'fa-handshake',
+                link: '/services'
+            }
+        ];
     }
 
     formatDate(dateString: string): string {

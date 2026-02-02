@@ -1,5 +1,5 @@
 /* Placeholder Images for Demo */
-img[src*="about-image.jpg"],
+img[src*="about-image.jpeg"],
 img[src*="work-sample-"],
 img[src*="team-"],
 img[src*="client-"],
@@ -14,7 +14,7 @@ img[src*="partner-"] {
     position: relative;
 }
 
-img[src*="about-image.jpg"]::before {
+img[src*="about-image.jpeg"]::before {
     content: "About Image";
     position: absolute;
     top: 50%;

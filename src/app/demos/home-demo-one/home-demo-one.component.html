@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="about-image">
-                        <img src="assets/images/about-image.jpg" alt="About Us" class="img-fluid rounded-3">
+                        <img src="assets/images/about-image.jpeg" alt="About Us" class="img-fluid rounded-3">
                         <div class="experience-badge">
                             <div class="badge-content">
                                 <h3>{{ homeData.stats.yearsExperience }}+</h3>
@@ -114,7 +114,7 @@
             <!-- زر اختبار العداد -->
             <div class="text-center mb-4" *ngIf="!hasAnimated">
                 <button class="btn btn-light" (click)="testCounter()">
-                    <i class="fa-solid fa-play"></i> تشغيل العداد
+                    <i class="fa-solid fa-play"></i> {{ 'START_COUNTER' | translate }}
                 </button>
             </div>
             
@@ -125,7 +125,7 @@
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
                         <div class="stat-number">{{ animatedStats.completedStudies }}+</div>
-                        <div class="stat-label">دراسة جدوى مكتملة</div>
+                        <div class="stat-label">{{ 'COMPLETED_STUDIES' | translate }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -134,7 +134,7 @@
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="stat-number">{{ animatedStats.satisfiedClients }}+</div>
-                        <div class="stat-label">عميل راضي</div>
+                        <div class="stat-label">{{ 'SATISFIED_CLIENTS' | translate }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -143,7 +143,7 @@
                             <i class="fa-solid fa-trophy"></i>
                         </div>
                         <div class="stat-number">{{ animatedStats.yearsExperience }}+</div>
-                        <div class="stat-label">سنة خبرة</div>
+                        <div class="stat-label">{{ 'YEARS_EXPERIENCE' | translate }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -152,7 +152,7 @@
                             <i class="fa-solid fa-handshake"></i>
                         </div>
                         <div class="stat-number">{{ animatedStats.successPartners }}+</div>
-                        <div class="stat-label">شريك نجاح</div>
+                        <div class="stat-label">{{ 'SUCCESS_PARTNERS_COUNT' | translate }}</div>
                     </div>
                 </div>
             </div>
@@ -201,7 +201,7 @@
             <div class="section-header text-center">
                 <span class="">{{ 'OUR_INSTRUCTOR' | translate }}</span>
                 <h2 class="section-title">{{ 'OUR_EXPERT_TEAM' | translate }}</h2>
-                <p class="section-description">تعرف على فريق الخبراء المتخصصين لدينا</p>
+                <p class="section-description">{{ 'EXPERT_TEAM_DESC' | translate }}</p>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let member of homeData.teamMembers">
@@ -239,39 +239,31 @@
             <div class="section-header text-center">
                 <span class="">{{ 'TESTIMONIALS' | translate }}</span>
                 <h2 class="section-title">{{ 'FEEDBACK_TITLE' | translate }}</h2>
-                <p class="section-description">آراء عملائنا الكرام في خدماتنا</p>
+                <p class="section-description">{{ 'CLIENT_TESTIMONIALS_DESC' | translate }}</p>
             </div>
             
-            <owl-carousel-o #testimonialsCarousel [options]="testimonialsCarouselOptions" class="testimonials-carousel">
-                <ng-container *ngFor="let testimonial of homeData.testimonials">
-                    <ng-template carouselSlide>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-card">
-                                <div class="testimonial-content">
-                                    <div class="testimonial-rating">
-                                        <i class="fa-solid fa-star" *ngFor="let star of getStarsArray(testimonial.rating)"></i>
-                                    </div>
-                                    <p>"{{ testimonial.comment }}"</p>
-                                </div>
-                                <div class="testimonial-author">
-                                    <div class="author-image">
-                                        <img [src]="getImageUrl(testimonial.client_image, 'assets/images/client-placeholder.jpg')" 
-                                             [alt]="testimonial.client_name" class="img-fluid rounded-circle">
-                                    </div>
-                                    <div class="author-info">
-                                        <h5>{{ testimonial.client_name }}</h5>
-                                        <p>{{ testimonial.client_position || 'عميل' }}</p>
-                                    </div>
-                                </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let testimonial of homeData.testimonials | slice:0:3">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fa-solid fa-star" *ngFor="let star of getStarsArray(testimonial.rating)"></i>
+                            </div>
+                            <p>"{{ testimonial.comment }}"</p>
+                        </div>
+                        <div class="testimonial-author">
+                           
+                            <div class="author-info">
+                                <h5>{{ testimonial.client_name }}</h5>
                             </div>
                         </div>
-                    </ng-template>
-                </ng-container>
-            </owl-carousel-o>
+                    </div>
+                </div>
+            </div>
             
             <div class="text-center mt-4">
                 <a routerLink="/testimonials" class="btn btn-primary">
-                    عرض جميع التقييمات
+                    {{ 'VIEW_ALL_TESTIMONIALS' | translate }}
                     <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                 </a>
             </div>
@@ -298,9 +290,7 @@
                             </div>
                         </div>
                         <div class="post-content">
-                            <div class="post-meta">
-                                <span class="post-author">{{ 'BY' | translate }} {{ post.author || 'المحرر' }}</span>
-                            </div>
+                           
                             <h4 class="post-title">
                                 <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
                             </h4>
@@ -355,16 +345,14 @@
                 <p class="section-description">{{ 'PROUD_PARTNERSHIP' | translate }}</p>
             </div>
             
-            <owl-carousel-o #partnersCarousel [options]="partnersCarouselOptions" class="partners-carousel">
-                <ng-container *ngFor="let partner of homeData.partners">
-                    <ng-template carouselSlide>
-                        <div class="partner-item">
-                            <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')" 
-                                 [alt]="partner.name" class="img-fluid">
-                        </div>
-                    </ng-template>
-                </ng-container>
-            </owl-carousel-o>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let partner of homeData.partners | slice:0:3">
+                    <div class="partner-item text-center">
+                        <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')" 
+                             [alt]="partner.name" class="img-fluid">
+                    </div>
+                </div>
+            </div>
             
             <div class="text-center mt-4">
                 <a routerLink="/partners" class="btn btn-primary">
