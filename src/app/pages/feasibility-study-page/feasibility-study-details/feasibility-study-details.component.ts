@@ -38,7 +38,6 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Error fetching feasibility study details:', error);
         this.isLoading = false;
       }
     });

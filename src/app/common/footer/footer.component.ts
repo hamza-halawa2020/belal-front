@@ -27,7 +27,6 @@ export class FooterComponent implements OnInit, OnDestroy {
     subscribeNewsletter(email: string) {
         if (email && this.isValidEmail(email)) {
             // Handle newsletter subscription
-            console.log('Newsletter subscription for:', email);
             // You can add actual subscription logic here
         }
     }

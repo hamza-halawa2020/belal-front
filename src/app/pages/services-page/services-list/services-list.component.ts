@@ -74,7 +74,6 @@ export class ServicesListComponent implements OnInit {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             error: (error: any) => {
-                console.error('Error fetching services:', error);
                 this.isLoading = false;
             }
         });

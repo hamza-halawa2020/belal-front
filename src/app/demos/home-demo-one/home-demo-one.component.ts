@@ -41,15 +41,14 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     
     hasAnimated = false;
 
-    // بيانات افتراضية في حالة عدم توفر البيانات من API
     defaultStats = {
-        completedStudies: 150,
-        satisfiedClients: 500,
-        yearsExperience: 15,
-        successPartners: 50
+        completedStudies: 250,
+        satisfiedClients: 800,
+        yearsExperience: 20,
+        successPartners: 75
     };
 
-    defaultServices = [
+        defaultServices = [
         {
             id: 1,
             title: 'دراسات الجدوى',
@@ -72,7 +71,6 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
             link: '/services'
         }
     ];
-
     constructor(
         public translate: TranslateService,
         private homeService: HomeService
@@ -83,20 +81,19 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        // تشغيل العداد مباشرة بعد تحميل البيانات
         setTimeout(() => {
             if (this.homeData || !this.isLoading) {
                 this.startCounterAnimation();
             }
         }, 1000);
         
-        // إعداد مراقب التمرير كبديل
         setTimeout(() => {
             this.setupScrollObserver();
         }, 100);
     }
 
-    loadHomeData(): void {
+
+loadHomeData(): void {
         this.isLoading = true;
         this.error = null;
 
@@ -113,7 +110,6 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
                 }, 500);
             },
             error: (error) => {
-                console.error('Error loading home data:', error);
                 this.error = 'حدث خطأ في تحميل البيانات';
                 this.isLoading = false;
                 // استخدام البيانات الافتراضية في حالة الخطأ
@@ -163,27 +159,23 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
 
     // دالة للحصول على تقييم بالنجوم
     getStarsArray(rating: number): number[] {
-        return Array(Math.floor(rating)).fill(0);
+        // التأكد من أن التقييم رقم صحيح بين 0 و 5
+        const validRating = Math.max(0, Math.min(5, Math.floor(rating || 0)));
+        return Array(validRating).fill(0);
     }
 
     // إعداد مراقب التمرير
     private setupScrollObserver(): void {
-        console.log('Setting up scroll observer...');
         
         if (!this.statsSection) {
-            console.error('Stats section not found!');
             return;
         }
 
-        console.log('Stats section found:', this.statsSection.nativeElement);
 
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log('Intersection observer triggered:', entries);
                 entries.forEach((entry) => {
-                    console.log('Entry intersecting:', entry.isIntersecting, 'Has animated:', this.hasAnimated);
                     if (entry.isIntersecting && !this.hasAnimated) {
-                        console.log('Starting counter animation...');
                         this.startCounterAnimation();
                         this.hasAnimated = true;
                     }
@@ -196,26 +188,21 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         );
 
         observer.observe(this.statsSection.nativeElement);
-        console.log('Observer attached to stats section');
     }
 
     // تشغيل انيميشن العداد
     private startCounterAnimation(): void {
         if (this.hasAnimated) {
-            console.log('Animation already started, skipping...');
             return;
         }
         
-        console.log('Counter animation started!');
         this.hasAnimated = true;
         
         const stats = this.homeData?.stats || this.defaultStats;
-        console.log('Stats to animate:', stats);
         
         // إضافة كلاس الانيميشن للكروت إذا كان القسم موجود
         if (this.statsSection) {
             const statCards = this.statsSection.nativeElement.querySelectorAll('.stat-card');
-            console.log('Found stat cards:', statCards.length);
             statCards.forEach((card: HTMLElement) => {
                 card.classList.add('counting');
             });
@@ -237,7 +224,6 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
 
     // دالة اختبار العداد
     testCounter(): void {
-        console.log('Test counter button clicked!');
         this.hasAnimated = false; // إعادة تعيين العلامة
         this.resetCounters(); // إعادة تعيين العدادات
         setTimeout(() => {
@@ -256,10 +242,8 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     }
     // دالة العداد المتحرك - نسخة محسنة
     private animateCounter(property: keyof typeof this.animatedStats, targetValue: number, duration: number): void {
-        console.log(`Starting animation for ${property}: 0 → ${targetValue} (${duration}ms)`);
         
         if (targetValue <= 0) {
-            console.warn(`Invalid target value for ${property}: ${targetValue}`);
             return;
         }
         
@@ -279,14 +263,12 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
             
             // طباعة التقدم
             if (Math.floor(progress * 10) !== Math.floor(((elapsed - 16) / duration) * 10)) {
-                console.log(`${property}: ${currentValue} (${Math.round(progress * 100)}%)`);
             }
             
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
                 this.animatedStats[property] = targetValue;
-                console.log(`✅ ${property} completed: ${targetValue}`);
             }
         };
         
@@ -296,7 +278,6 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         // نسخة احتياطية بسيطة
         setTimeout(() => {
             if (this.animatedStats[property] === 0) {
-                console.log(`🔄 Using fallback animation for ${property}`);
                 let current = 0;
                 const step = targetValue / 50;
                 const interval = setInterval(() => {
@@ -304,7 +285,6 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
                     if (current >= targetValue) {
                         current = targetValue;
                         clearInterval(interval);
-                        console.log(`🔄 Fallback completed for ${property}: ${targetValue}`);
                     }
                     this.animatedStats[property] = Math.floor(current);
                 }, 40);

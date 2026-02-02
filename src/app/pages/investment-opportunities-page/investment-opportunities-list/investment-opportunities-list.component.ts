@@ -34,7 +34,6 @@ export class InvestmentOpportunitiesListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
-        console.error('Error fetching investment opportunities:', error);
         this.isLoading = false;
       }
     });

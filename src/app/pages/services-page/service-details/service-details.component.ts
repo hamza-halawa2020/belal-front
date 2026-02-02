@@ -37,7 +37,6 @@ export class ServiceDetailsComponent implements OnInit {
                 this.isLoading = false;
             },
             error: (error) => {
-                console.error('Error fetching details:', error);
                 this.isLoading = false;
             }
         });

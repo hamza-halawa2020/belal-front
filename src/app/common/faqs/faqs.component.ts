@@ -52,7 +52,6 @@ export class FaqsComponent implements OnInit {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             error: (error: any) => {
-                console.error('Error fetching FAQs:', error);
                 this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
                 this.isLoading = false;
                 setTimeout(() => {

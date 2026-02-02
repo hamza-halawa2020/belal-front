@@ -35,7 +35,6 @@ export class WorkSamplesListComponent implements OnInit {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             error: (error: any) => {
-                console.error('Error fetching work samples:', error);
                 this.isLoading = false;
             }
         });

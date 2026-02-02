@@ -104,7 +104,6 @@ export class MainSlider implements OnInit {
                 this.image = '';
             },
             error: (error) => {
-                console.error('Error fetching slider data:', error);
                 this.sliderData = [];
             }
         });

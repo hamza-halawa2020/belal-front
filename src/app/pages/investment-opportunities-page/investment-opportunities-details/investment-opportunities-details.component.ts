@@ -37,7 +37,6 @@ export class InvestmentOpportunitiesDetailsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Error fetching investment opportunity details:', error);
         this.isLoading = false;
       }
     });

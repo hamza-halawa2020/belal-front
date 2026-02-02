@@ -30,11 +30,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Check if it's a touch device
     if (this.isTouchDevice()) {
-      console.log('Touch device detected - cursor disabled');
       return;
     }
     
-    console.log('Initializing custom cursor...');
     this.createCursor();
     this.addEventListeners();
     this.startAnimation();
@@ -91,7 +89,6 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.cursorPosition.x = this.mousePosition.x;
     this.cursorPosition.y = this.mousePosition.y;
     
-    console.log('Custom cursor created successfully');
   }
 
   private createTrailElements(): void {

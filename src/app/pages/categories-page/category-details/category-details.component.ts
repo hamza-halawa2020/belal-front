@@ -38,7 +38,6 @@ export class CategoryDetailsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Error fetching category details:', error);
         this.isLoading = false;
       }
     });

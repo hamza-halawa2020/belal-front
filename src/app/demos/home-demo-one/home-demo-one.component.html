@@ -18,7 +18,7 @@
             <i class="fa-solid fa-exclamation-triangle mb-3"></i>
             <p>{{ error }}</p>
             <button class="btn btn-primary" (click)="retryLoadData()">
-                إعادة المحاولة
+                {{ 'TRY_AGAIN' | translate }}...
             </button>
         </div>
     </div>
@@ -33,7 +33,7 @@
                 <div class="col-lg-6">
                     <div class="about-content">
                         <div class="section-header">
-                            <span class="section-subtitle">{{ 'ABOUT_US' | translate }}</span>
+                            <span class="">{{ 'ABOUT_US' | translate }}</span>
                             <h2 class="section-title">{{ 'WHO_WE_ARE_TITLE' | translate }}</h2>
                             <p class="section-description">{{ 'ABOUT_US_DESC_1' | translate }}</p>
                             <p>{{ 'ABOUT_US_DESC_2' | translate }}</p>
@@ -85,8 +85,8 @@
     <section class="services-section section-padding bg-light">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'SERVICES' | translate }}</span>
-                <h2 class="section-title">{{ 'SERVICES_PAGE_DESC' | translate }}</h2>
+                <span class="">{{ 'SERVICES' | translate }}</span>
+                <h2 class="section-title text-center mt-2">{{ 'SERVICES_PAGE_DESC' | translate }}</h2>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let service of defaultServices">
@@ -163,7 +163,7 @@
     <section class="work-samples-section section-padding bg-light" *ngIf="homeData.latestWorkSamples.length > 0">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'WORK_SAMPLES' | translate }}</span>
+                <span class="">{{ 'WORK_SAMPLES' | translate }}</span>
                 <h2 class="section-title">{{ 'LATEST_WORK_SAMPLES' | translate }}</h2>
                 <p class="section-description">{{ 'WORK_SAMPLES_DESC' | translate }}</p>
             </div>
@@ -199,12 +199,12 @@
     <section class="team-section section-padding" *ngIf="homeData.teamMembers.length > 0">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'OUR_INSTRUCTOR' | translate }}</span>
+                <span class="">{{ 'OUR_INSTRUCTOR' | translate }}</span>
                 <h2 class="section-title">{{ 'OUR_EXPERT_TEAM' | translate }}</h2>
                 <p class="section-description">تعرف على فريق الخبراء المتخصصين لدينا</p>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4" *ngFor="let member of homeData.teamMembers">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let member of homeData.teamMembers">
                     <div class="team-card text-center">
                         <div class="team-image">
                             <img [src]="getImageUrl(member.image_url, 'assets/images/team-placeholder.jpg')" 
@@ -237,7 +237,7 @@
     <section class="testimonials-section section-padding bg-light" *ngIf="homeData.testimonials.length > 0">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'TESTIMONIALS' | translate }}</span>
+                <span class="">{{ 'TESTIMONIALS' | translate }}</span>
                 <h2 class="section-title">{{ 'FEEDBACK_TITLE' | translate }}</h2>
                 <p class="section-description">آراء عملائنا الكرام في خدماتنا</p>
             </div>
@@ -276,7 +276,7 @@
     <section class="posts-section section-padding" *ngIf="homeData.latestPosts.length > 0">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'POSTS' | translate }}</span>
+                <span class="">{{ 'POSTS' | translate }}</span>
                 <h2 class="section-title">{{ 'LATEST_ARTICLES' | translate }}</h2>
                 <p class="section-description">{{ 'POSTS_DESC' | translate }}</p>
             </div>
@@ -344,7 +344,7 @@
     <section class="partners-section section-padding" *ngIf="homeData.partners.length > 0">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-subtitle">{{ 'PARTNERS' | translate }}</span>
+                <span class="">{{ 'PARTNERS' | translate }}</span>
                 <h2 class="section-title">{{ 'SUCCESS_PARTNERS' | translate }}</h2>
                 <p class="section-description">{{ 'PROUD_PARTNERSHIP' | translate }}</p>
             </div>

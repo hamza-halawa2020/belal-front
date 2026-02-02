@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { MockDataService } from './mock-data.service';
+import { environment } from '../../../environments/environment.development';
 
 export interface HomeStats {
   completedStudies: number;
@@ -24,7 +25,7 @@ export interface HomeData {
   providedIn: 'root'
 })
 export class HomeService {
-  private apiUrl = 'https://api.gorhom.com/api';
+  private apiUrl = environment.backEndUrl;
 
   constructor(
     private http: HttpClient,
@@ -50,7 +51,6 @@ export class HomeService {
         partners: data.partners
       })),
       catchError(error => {
-        console.warn('API not available, using mock data:', error);
         return this.mockDataService.getMockHomeData();
       })
     );
@@ -58,11 +58,10 @@ export class HomeService {
 
   // جلب أحدث نماذج الأعمال (3 عناصر)
   getLatestWorkSamples(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/work-samples?limit=3&sort=created_at:desc`)
+    return this.http.get<any>(`${this.apiUrl}/work-samples?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Work samples API failed, using empty array');
           return of([]);
         })
       );
@@ -74,7 +73,6 @@ export class HomeService {
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Team members API failed, using empty array');
           return of([]);
         })
       );
@@ -82,11 +80,10 @@ export class HomeService {
 
   // جلب آراء العملاء (3 عناصر)
   getTestimonials(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/reviews?limit=3&rating=5&sort=created_at:desc`)
+    return this.http.get<any>(`${this.apiUrl}/reviews?limit=3&rating=5`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Testimonials API failed, using empty array');
           return of([]);
         })
       );
@@ -94,11 +91,10 @@ export class HomeService {
 
   // جلب أحدث المقالات (3 عناصر)
   getLatestPosts(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/posts?limit=3&sort=created_at:desc`)
+    return this.http.get<any>(`${this.apiUrl}/posts?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Posts API failed, using empty array');
           return of([]);
         })
       );
@@ -110,7 +106,6 @@ export class HomeService {
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Partners API failed, using empty array');
           return of([]);
         })
       );
@@ -121,18 +116,17 @@ export class HomeService {
     return this.http.get<any>(`${this.apiUrl}/statistics/home`)
       .pipe(
         map(response => ({
-          completedStudies: response.data?.completed_studies || 150,
-          satisfiedClients: response.data?.satisfied_clients || 500,
-          yearsExperience: response.data?.years_experience || 15,
-          successPartners: response.data?.success_partners || 50
+          completedStudies: response.data?.completed_studies || 250,
+          satisfiedClients: response.data?.satisfied_clients || 800,
+          yearsExperience: response.data?.years_experience || 20,
+          successPartners: response.data?.success_partners || 75
         })),
         catchError(error => {
-          console.warn('Stats API failed, using default values');
           return of({
-            completedStudies: 150,
-            satisfiedClients: 500,
-            yearsExperience: 15,
-            successPartners: 50
+            completedStudies: 250,
+            satisfiedClients: 800,
+            yearsExperience: 20,
+            successPartners: 75
           });
         })
       );
@@ -144,7 +138,6 @@ export class HomeService {
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Services API failed, using empty array');
           return of([]);
         })
       );
@@ -156,7 +149,6 @@ export class HomeService {
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Feasibility studies API failed, using empty array');
           return of([]);
         })
       );
@@ -168,7 +160,6 @@ export class HomeService {
       .pipe(
         map(response => response.data || []),
         catchError(error => {
-          console.warn('Investment opportunities API failed, using empty array');
           return of([]);
         })
       );

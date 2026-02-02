@@ -55,12 +55,10 @@
         <!-- Custom Navigation Buttons -->
         <div class="custom-nav">
             <button class="nav-btn prev-btn" (click)="prevSlide()" [attr.aria-label]="'PREVIOUS' | translate">
-                <i class="fa-solid"
-                    [ngClass]="{'fa-chevron-left': translate.currentLang === 'en', 'fa-chevron-right': translate.currentLang === 'ar'}"></i>
+                <i class="fa-solid fa-chevron-left"></i>
             </button>
             <button class="nav-btn next-btn" (click)="nextSlide()" [attr.aria-label]="'NEXT' | translate">
-                <i class="fa-solid"
-                    [ngClass]="{'fa-chevron-right': translate.currentLang === 'en', 'fa-chevron-left': translate.currentLang === 'ar'}"></i>
+                <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
     </div>

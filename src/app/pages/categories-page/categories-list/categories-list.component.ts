@@ -34,7 +34,6 @@ export class CategoriesListComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
-        console.error('Error fetching categories:', error);
         this.isLoading = false;
       }
     });

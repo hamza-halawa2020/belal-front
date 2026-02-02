@@ -37,7 +37,6 @@ export class PostDetailsComponent implements OnInit {
                 this.isLoading = false;
             },
             error: (error: any) => {
-                console.error('Error fetching post details:', error);
                 this.isLoading = false;
             }
         });
