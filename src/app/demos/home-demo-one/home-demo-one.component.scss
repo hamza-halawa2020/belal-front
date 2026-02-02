@@ -577,6 +577,136 @@
             }
         }
     }
+    
+    // Carousel styles for testimonials
+    .testimonials-carousel {
+        margin-bottom: 40px;
+        min-height: 300px;
+        display: block;
+        
+        ::ng-deep .owl-stage-outer {
+            overflow: visible;
+            min-height: 300px;
+        }
+        
+        ::ng-deep .owl-stage {
+            display: flex;
+            align-items: stretch;
+        }
+        
+        ::ng-deep .owl-item {
+            display: flex;
+            height: auto;
+        }
+        
+        .testimonial-slide {
+            padding: 0 15px;
+            
+            .testimonial-card {
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                height: 100%;
+                transition: all 0.3s ease;
+                min-height: 250px;
+                
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+                }
+                
+                .testimonial-content {
+                    margin-bottom: 25px;
+                    
+                    .testimonial-rating {
+                        margin-bottom: 20px;
+                        
+                        i {
+                            color: #ffc107;
+                            margin-right: 2px;
+                        }
+                    }
+                    
+                    p {
+                        font-style: italic;
+                        color: #6c757d;
+                        line-height: 1.6;
+                        margin: 0;
+                        min-height: 60px; // Ensure consistent height
+                    }
+                }
+                
+                .testimonial-author {
+                    display: flex;
+                    align-items: center;
+                    
+                    .author-image {
+                        margin-right: 15px;
+                        
+                        img {
+                            width: 60px;
+                            height: 60px;
+                            object-fit: cover;
+                        }
+                    }
+                    
+                    .author-info {
+                        h5 {
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            color: #2c3e50;
+                            margin-bottom: 5px;
+                        }
+                        
+                        p {
+                            color: #6c757d;
+                            margin: 0;
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Owl carousel dots customization
+        ::ng-deep .owl-dots {
+            text-align: center;
+            margin-top: 30px;
+            
+            .owl-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #e9ecef;
+                margin: 0 5px;
+                transition: all 0.3s ease;
+                display: inline-block;
+                
+                &.active {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                }
+                
+                &:hover {
+                    background: #667eea;
+                }
+                
+                span {
+                    display: none;
+                }
+            }
+        }
+        
+        ::ng-deep .owl-nav {
+            display: none;
+        }
+        
+        ::ng-deep .owl-carousel {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 // Posts Section
@@ -731,6 +861,96 @@
                     filter: grayscale(0%);
                 }
             }
+        }
+    }
+    
+    // Carousel styles for partners
+    .partners-carousel {
+        margin-bottom: 40px;
+        min-height: 150px;
+        display: block;
+        
+        ::ng-deep .owl-stage-outer {
+            overflow: visible;
+            min-height: 150px;
+        }
+        
+        ::ng-deep .owl-stage {
+            display: flex;
+            align-items: center;
+        }
+        
+        ::ng-deep .owl-item {
+            display: flex;
+            height: auto;
+        }
+        
+        .partner-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin: 0 15px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            &:hover {
+                background: #f8f9fa;
+                transform: translateY(-5px);
+            }
+            
+            img {
+                max-height: 80px;
+                max-width: 100%;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+                filter: grayscale(100%);
+                
+                &:hover {
+                    opacity: 1;
+                    filter: grayscale(0%);
+                }
+            }
+        }
+        
+        // Owl carousel dots customization
+        ::ng-deep .owl-dots {
+            text-align: center;
+            margin-top: 30px;
+            
+            .owl-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #e9ecef;
+                margin: 0 5px;
+                transition: all 0.3s ease;
+                display: inline-block;
+                
+                &.active {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                }
+                
+                &:hover {
+                    background: #667eea;
+                }
+                
+                span {
+                    display: none;
+                }
+            }
+        }
+        
+        ::ng-deep .owl-nav {
+            display: none;
+        }
+        
+        ::ng-deep .owl-carousel {
+            display: block;
+            opacity: 1;
+            visibility: visible;
         }
     }
 }

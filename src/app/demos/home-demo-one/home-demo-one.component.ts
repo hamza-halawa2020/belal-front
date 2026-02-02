@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { MainSlider } from '../../common/main-slider/main-slider.component';
@@ -18,6 +19,7 @@ import { HomeService, HomeData } from './home.service';
         NgIf,
         HttpClientModule,
         TranslateModule,
+        CarouselModule,
         MainSlider,
         FooterComponent,
         BackToTopComponent,
@@ -27,6 +29,8 @@ import { HomeService, HomeData } from './home.service';
 })
 export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
+    @ViewChild('testimonialsCarousel', { static: false }) testimonialsCarousel!: CarouselComponent;
+    @ViewChild('partnersCarousel', { static: false }) partnersCarousel!: CarouselComponent;
     
     homeData: HomeData | null = null;
     isLoading = true;
@@ -48,7 +52,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         successPartners: 75
     };
 
-        defaultServices = [
+    defaultServices = [
         {
             id: 1,
             title: 'دراسات الجدوى',
@@ -71,14 +75,74 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
             link: '/services'
         }
     ];
+
+    partnersCarouselOptions: OwlOptions = {
+        loop: true,
+        mouseDrag: true,
+        touchDrag: true,
+        pullDrag: true,
+        dots: true,
+        navSpeed: 700,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        autoplaySpeed: 1000,
+        responsive: {
+            0: {
+                items: 1
+            },
+            400: {
+                items: 2
+            },
+            740: {
+                items: 3
+            },
+            940: {
+                items: 4
+            }
+        },
+        nav: false,
+        margin: 20
+    };
+
+    testimonialsCarouselOptions: OwlOptions = {
+        loop: true,
+        mouseDrag: true,
+        touchDrag: true,
+        pullDrag: true,
+        dots: true,
+        navSpeed: 700,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        autoplay: true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        autoplaySpeed: 1000,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 3
+            }
+        },
+        nav: false,
+        margin: 20
+    };
     constructor(
         public translate: TranslateService,
-        private homeService: HomeService
+        private homeService: HomeService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
         this.loadHomeData();
     }
+    
+    
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -90,6 +154,10 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
             this.setupScrollObserver();
         }, 100);
+        
+        setTimeout(() => {
+            this.reinitializeCarousels();
+        }, 500);
     }
 
 
@@ -99,10 +167,44 @@ loadHomeData(): void {
 
         this.homeService.getHomeData().subscribe({
             next: (data) => {
-                this.homeData = data;
+                if (!this.homeData) {
+                    this.homeData = {
+                        stats: this.defaultStats,
+                        latestWorkSamples: [],
+                        teamMembers: [],
+                        testimonials: [],
+                        latestPosts: [],
+                        partners: []
+                    };
+                }
+                
+                if (data.stats) {
+                    this.homeData.stats = data.stats;
+                }
+                if (data.testimonials && data.testimonials.length > 0) {
+                    this.homeData.testimonials = data.testimonials;
+                }
+                if (data.partners && data.partners.length > 0) {
+                    this.homeData.partners = data.partners;
+                }
+                if (data.latestWorkSamples && data.latestWorkSamples.length > 0) {
+                    this.homeData.latestWorkSamples = data.latestWorkSamples;
+                }
+                if (data.teamMembers && data.teamMembers.length > 0) {
+                    this.homeData.teamMembers = data.teamMembers;
+                }
+                if (data.latestPosts && data.latestPosts.length > 0) {
+                    this.homeData.latestPosts = data.latestPosts;
+                }
+                
                 this.isLoading = false;
                 
-                // تشغيل العداد بعد تحميل البيانات
+                this.updateCarouselOptions();
+                
+                setTimeout(() => {
+                    this.reinitializeCarousels();
+                }, 300);
+                
                 setTimeout(() => {
                     if (!this.hasAnimated) {
                         this.startCounterAnimation();
@@ -110,19 +212,19 @@ loadHomeData(): void {
                 }, 500);
             },
             error: (error) => {
-                this.error = 'حدث خطأ في تحميل البيانات';
+                console.error('Error loading home data:', error);
+                if (!this.homeData) {
+                    this.homeData = {
+                        stats: this.defaultStats,
+                        latestWorkSamples: [],
+                        teamMembers: [],
+                        testimonials: [],
+                        latestPosts: [],
+                        partners: []
+                    };
+                }
                 this.isLoading = false;
-                // استخدام البيانات الافتراضية في حالة الخطأ
-                this.homeData = {
-                    stats: this.defaultStats,
-                    latestWorkSamples: [],
-                    teamMembers: [],
-                    testimonials: [],
-                    latestPosts: [],
-                    partners: []
-                };
                 
-                // تشغيل العداد مع البيانات الافتراضية
                 setTimeout(() => {
                     if (!this.hasAnimated) {
                         this.startCounterAnimation();
@@ -132,12 +234,10 @@ loadHomeData(): void {
         });
     }
 
-    // دالة لإعادة المحاولة في حالة الخطأ
     retryLoadData(): void {
         this.loadHomeData();
     }
 
-    // دالة للحصول على تاريخ منسق
     formatDate(dateString: string): string {
         if (!dateString) return '';
         const date = new Date(dateString);
@@ -146,31 +246,55 @@ loadHomeData(): void {
         return `${day} ${month}`;
     }
 
-    // دالة للحصول على مقتطف من النص
     truncateText(text: string, maxLength: number = 100): string {
         if (!text) return '';
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     }
 
-    // دالة للحصول على رابط الصورة مع fallback
     getImageUrl(imageUrl: string, fallback: string = 'assets/images/placeholder.jpg'): string {
         return imageUrl || fallback;
     }
 
-    // دالة للحصول على تقييم بالنجوم
+    private updateCarouselOptions(): void {
+        if (this.homeData) {
+            const partnersCount = this.homeData.partners?.length || 0;
+            if (partnersCount > 0) {
+                this.partnersCarouselOptions = {
+                    ...this.partnersCarouselOptions,
+                    loop: partnersCount > 1,
+                    autoplay: partnersCount > 1,
+                    dots: partnersCount > 1
+                };
+            }
+            
+            const testimonialsCount = this.homeData.testimonials?.length || 0;
+            if (testimonialsCount > 0) {
+                this.testimonialsCarouselOptions = {
+                    ...this.testimonialsCarouselOptions,
+                    loop: testimonialsCount > 1,
+                    autoplay: testimonialsCount > 1,
+                    dots: testimonialsCount > 1
+                };
+            }
+        }
+    }
+
+    private reinitializeCarousels(): void {
+        setTimeout(() => {
+            this.cdr.detectChanges();
+        }, 100);
+    }
+
     getStarsArray(rating: number): number[] {
-        // التأكد من أن التقييم رقم صحيح بين 0 و 5
         const validRating = Math.max(0, Math.min(5, Math.floor(rating || 0)));
         return Array(validRating).fill(0);
     }
 
-    // إعداد مراقب التمرير
     private setupScrollObserver(): void {
         
         if (!this.statsSection) {
             return;
         }
-
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -182,7 +306,7 @@ loadHomeData(): void {
                 });
             },
             {
-                threshold: 0.3, // تقليل threshold عشان يشتغل أسرع
+                threshold: 0.3, 
                 rootMargin: '0px 0px -50px 0px'
             }
         );
@@ -190,7 +314,6 @@ loadHomeData(): void {
         observer.observe(this.statsSection.nativeElement);
     }
 
-    // تشغيل انيميشن العداد
     private startCounterAnimation(): void {
         if (this.hasAnimated) {
             return;
@@ -200,14 +323,12 @@ loadHomeData(): void {
         
         const stats = this.homeData?.stats || this.defaultStats;
         
-        // إضافة كلاس الانيميشن للكروت إذا كان القسم موجود
         if (this.statsSection) {
             const statCards = this.statsSection.nativeElement.querySelectorAll('.stat-card');
             statCards.forEach((card: HTMLElement) => {
                 card.classList.add('counting');
             });
             
-            // إزالة كلاس الانيميشن بعد انتهاء العد
             setTimeout(() => {
                 statCards.forEach((card: HTMLElement) => {
                     card.classList.remove('counting');
@@ -215,23 +336,20 @@ loadHomeData(): void {
             }, 3000);
         }
         
-        // بدء العدادات
         this.animateCounter('completedStudies', stats.completedStudies, 2000);
         this.animateCounter('satisfiedClients', stats.satisfiedClients, 2500);
         this.animateCounter('yearsExperience', stats.yearsExperience, 1500);
         this.animateCounter('successPartners', stats.successPartners, 2200);
     }
 
-    // دالة اختبار العداد
     testCounter(): void {
-        this.hasAnimated = false; // إعادة تعيين العلامة
-        this.resetCounters(); // إعادة تعيين العدادات
+        this.hasAnimated = false; 
+        this.resetCounters();
         setTimeout(() => {
             this.startCounterAnimation();
         }, 100);
     }
 
-    // إعادة تعيين العدادات
     private resetCounters(): void {
         this.animatedStats = {
             completedStudies: 0,
@@ -240,7 +358,6 @@ loadHomeData(): void {
             successPartners: 0
         };
     }
-    // دالة العداد المتحرك - نسخة محسنة
     private animateCounter(property: keyof typeof this.animatedStats, targetValue: number, duration: number): void {
         
         if (targetValue <= 0) {
@@ -254,14 +371,11 @@ loadHomeData(): void {
             const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
             
-            // استخدام easing function
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
             
-            // تحديث القيمة
             this.animatedStats[property] = currentValue;
             
-            // طباعة التقدم
             if (Math.floor(progress * 10) !== Math.floor(((elapsed - 16) / duration) * 10)) {
             }
             
@@ -272,10 +386,8 @@ loadHomeData(): void {
             }
         };
         
-        // بدء الانيميشن
         requestAnimationFrame(animate);
         
-        // نسخة احتياطية بسيطة
         setTimeout(() => {
             if (this.animatedStats[property] === 0) {
                 let current = 0;

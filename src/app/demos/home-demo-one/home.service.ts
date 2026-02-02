@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { MockDataService } from './mock-data.service';
 import { environment } from '../../../environments/environment.development';
 
 export interface HomeStats {
@@ -29,11 +28,10 @@ export class HomeService {
 
   constructor(
     private http: HttpClient,
-    private mockDataService: MockDataService
   ) {}
 
+
   getHomeData(): Observable<HomeData> {
-    // محاولة جلب البيانات من API، وفي حالة الفشل استخدام البيانات الوهمية
     return forkJoin({
       workSamples: this.getLatestWorkSamples(),
       teamMembers: this.getTeamMembers(),
@@ -50,13 +48,10 @@ export class HomeService {
         latestPosts: data.posts,
         partners: data.partners
       })),
-      catchError(error => {
-        return this.mockDataService.getMockHomeData();
-      })
+
     );
   }
 
-  // جلب أحدث نماذج الأعمال (3 عناصر)
   getLatestWorkSamples(): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/work-samples?limit=3`)
       .pipe(
@@ -67,9 +62,8 @@ export class HomeService {
       );
   }
 
-  // جلب أعضاء الفريق (4 عناصر)
   getTeamMembers(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/staff?limit=4&featured=true`)
+    return this.http.get<any>(`${this.apiUrl}/staff?limit=4`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
@@ -78,18 +72,25 @@ export class HomeService {
       );
   }
 
-  // جلب آراء العملاء (3 عناصر)
   getTestimonials(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/reviews?limit=3&rating=5`)
+    return this.http.get<any>(`${this.apiUrl}/reviews?limit=3`)
       .pipe(
-        map(response => response.data || []),
+        map(response => {
+          const reviews = response.data || [];
+          return reviews.map((review: any) => ({
+            id: review.id,
+            client_name: review.name,
+            comment: review.review,
+            status: review.status,
+            created_at: review.created_at
+          }));
+        }),
         catchError(error => {
           return of([]);
         })
       );
   }
 
-  // جلب أحدث المقالات (3 عناصر)
   getLatestPosts(): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/posts?limit=3`)
       .pipe(
@@ -100,41 +101,36 @@ export class HomeService {
       );
   }
 
-  // جلب شركاء النجاح (6 عناصر)
   getPartners(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/success-partners?limit=6&featured=true`)
+    return this.http.get<any>(`${this.apiUrl}/success-partners`)
       .pipe(
-        map(response => response.data || []),
+        map(response => {
+          const partners = response.data || [];
+          return partners.map((partner: any) => ({
+            id: partner.id,
+            name: partner.name,
+            logo_url: partner.image_url,
+            link: partner.link,
+            status: partner.status
+          }));
+        }),
         catchError(error => {
           return of([]);
         })
       );
   }
 
-  // جلب الإحصائيات
   getStats(): Observable<HomeStats> {
-    return this.http.get<any>(`${this.apiUrl}/statistics/home`)
-      .pipe(
-        map(response => ({
-          completedStudies: response.data?.completed_studies || 250,
-          satisfiedClients: response.data?.satisfied_clients || 800,
-          yearsExperience: response.data?.years_experience || 20,
-          successPartners: response.data?.success_partners || 75
-        })),
-        catchError(error => {
-          return of({
-            completedStudies: 250,
-            satisfiedClients: 800,
-            yearsExperience: 20,
-            successPartners: 75
-          });
-        })
-      );
+    return of({
+      completedStudies: 250,
+      satisfiedClients: 800,
+      yearsExperience: 20,
+      successPartners: 75
+    });
   }
 
-  // جلب الخدمات الرئيسية (3 عناصر)
   getFeaturedServices(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/services?limit=3&featured=true`)
+    return this.http.get<any>(`${this.apiUrl}/services?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
@@ -143,9 +139,8 @@ export class HomeService {
       );
   }
 
-  // جلب دراسات الجدوى المميزة
   getFeaturedFeasibilityStudies(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/feasibility-studies?limit=3&featured=true`)
+    return this.http.get<any>(`${this.apiUrl}/feasibility-studies?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
@@ -154,9 +149,8 @@ export class HomeService {
       );
   }
 
-  // جلب الفرص الاستثمارية المميزة
   getFeaturedInvestmentOpportunities(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/investment-opportunities?limit=3&featured=true`)
+    return this.http.get<any>(`${this.apiUrl}/investment-opportunities?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {

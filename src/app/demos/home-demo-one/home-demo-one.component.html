@@ -234,35 +234,41 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section section-padding bg-light" *ngIf="homeData.testimonials.length > 0">
+    <section class="testimonials-section section-padding bg-light" *ngIf="homeData && homeData.testimonials && homeData.testimonials.length > 0">
         <div class="container">
             <div class="section-header text-center">
                 <span class="">{{ 'TESTIMONIALS' | translate }}</span>
                 <h2 class="section-title">{{ 'FEEDBACK_TITLE' | translate }}</h2>
                 <p class="section-description">آراء عملائنا الكرام في خدماتنا</p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let testimonial of homeData.testimonials">
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <div class="testimonial-rating">
-                                <i class="fa-solid fa-star" *ngFor="let star of getStarsArray(testimonial.rating)"></i>
+            
+            <owl-carousel-o #testimonialsCarousel [options]="testimonialsCarouselOptions" class="testimonials-carousel">
+                <ng-container *ngFor="let testimonial of homeData.testimonials">
+                    <ng-template carouselSlide>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fa-solid fa-star" *ngFor="let star of getStarsArray(testimonial.rating)"></i>
+                                    </div>
+                                    <p>"{{ testimonial.comment }}"</p>
+                                </div>
+                                <div class="testimonial-author">
+                                    <div class="author-image">
+                                        <img [src]="getImageUrl(testimonial.client_image, 'assets/images/client-placeholder.jpg')" 
+                                             [alt]="testimonial.client_name" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="author-info">
+                                        <h5>{{ testimonial.client_name }}</h5>
+                                        <p>{{ testimonial.client_position || 'عميل' }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <p>"{{ testimonial.comment }}"</p>
                         </div>
-                        <div class="testimonial-author">
-                            <div class="author-image">
-                                <img [src]="getImageUrl(testimonial.client_image, 'assets/images/client-placeholder.jpg')" 
-                                     [alt]="testimonial.client_name" class="img-fluid rounded-circle">
-                            </div>
-                            <div class="author-info">
-                                <h5>{{ testimonial.client_name }}</h5>
-                                <p>{{ testimonial.client_position || 'عميل' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+            
             <div class="text-center mt-4">
                 <a routerLink="/testimonials" class="btn btn-primary">
                     عرض جميع التقييمات
@@ -341,19 +347,25 @@
     </section>
 
     <!-- Partners Section -->
-    <section class="partners-section section-padding" *ngIf="homeData.partners.length > 0">
+    <section class="partners-section section-padding" *ngIf="homeData && homeData.partners && homeData.partners.length > 0">
         <div class="container">
             <div class="section-header text-center">
                 <span class="">{{ 'PARTNERS' | translate }}</span>
                 <h2 class="section-title">{{ 'SUCCESS_PARTNERS' | translate }}</h2>
                 <p class="section-description">{{ 'PROUD_PARTNERSHIP' | translate }}</p>
             </div>
-            <div class="partners-grid">
-                <div class="partner-item" *ngFor="let partner of homeData.partners">
-                    <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')" 
-                         [alt]="partner.name" class="img-fluid">
-                </div>
-            </div>
+            
+            <owl-carousel-o #partnersCarousel [options]="partnersCarouselOptions" class="partners-carousel">
+                <ng-container *ngFor="let partner of homeData.partners">
+                    <ng-template carouselSlide>
+                        <div class="partner-item">
+                            <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')" 
+                                 [alt]="partner.name" class="img-fluid">
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+            
             <div class="text-center mt-4">
                 <a routerLink="/partners" class="btn btn-primary">
                     {{ 'VIEW_ALL_PARTNERS' | translate }}
