@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+﻿import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit, OnDestroy {
-    email: string = 'info@gorhom.com';
+    email: string = 'info@belal.com';
     phone: string = '+201034100565';
 
     constructor(public router: Router) { }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { RouterOutlet, Router, Event, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,7 @@ import { BackToTopComponent } from './common/back-to-top/back-to-top.component';
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    title = 'gorhom';
+    title = 'belal';
 
     constructor(
         private router: Router,

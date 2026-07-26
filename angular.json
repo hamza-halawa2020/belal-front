@@ -1,9 +1,9 @@
-{
+﻿{
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gorhom": {
+    "belal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/gorhom",
+            "outputPath": "dist/belal",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -95,10 +95,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "gorhom:build:production"
+              "buildTarget": "belal:build:production"
             },
             "development": {
-              "buildTarget": "gorhom:build:development"
+              "buildTarget": "belal:build:development"
             }
           },
           "defaultConfiguration": "development"

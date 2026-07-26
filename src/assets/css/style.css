@@ -197,16 +197,18 @@ strong {
 
 .section-title p {
     margin: 0;
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 28px;
+    font-weight: 700;
     text-transform: capitalize;
-    line-height: 46px;
+    line-height: 36px;
     color: #000;
 }
 
 @media only screen and (max-width: 480px) {
     .section-title p {
         width: 100%;
+        font-size: 22px;
+        line-height: 30px;
     }
 }
 
@@ -227,8 +229,8 @@ p.section-title-white {
 }
 
 .section-title-two h2 {
-    font-weight: 800;
-    font-size: 50px;
+    font-weight: 700;
+    font-size: 32px;
     text-align: center;
 }
 
