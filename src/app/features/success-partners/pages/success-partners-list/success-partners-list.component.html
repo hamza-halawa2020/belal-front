@@ -42,7 +42,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let partner of partners">
                 <article class="partner-card">
                     <div class="partner-image">
-                        <img [src]="partner.image_url" [alt]="partner.name" appImageFallback="assets/images/logo.svg">
+                        <img [src]="getImageUrl(partner)" [alt]="partner.name" [appImageFallback]="logoImageFallback">
                     </div>
 
                     <div class="partner-info">

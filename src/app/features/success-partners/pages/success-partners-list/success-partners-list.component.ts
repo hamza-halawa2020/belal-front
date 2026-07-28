@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { SuccessPartnersApi } from '../../data-access/success-partners.api';
 import { SuccessPartner } from '../../models/success-partner.model';
@@ -19,6 +20,10 @@ import { SuccessPartner } from '../../models/success-partner.model';
 })
 export class SuccessPartnersListComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly platformId = inject(PLATFORM_ID);
+    private readonly isBrowser = isPlatformBrowser(this.platformId);
+
+    readonly logoImageFallback = 'assets/images/logo.svg';
 
     partners: SuccessPartner[] = [];
     meta: PaginationMeta | null = null;
@@ -63,11 +68,15 @@ export class SuccessPartnersListComponent implements OnInit {
     }
 
     openPartnerLink(link?: string | null): void {
-        if (!link) {
+        if (!this.isBrowser || !link) {
             return;
         }
 
         const url = link.startsWith('http') ? link : `https://${link}`;
         window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    getImageUrl(partner: SuccessPartner): string {
+        return getStoredImageUrl(partner.image_url) || this.logoImageFallback;
     }
 }

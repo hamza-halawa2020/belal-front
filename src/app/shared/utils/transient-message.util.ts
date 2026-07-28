@@ -1,4 +1,4 @@
-export type TransientMessageTimeoutId = number;
+export type TransientMessageTimeoutId = ReturnType<typeof setTimeout>;
 
 export function showTransientMessage(
     message: string,
@@ -9,13 +9,13 @@ export function showTransientMessage(
     clearTransientMessage(currentTimeoutId);
     setMessage(message);
 
-    return window.setTimeout(() => {
+    return setTimeout(() => {
         setMessage('');
     }, durationMs);
 }
 
 export function clearTransientMessage(timeoutId: TransientMessageTimeoutId | null): void {
     if (timeoutId) {
-        window.clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
     }
 }

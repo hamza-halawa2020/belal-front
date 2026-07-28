@@ -1,5 +1,5 @@
-import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser, NgClass, NgIf } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Event, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +35,8 @@ interface LanguageOption {
 })
 export class NavbarComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly platformId = inject(PLATFORM_ID);
+    private readonly isBrowser = isPlatformBrowser(this.platformId);
 
     isCollapsed = true;
     isSticky = false;
@@ -64,7 +66,7 @@ export class NavbarComponent implements OnInit {
         this.translate.addLangs(['en', 'ar']);
         this.translate.setDefaultLang('en');
 
-        const savedLang = localStorage.getItem('language');
+        const savedLang = this.isBrowser ? localStorage.getItem('language') : null;
         const browserLang = this.translate.getBrowserLang();
         const initialLang = savedLang || (browserLang?.match(/en|ar/) ? browserLang : 'en');
 
@@ -74,12 +76,14 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        fromEvent(window, 'scroll').pipe(
-            auditTime(100),
-            takeUntilDestroyed(this.destroyRef)
-        ).subscribe(() => {
-            this.checkScroll();
-        });
+        if (this.isBrowser) {
+            fromEvent(window, 'scroll').pipe(
+                auditTime(100),
+                takeUntilDestroyed(this.destroyRef)
+            ).subscribe(() => {
+                this.checkScroll();
+            });
+        }
 
         this.router.events.pipe(
             takeUntilDestroyed(this.destroyRef)
@@ -101,7 +105,9 @@ export class NavbarComponent implements OnInit {
         this.translate.use(lang);
         this.currentLanguage = lang;
         this.applyLanguageDirection(lang);
-        localStorage.setItem('language', lang);
+        if (this.isBrowser) {
+            localStorage.setItem('language', lang);
+        }
         this.closeMobileMenu();
     }
 
@@ -118,11 +124,19 @@ export class NavbarComponent implements OnInit {
     }
 
     private checkScroll(): void {
+        if (!this.isBrowser) {
+            return;
+        }
+
         const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
         this.isSticky = scrollPosition >= 50;
     }
 
     private applyLanguageDirection(lang: string): void {
+        if (!this.isBrowser) {
+            return;
+        }
+
         const htmlElement = document.documentElement;
         const bodyElement = document.body;
 

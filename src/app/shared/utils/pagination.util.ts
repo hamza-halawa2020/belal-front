@@ -5,5 +5,9 @@ export function canLoadPage(meta: PaginationMeta | null, page: number): boolean 
 }
 
 export function scrollToPageTop(): void {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
