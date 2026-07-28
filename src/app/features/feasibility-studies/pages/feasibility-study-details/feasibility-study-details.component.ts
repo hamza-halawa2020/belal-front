@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
@@ -15,6 +16,8 @@ import { FeasibilityStudy } from '../../models/feasibility-study.model';
     styleUrls: ['./feasibility-study-details.component.scss']
 })
 export class FeasibilityStudyDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     study: FeasibilityStudy | null = null;
     isLoading = false;
     errorMessage = '';
@@ -37,7 +40,8 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.study = response.data;

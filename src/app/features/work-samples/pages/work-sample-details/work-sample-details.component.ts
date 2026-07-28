@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { WorkSamplesApi } from '../../data-access/work-samples.api';
 import { WorkSample } from '../../models/work-sample.model';
 
@@ -14,6 +16,8 @@ import { WorkSample } from '../../models/work-sample.model';
     styleUrls: ['./work-sample-details.component.scss']
 })
 export class WorkSampleDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     workSample: WorkSample | null = null;
     isLoading = false;
     errorMessage = '';
@@ -36,7 +40,8 @@ export class WorkSampleDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.workSample = response.data;
@@ -46,5 +51,9 @@ export class WorkSampleDetailsComponent implements OnInit {
                 this.errorMessage = 'Failed to load work sample details.';
             }
         });
+    }
+
+    getImageUrl(workSample: WorkSample): string {
+        return getStoredImageUrl(workSample.image_url, workSample.image);
     }
 }

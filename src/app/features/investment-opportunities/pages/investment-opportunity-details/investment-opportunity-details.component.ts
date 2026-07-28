@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { InvestmentOpportunitiesApi } from '../../data-access/investment-opportunities.api';
 import { InvestmentOpportunity } from '../../models/investment-opportunity.model';
 
@@ -14,6 +16,8 @@ import { InvestmentOpportunity } from '../../models/investment-opportunity.model
     styleUrls: ['./investment-opportunity-details.component.scss']
 })
 export class InvestmentOpportunityDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     opportunity: InvestmentOpportunity | null = null;
     isLoading = false;
     errorMessage = '';
@@ -36,7 +40,8 @@ export class InvestmentOpportunityDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.opportunity = response.data;
@@ -46,5 +51,9 @@ export class InvestmentOpportunityDetailsComponent implements OnInit {
                 this.errorMessage = 'Failed to load investment opportunity details.';
             }
         });
+    }
+
+    getImageUrl(opportunity: InvestmentOpportunity): string {
+        return getStoredImageUrl(opportunity.image_url, opportunity.image);
     }
 }

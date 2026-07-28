@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { ContentCardComponent } from '../../../../shared/components/content-card/content-card.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { WorkSamplesApi } from '../../data-access/work-samples.api';
 import { WorkSample } from '../../models/work-sample.model';
 
@@ -17,6 +19,8 @@ import { WorkSample } from '../../models/work-sample.model';
     styleUrls: ['./work-samples-list.component.scss']
 })
 export class WorkSamplesListComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     workSamples: WorkSample[] = [];
     meta: PaginationMeta | null = null;
     isLoading = false;
@@ -35,12 +39,13 @@ export class WorkSamplesListComponent implements OnInit {
         this.workSamplesApi.getWorkSamples(page).pipe(
             finalize(() => {
                 this.isLoading = false;
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.workSamples = response.data;
                 this.meta = response.meta;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                scrollToPageTop();
             },
             error: () => {
                 this.workSamples = [];
@@ -51,7 +56,7 @@ export class WorkSamplesListComponent implements OnInit {
     }
 
     onPageChange(page: number): void {
-        if (!this.meta || page < 1 || page > this.meta.last_page || page === this.meta.current_page) {
+        if (!canLoadPage(this.meta, page)) {
             return;
         }
 

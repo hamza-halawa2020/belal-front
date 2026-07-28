@@ -11,8 +11,8 @@
         </div>
 
         <div *ngIf="!isLoading && service" class="details-card animate__animated animate__fadeInUp">
-            <div class="img-container" *ngIf="service.image_url || service.image">
-                <img [src]="service.image_url || service.image" [alt]="service.title">
+            <div class="img-container" *ngIf="getImageUrl(service)">
+                <img [src]="getImageUrl(service)" [alt]="service.title">
                 <div class="overlay"></div>
                 <div class="title-wrapper animate__animated animate__fadeIn">
                     <div class="badges" *ngIf="service.status !== undefined">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="title-block" *ngIf="!service.image_url && !service.image">
+            <div class="title-block" *ngIf="!getImageUrl(service)">
                 <h1>{{ service.title }}</h1>
             </div>
 

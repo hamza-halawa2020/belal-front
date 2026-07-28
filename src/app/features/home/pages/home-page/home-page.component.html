@@ -171,7 +171,7 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let sample of homeData.latestWorkSamples">
                     <div class="work-sample-card">
                         <div class="work-image">
-                            <img [src]="getImageUrl(sample.image_url, 'assets/images/work-sample-placeholder.jpg')" 
+                            <img [src]="getImageUrl(sample.image_url, 'assets/images/work-sample-placeholder.jpg', sample.image)" 
                                  [alt]="sample.title" class="img-fluid">
                             <div class="work-overlay">
                                 <a [routerLink]="['/work-samples', sample.id]" class="work-link">
@@ -207,7 +207,7 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let member of homeData.teamMembers">
                     <div class="team-card text-center">
                         <div class="team-image">
-                            <img [src]="getImageUrl(member.image_url, 'assets/images/team-placeholder.jpg')" 
+                            <img [src]="getImageUrl(member.image_url, 'assets/images/team-placeholder.jpg', member.image)" 
                                  [alt]="member.name" class="img-fluid rounded-circle">
                         </div>
                         <div class="team-content">
@@ -274,7 +274,7 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of homeData.latestPosts">
                     <div class="post-card">
                         <div class="post-image">
-                            <img [src]="getImageUrl(post.image_url, 'assets/images/post-placeholder.jpg')" 
+                            <img [src]="getImageUrl(post.image_url, 'assets/images/post-placeholder.jpg', post.image)" 
                                  [alt]="post.title" class="img-fluid">
                             <div class="post-date">
                                 <span class="date-day">{{ formatDate(post.created_at).split(' ')[0] }}</span>

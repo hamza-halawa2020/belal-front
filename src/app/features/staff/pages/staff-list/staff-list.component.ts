@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
+import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { StaffApi } from '../../data-access/staff.api';
 import { StaffMember } from '../../models/staff-member.model';
 
@@ -16,6 +19,8 @@ import { StaffMember } from '../../models/staff-member.model';
     styleUrls: ['./staff-list.component.scss']
 })
 export class StaffListComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     staff: StaffMember[] = [];
     meta: PaginationMeta | null = null;
     isLoading = false;
@@ -34,12 +39,13 @@ export class StaffListComponent implements OnInit {
         this.staffApi.getStaff(page).pipe(
             finalize(() => {
                 this.isLoading = false;
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.staff = response.data;
                 this.meta = response.meta;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                scrollToPageTop();
             },
             error: () => {
                 this.staff = [];
@@ -50,10 +56,14 @@ export class StaffListComponent implements OnInit {
     }
 
     onPageChange(page: number): void {
-        if (!this.meta || page < 1 || page > this.meta.last_page || page === this.meta.current_page) {
+        if (!canLoadPage(this.meta, page)) {
             return;
         }
 
         this.loadPage(page);
+    }
+
+    getImageUrl(member: StaffMember): string {
+        return getStoredImageUrl(member.image_url, member.image);
     }
 }

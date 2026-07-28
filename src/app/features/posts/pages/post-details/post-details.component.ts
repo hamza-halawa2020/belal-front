@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { PostsApi } from '../../data-access/posts.api';
 import { Post } from '../../models/post.model';
 
@@ -14,6 +16,8 @@ import { Post } from '../../models/post.model';
     styleUrls: ['./post-details.component.scss']
 })
 export class PostDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     post: Post | null = null;
     isLoading = false;
     errorMessage = '';
@@ -36,7 +40,8 @@ export class PostDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.post = response.data;
@@ -46,5 +51,9 @@ export class PostDetailsComponent implements OnInit {
                 this.errorMessage = 'Failed to load post details.';
             }
         });
+    }
+
+    getImageUrl(post: Post): string {
+        return getStoredImageUrl(post.image_url, post.image);
     }
 }

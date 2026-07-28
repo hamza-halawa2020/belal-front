@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { ServicesApi } from '../../data-access/services.api';
 import { Service } from '../../models/service.model';
 
@@ -14,6 +16,8 @@ import { Service } from '../../models/service.model';
     styleUrls: ['./service-details.component.scss']
 })
 export class ServiceDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     service: Service | null = null;
     isLoading = false;
     errorMessage = '';
@@ -36,7 +40,8 @@ export class ServiceDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.service = response.data;
@@ -46,5 +51,9 @@ export class ServiceDetailsComponent implements OnInit {
                 this.errorMessage = 'Failed to load service details.';
             }
         });
+    }
+
+    getImageUrl(service: Service): string {
+        return getStoredImageUrl(service.image_url, service.image);
     }
 }

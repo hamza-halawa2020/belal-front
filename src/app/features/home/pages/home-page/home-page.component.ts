@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { MainSlider } from '../../components/main-slider/main-slider.component';
 import { HomeApi, HomeData } from '../../data-access/home.api';
 
@@ -261,8 +262,8 @@ loadHomeData(): void {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     }
 
-    getImageUrl(imageUrl?: string, fallback: string = 'assets/images/placeholder.jpg'): string {
-        return imageUrl || fallback;
+    getImageUrl(imageUrl?: string, fallback: string = 'assets/images/placeholder.jpg', image?: string): string {
+        return getStoredImageUrl(imageUrl, image) || fallback;
     }
 
     private updateCarouselOptions(): void {

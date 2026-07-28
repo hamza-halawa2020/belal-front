@@ -1,7 +1,8 @@
 import { NgClass, NgIf, CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -22,11 +23,12 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     isCollapsed = true;
     isSticky: boolean = false;
     currentLanguage: string = 'en';
-    private subscriptions = new Subscription();
 
     // Navigation menu items
     menuItems = [
@@ -102,24 +104,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // Optimize scroll listener to prevent forced reflows
-        this.subscriptions.add(
-            fromEvent(window, 'scroll')
-                .pipe(auditTime(100))
-                .subscribe(() => {
-                    this.checkScroll();
-                })
-        );
+        fromEvent(window, 'scroll').pipe(
+            auditTime(100),
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe(() => {
+            this.checkScroll();
+        });
 
-        this.subscriptions.add(
-            this.translate.onLangChange.subscribe(event => {
-                this.currentLanguage = event.lang;
-                this.applyLanguageDirection(event.lang);
-            })
-        );
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe();
+        this.translate.onLangChange.pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe(event => {
+            this.currentLanguage = event.lang;
+            this.applyLanguageDirection(event.lang);
+        });
     }
 
     checkScroll() {

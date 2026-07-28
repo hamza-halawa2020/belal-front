@@ -18,8 +18,8 @@
         <div class="row" *ngIf="!isLoading">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let category of categories; let i = index">
                 <div class="category-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
-                    <div class="card-img" *ngIf="category.image_url || category.image">
-                        <img [src]="category.image_url || category.image" [alt]="category.title">
+                    <div class="card-img" *ngIf="getImageUrl(category)">
+                        <img [src]="getImageUrl(category)" [alt]="category.title">
                     </div>
                     <div class="card-content">
                         <h3>

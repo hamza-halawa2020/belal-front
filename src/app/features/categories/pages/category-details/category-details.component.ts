@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
 import { ContentCardComponent } from '../../../../shared/components/content-card/content-card.component';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { CategoriesApi } from '../../data-access/categories.api';
 import { Category } from '../../models/category.model';
 
@@ -15,6 +17,8 @@ import { Category } from '../../models/category.model';
     styleUrls: ['./category-details.component.scss']
 })
 export class CategoryDetailsComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     category: Category | null = null;
     isLoading = false;
     errorMessage = '';
@@ -37,7 +41,8 @@ export class CategoryDetailsComponent implements OnInit {
                         this.isLoading = false;
                     })
                 );
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.category = response.data;
@@ -47,5 +52,9 @@ export class CategoryDetailsComponent implements OnInit {
                 this.errorMessage = 'Failed to load category details.';
             }
         });
+    }
+
+    getImageUrl(category: Category): string {
+        return getStoredImageUrl(category.image_url, category.image);
     }
 }

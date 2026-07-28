@@ -12,7 +12,7 @@
 
         <div *ngIf="!isLoading && post">
             <div class="details-header animate__animated animate__fadeIn">
-                <img [src]="post.image_url || post.image" [alt]="post.title" class="main-img" *ngIf="post.image_url || post.image">
+                <img [src]="getImageUrl(post)" [alt]="post.title" class="main-img" *ngIf="getImageUrl(post)">
                 <h1 class="animate__animated animate__fadeInUp">{{ post.title }}</h1>
             </div>
 

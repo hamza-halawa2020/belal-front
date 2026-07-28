@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { ContentCardComponent } from '../../../../shared/components/content-card/content-card.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { PostsApi } from '../../data-access/posts.api';
 import { Post } from '../../models/post.model';
 
@@ -17,6 +19,8 @@ import { Post } from '../../models/post.model';
     styleUrls: ['./posts-list.component.scss']
 })
 export class PostsListComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     posts: Post[] = [];
     meta: PaginationMeta | null = null;
     isLoading = false;
@@ -35,12 +39,13 @@ export class PostsListComponent implements OnInit {
         this.postsApi.getPosts(page).pipe(
             finalize(() => {
                 this.isLoading = false;
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
                 this.posts = response.data;
                 this.meta = response.meta;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                scrollToPageTop();
             },
             error: () => {
                 this.posts = [];
@@ -51,7 +56,7 @@ export class PostsListComponent implements OnInit {
     }
 
     onPageChange(page: number): void {
-        if (!this.meta || page < 1 || page > this.meta.last_page || page === this.meta.current_page) {
+        if (!canLoadPage(this.meta, page)) {
             return;
         }
 

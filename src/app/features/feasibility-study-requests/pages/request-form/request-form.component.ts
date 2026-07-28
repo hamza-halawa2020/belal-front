@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { getApiErrorMessage } from '../../../../shared/utils/api-error-message.util';
+import { clearTransientMessage, showTransientMessage, TransientMessageTimeoutId } from '../../../../shared/utils/transient-message.util';
 import { FeasibilityStudyRequestsApi } from '../../data-access/feasibility-study-requests.api';
 import { FeasibilityStudyRequestPayload } from '../../models/feasibility-study-request.model';
 
@@ -22,11 +24,15 @@ type FeasibilityStudyRequestForm = {
     templateUrl: './request-form.component.html',
     styleUrls: ['./request-form.component.scss']
 })
-export class FeasibilityStudyRequestFormComponent {
+export class FeasibilityStudyRequestFormComponent implements OnDestroy {
+    private readonly destroyRef = inject(DestroyRef);
+
     requestForm: FormGroup<FeasibilityStudyRequestForm>;
     successMessage = '';
     errorMessage = '';
     isSubmitting = false;
+    private successMessageTimeoutId: TransientMessageTimeoutId | null = null;
+    private errorMessageTimeoutId: TransientMessageTimeoutId | null = null;
 
     constructor(
         private readonly feasibilityStudyRequestsApi: FeasibilityStudyRequestsApi,
@@ -38,6 +44,11 @@ export class FeasibilityStudyRequestFormComponent {
             phone: ['', [Validators.required, Validators.minLength(10)]],
             message: ['', [Validators.required, Validators.minLength(20)]]
         });
+    }
+
+    ngOnDestroy(): void {
+        clearTransientMessage(this.successMessageTimeoutId);
+        clearTransientMessage(this.errorMessageTimeoutId);
     }
 
     onSubmit(): void {
@@ -54,7 +65,8 @@ export class FeasibilityStudyRequestFormComponent {
         this.feasibilityStudyRequestsApi.submitRequest(this.getPayload()).pipe(
             finalize(() => {
                 this.isSubmitting = false;
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: () => {
                 this.requestForm.reset();
@@ -95,17 +107,25 @@ export class FeasibilityStudyRequestFormComponent {
     }
 
     private showSuccess(message: string): void {
-        this.successMessage = message;
-        window.setTimeout(() => {
-            this.successMessage = '';
-        }, 7000);
+        this.successMessageTimeoutId = showTransientMessage(
+            message,
+            value => {
+                this.successMessage = value;
+            },
+            7000,
+            this.successMessageTimeoutId
+        );
     }
 
     private showError(message: string): void {
-        this.errorMessage = message;
-        window.setTimeout(() => {
-            this.errorMessage = '';
-        }, 5000);
+        this.errorMessageTimeoutId = showTransientMessage(
+            message,
+            value => {
+                this.errorMessage = value;
+            },
+            5000,
+            this.errorMessageTimeoutId
+        );
     }
 
 }

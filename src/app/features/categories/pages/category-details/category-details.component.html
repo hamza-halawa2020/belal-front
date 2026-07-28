@@ -13,10 +13,10 @@
         <div *ngIf="!isLoading && category">
             <div class="category-header animate__animated animate__fadeIn">
                 <div class="row align-items-center">
-                    <div class="col-lg-6" *ngIf="category.image_url || category.image">
-                        <img [src]="category.image_url || category.image" [alt]="category.title" class="category-img">
+                    <div class="col-lg-6" *ngIf="getImageUrl(category)">
+                        <img [src]="getImageUrl(category)" [alt]="category.title" class="category-img">
                     </div>
-                    <div [class.col-lg-6]="category.image_url || category.image" [class.col-lg-12]="!category.image_url && !category.image">
+                    <div [class.col-lg-6]="getImageUrl(category)" [class.col-lg-12]="!getImageUrl(category)">
                         <div class="category-info">
                             <h1 class="animate__animated animate__fadeInUp">{{ category.title }}</h1>
                             <div class="studies-count" *ngIf="category.feasibility_studies">

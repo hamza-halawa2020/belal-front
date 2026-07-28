@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { fromEvent } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
 @Component({
@@ -10,24 +11,19 @@ import { auditTime } from 'rxjs/operators';
     templateUrl: './back-to-top.component.html',
     styleUrl: './back-to-top.component.scss'
 })
-export class BackToTopComponent implements OnInit, OnDestroy {
+export class BackToTopComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
 
     isShow: boolean = false;
     topPosToStartShowing = 100;
-    private subscription = new Subscription();
 
     ngOnInit(): void {
-        this.subscription.add(
-            fromEvent(window, 'scroll')
-                .pipe(auditTime(100))
-                .subscribe(() => {
-                    this.checkScroll();
-                })
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        fromEvent(window, 'scroll').pipe(
+            auditTime(100),
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe(() => {
+            this.checkScroll();
+        });
     }
 
     checkScroll() {

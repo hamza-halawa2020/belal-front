@@ -1,10 +1,12 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { getApiErrorMessage } from '../../../../shared/utils/api-error-message.util';
+import { clearTransientMessage, showTransientMessage, TransientMessageTimeoutId } from '../../../../shared/utils/transient-message.util';
 import { ContactApi } from '../../data-access/contact.api';
 import { ContactMessagePayload } from '../../models/contact-message.model';
 
@@ -21,7 +23,9 @@ type ContactForm = {
     templateUrl: './contact-page.component.html',
     styleUrls: ['./contact-page.component.scss']
 })
-export class ContactPageComponent {
+export class ContactPageComponent implements OnDestroy {
+    private readonly destroyRef = inject(DestroyRef);
+
     readonly infoEmail = 'info@belal.com';
     readonly adminEmail = 'contact@belal.com';
     readonly phone1 = '+201034100565';
@@ -31,6 +35,8 @@ export class ContactPageComponent {
     successMessage = '';
     errorMessage = '';
     isSubmitting = false;
+    private successMessageTimeoutId: TransientMessageTimeoutId | null = null;
+    private errorMessageTimeoutId: TransientMessageTimeoutId | null = null;
 
     constructor(
         private readonly contactApi: ContactApi,
@@ -42,6 +48,11 @@ export class ContactPageComponent {
             phone: ['', [Validators.required, Validators.minLength(10)]],
             message: ['', [Validators.required, Validators.minLength(10)]]
         });
+    }
+
+    ngOnDestroy(): void {
+        clearTransientMessage(this.successMessageTimeoutId);
+        clearTransientMessage(this.errorMessageTimeoutId);
     }
 
     onSubmit(): void {
@@ -58,7 +69,8 @@ export class ContactPageComponent {
         this.contactApi.sendMessage(this.getPayload()).pipe(
             finalize(() => {
                 this.isSubmitting = false;
-            })
+            }),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: () => {
                 this.contactForm.reset();
@@ -93,17 +105,25 @@ export class ContactPageComponent {
     }
 
     private showSuccess(message: string): void {
-        this.successMessage = message;
-        window.setTimeout(() => {
-            this.successMessage = '';
-        }, 5000);
+        this.successMessageTimeoutId = showTransientMessage(
+            message,
+            value => {
+                this.successMessage = value;
+            },
+            5000,
+            this.successMessageTimeoutId
+        );
     }
 
     private showError(message: string): void {
-        this.errorMessage = message;
-        window.setTimeout(() => {
-            this.errorMessage = '';
-        }, 5000);
+        this.errorMessageTimeoutId = showTransientMessage(
+            message,
+            value => {
+                this.errorMessage = value;
+            },
+            5000,
+            this.errorMessageTimeoutId
+        );
     }
 
 }
