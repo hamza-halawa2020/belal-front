@@ -20,11 +20,7 @@ export const routes: Routes = [
 
     {
         path: 'work-samples',
-        loadComponent: () => import('./pages/work-samples-page/work-samples-list/work-samples-list.component').then(m => m.WorkSamplesListComponent)
-    },
-    {
-        path: 'work-samples/:id',
-        loadComponent: () => import('./pages/work-samples-page/work-samples-details/work-sample-details.component').then(m => m.WorkSampleDetailsComponent)
+        loadChildren: () => import('./features/work-samples/work-samples.routes').then(m => m.workSamplesRoutes)
     },
 
     {
@@ -34,11 +30,7 @@ export const routes: Routes = [
 
     {
         path: 'feasibility-studies',
-        loadComponent: () => import('./pages/feasibility-study-page/feasibility-study-list/feasibility-study-list.component').then(m => m.FeasibilityStudyListComponent)
-    },
-    {
-        path: 'feasibility-studies/:id',
-        loadComponent: () => import('./pages/feasibility-study-page/feasibility-study-details/feasibility-study-details.component').then(m => m.FeasibilityStudyDetailsComponent)
+        loadChildren: () => import('./features/feasibility-studies/feasibility-studies.routes').then(m => m.feasibilityStudiesRoutes)
     },
 
     {
