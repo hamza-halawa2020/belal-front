@@ -35,7 +35,7 @@ export const routes: Routes = [
 
     {
         path: 'request-feasibility-study',
-        loadComponent: () => import('./pages/feasibility-study-request-page/feasibility-study-request-form/feasibility-study-request-form.component').then(m => m.FeasibilityStudyRequestFormComponent)
+        loadChildren: () => import('./features/feasibility-study-requests/feasibility-study-requests.routes').then(m => m.feasibilityStudyRequestsRoutes)
     },
 
     {
