@@ -3,69 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { FeasibilityStudy } from '../../feasibility-studies/models/feasibility-study.model';
-import { InvestmentOpportunity } from '../../investment-opportunities/models/investment-opportunity.model';
-import { Service } from '../../services/models/service.model';
 import { StaffMember } from '../../staff/models/staff-member.model';
-import { SuccessPartner } from '../../success-partners/models/success-partner.model';
 import { WorkSample } from '../../work-samples/models/work-sample.model';
-
-export interface HomeStats {
-  completedStudies: number;
-  satisfiedClients: number;
-  yearsExperience: number;
-  successPartners: number;
-}
-
-export interface HomeData {
-  stats: HomeStats;
-  latestWorkSamples: WorkSample[];
-  teamMembers: StaffMember[];
-  testimonials: HomeTestimonial[];
-  latestPosts: HomePost[];
-  partners: HomePartner[];
-}
-
-interface HomeApiListResponse<T> {
-  data?: T[];
-}
-
-export interface HomeTestimonial {
-  id: number;
-  client_name: string;
-  comment: string;
-  status?: string;
-  created_at?: string;
-  rating?: number;
-}
-
-interface HomeRawReview {
-  id: number;
-  name: string;
-  review: string;
-  status?: string;
-  created_at?: string;
-  rating?: number;
-}
-
-export interface HomePost {
-  id: number;
-  title: string;
-  description?: string;
-  excerpt?: string;
-  content?: string;
-  image?: string;
-  image_url?: string;
-  created_at?: string;
-}
-
-export interface HomePartner {
-  id: number;
-  name: string;
-  logo_url?: string;
-  link?: string | null;
-  status?: string;
-}
+import {
+  HomeApiListResponse,
+  HomeData,
+  HomeFeaturedFeasibilityStudy,
+  HomeFeaturedInvestmentOpportunity,
+  HomeFeaturedService,
+  HomePartner,
+  HomePost,
+  HomeRawReview,
+  HomeStats,
+  HomeSuccessPartner,
+  HomeTestimonial
+} from '../models/home.model';
 
 @Injectable({
   providedIn: 'root'
@@ -150,7 +102,7 @@ export class HomeApi {
   }
 
   getPartners(): Observable<HomePartner[]> {
-    return this.http.get<HomeApiListResponse<SuccessPartner & { status?: string }>>(`${this.apiUrl}/success-partners`)
+    return this.http.get<HomeApiListResponse<HomeSuccessPartner>>(`${this.apiUrl}/success-partners`)
       .pipe(
         map(response => {
           const partners = response.data || [];
@@ -177,8 +129,8 @@ export class HomeApi {
     });
   }
 
-  getFeaturedServices(): Observable<Service[]> {
-    return this.http.get<HomeApiListResponse<Service>>(`${this.apiUrl}/services?limit=3`)
+  getFeaturedServices(): Observable<HomeFeaturedService[]> {
+    return this.http.get<HomeApiListResponse<HomeFeaturedService>>(`${this.apiUrl}/services?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(() => {
@@ -187,8 +139,8 @@ export class HomeApi {
       );
   }
 
-  getFeaturedFeasibilityStudies(): Observable<FeasibilityStudy[]> {
-    return this.http.get<HomeApiListResponse<FeasibilityStudy>>(`${this.apiUrl}/feasibility-studies?limit=3`)
+  getFeaturedFeasibilityStudies(): Observable<HomeFeaturedFeasibilityStudy[]> {
+    return this.http.get<HomeApiListResponse<HomeFeaturedFeasibilityStudy>>(`${this.apiUrl}/feasibility-studies?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(() => {
@@ -197,8 +149,8 @@ export class HomeApi {
       );
   }
 
-  getFeaturedInvestmentOpportunities(): Observable<InvestmentOpportunity[]> {
-    return this.http.get<HomeApiListResponse<InvestmentOpportunity>>(`${this.apiUrl}/investment-opportunities?limit=3`)
+  getFeaturedInvestmentOpportunities(): Observable<HomeFeaturedInvestmentOpportunity[]> {
+    return this.http.get<HomeApiListResponse<HomeFeaturedInvestmentOpportunity>>(`${this.apiUrl}/investment-opportunities?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(() => {

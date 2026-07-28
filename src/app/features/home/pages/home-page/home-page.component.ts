@@ -7,7 +7,8 @@ import { finalize } from 'rxjs';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { MainSlider } from '../../components/main-slider/main-slider.component';
-import { HomeApi, HomeData, HomeStats } from '../../data-access/home.api';
+import { HomeApi } from '../../data-access/home.api';
+import { HomeData, HomeStats } from '../../models/home.model';
 
 interface DefaultService {
     id: number;

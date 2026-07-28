@@ -640,6 +640,7 @@ AGENTS.md
 - Removed `animate.css` and old reveal-animation classes from page templates.
 - Removed demo placeholder image CSS and replaced broken home fallback image paths with existing assets.
 - Removed the old global template stylesheet from `src/assets/css/style.css`; the app now relies on vendor CSS, `src/styles.scss`, and component SCSS.
+- Moved home feature interfaces from `data-access/home.api.ts` into `features/home/models/home.model.ts`.
 - Normalized success partner images through `getStoredImageUrl()` and `ImageFallbackDirective`.
 - Normalized success partner detail API typing to return `ApiResponse<SuccessPartner>`.
 - Removed the unused `magnific-popup` dependency from project manifests.
