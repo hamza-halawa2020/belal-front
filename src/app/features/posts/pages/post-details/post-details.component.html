@@ -11,18 +11,18 @@
         </div>
 
         <div *ngIf="!isLoading && post">
-            <div class="details-header animate__animated animate__fadeIn">
+            <div class="details-header">
                 <img [src]="getImageUrl(post)" [alt]="post.title" class="main-img" *ngIf="getImageUrl(post)">
-                <h1 class="animate__animated animate__fadeInUp">{{ post.title }}</h1>
+                <h1>{{ post.title }}</h1>
             </div>
 
-            <div class="content-wrapper animate__animated animate__fadeInUp">
+            <div class="content-wrapper">
                 <div class="content-section" *ngIf="post.description">
                     <div [innerHTML]="post.description"></div>
                 </div>
             </div>
 
-            <div class="back-btn-container animate__animated animate__fadeIn">
+            <div class="back-btn-container">
                 <a routerLink="/posts" class="back-btn">
                     <i class="fa-solid fa-arrow-left"></i>
                     {{ 'BACK_TO_LIST' | translate }}

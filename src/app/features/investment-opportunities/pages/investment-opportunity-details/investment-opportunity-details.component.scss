@@ -7,11 +7,12 @@
     margin-bottom: 28px;
 
     .main-img {
+        background: #f7f6f8;
         border-radius: 8px;
         box-shadow: 0 10px 28px rgba(20, 20, 20, 0.06);
         height: 420px;
         margin-bottom: 22px;
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
     }
 

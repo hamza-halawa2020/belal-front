@@ -11,9 +11,9 @@
         </div>
 
         <div *ngIf="!isLoading && study">
-            <div class="details-header animate__animated animate__fadeIn">
+            <div class="details-header">
                 <img [src]="getImageUrl(study)" [alt]="study.title" class="main-img" *ngIf="getImageUrl(study)">
-                <h1 class="animate__animated animate__fadeInUp">{{ study.title }}</h1>
+                <h1>{{ study.title }}</h1>
                 <div class="category-badge" *ngIf="study.category">
                     <span class="badge">{{ study.category.title }}</span>
                 </div>
@@ -21,7 +21,7 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="content-wrapper animate__animated animate__fadeInUp">
+                    <div class="content-wrapper">
                         <div class="content-section" *ngIf="study.description">
                             <h3>{{ 'DESCRIPTION' | translate }}</h3>
                             <div [innerHTML]="study.description"></div>
@@ -29,7 +29,15 @@
 
                         <div class="content-section" *ngIf="study.services">
                             <h3>{{ 'SERVICES' | translate }}</h3>
-                            <div [innerHTML]="study.services"></div>
+                            <ul class="services-list" *ngIf="providedServices.length > 0; else rawServices">
+                                <li *ngFor="let service of providedServices">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span>{{ service }}</span>
+                                </li>
+                            </ul>
+                            <ng-template #rawServices>
+                                <div [innerHTML]="study.services"></div>
+                            </ng-template>
                         </div>
 
                         <div class="content-section" *ngIf="study.study_content">
@@ -39,13 +47,21 @@
 
                         <div class="content-section" *ngIf="study.financial_metrics">
                             <h3>{{ 'FINANCIAL_METRICS' | translate }}</h3>
-                            <div [innerHTML]="study.financial_metrics"></div>
+                            <div class="metrics-list" *ngIf="financialMetrics.length > 0; else rawFinancialMetrics">
+                                <div class="metric-row" *ngFor="let metric of financialMetrics">
+                                    <span class="metric-label">{{ metric.label }}</span>
+                                    <strong class="metric-value">{{ metric.value }}</strong>
+                                </div>
+                            </div>
+                            <ng-template #rawFinancialMetrics>
+                                <div [innerHTML]="study.financial_metrics"></div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="sidebar animate__animated animate__fadeInRight">
+                    <div class="sidebar">
                         <div class="info-card">
                             <h4>{{ 'STUDY_INFO' | translate }}</h4>
 
@@ -68,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="back-btn-container animate__animated animate__fadeIn">
+            <div class="back-btn-container">
                 <a routerLink="/feasibility-studies" class="back-btn">
                     <i class="fa-solid fa-arrow-left"></i>
                     {{ 'BACK_TO_STUDIES' | translate }}

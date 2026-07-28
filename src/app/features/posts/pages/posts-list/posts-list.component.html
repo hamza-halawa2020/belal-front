@@ -16,11 +16,10 @@
         </div>
 
         <div class="row" *ngIf="!isLoading">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let post of posts; let i = index">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let post of posts">
                 <app-content-card
                     [item]="post"
-                    [routePath]="'/posts'"
-                    [animationDelay]="i * 0.1">
+                    [routePath]="'/posts'">
                 </app-content-card>
             </div>
 

@@ -34,6 +34,9 @@ interface DefaultService {
 export class HomePageComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
+    readonly contentImageFallback = 'assets/images/about-image.jpeg';
+    readonly logoImageFallback = 'assets/images/logo.svg';
+
     homeData: HomeData | null = null;
     isLoading = true;
     error: string | null = null;
@@ -104,7 +107,7 @@ export class HomePageComponent implements OnInit {
         return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
     }
 
-    getImageUrl(imageUrl?: string, fallback = 'assets/images/placeholder.jpg', image?: string): string {
+    getImageUrl(imageUrl?: string, fallback = this.contentImageFallback, image?: string): string {
         return getStoredImageUrl(imageUrl, image) || fallback;
     }
 

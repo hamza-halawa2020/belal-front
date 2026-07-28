@@ -22,7 +22,6 @@ export interface ContentCardItem {
 export class ContentCardComponent {
     @Input() item: ContentCardItem | null = null;
     @Input() routePath: string = '';
-    @Input() animationDelay: number = 0;
 
     getImageUrl(): string {
         return getStoredImageUrl(this.item?.image_url, this.item?.image);

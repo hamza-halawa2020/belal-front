@@ -36,6 +36,8 @@ src/app
 - Use small, comfortable font sizes.
 - Avoid oversized headings, heavy decoration, visual clutter, and unnecessary animation.
 - Keep forms clear and focused.
+- Show content images fully with `object-fit: contain` by default; use `cover` only for intentional decorative cropping.
+- Image fallbacks must point to real committed files under `src/assets`.
 - Preserve mobile readability.
 
 ## Do Not
@@ -44,6 +46,7 @@ src/app
 - Do not put business API services in `common/` or `shared/`.
 - Do not build image URLs manually in components or templates.
 - Do not add new jQuery/global scripts for Angular features.
+- Do not add large template CSS files under `src/assets/css`; use `src/styles.scss` for small global rules and component SCSS for UI.
 - Do not introduce broad refactors while solving a narrow task.
 
 ## Verification

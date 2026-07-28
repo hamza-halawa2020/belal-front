@@ -9,6 +9,7 @@
     --fontSize: 14px;
     --fontFamily: "Segoe UI", Tahoma, Arial, sans-serif;
     --headingFontFamily: "Segoe UI", Tahoma, Arial, sans-serif;
+    --app-navbar-height: 64px;
 }
 
 *,
@@ -20,14 +21,14 @@
 body {
     margin: 0;
     padding: 0;
-    padding-top: 70px; /* Add padding for fixed navbar */
+    padding-top: var(--app-navbar-height);
     color: #4c0048;
 }
 
-/* Responsive navbar padding */
+/* Fixed navbar offset */
 @media (max-width: 767px) {
-    body {
-        padding-top: 60px;
+    :root {
+        --app-navbar-height: 60px;
     }
 }
 @font-face {
@@ -614,6 +615,15 @@ p {
 html {
     font-size: 14px;
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--app-navbar-height) + 16px);
+}
+
+app-root {
+    display: block;
+}
+
+:target {
+    scroll-margin-top: calc(var(--app-navbar-height) + 16px);
 }
 
 body {
@@ -623,6 +633,7 @@ body {
     font-size: 14px !important;
     font-weight: 400 !important;
     line-height: 1.7 !important;
+    padding-top: var(--app-navbar-height) !important;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -925,6 +936,10 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 767px) {
+    :root {
+        --app-navbar-height: 60px;
+    }
+
     html {
         font-size: 13.5px;
     }

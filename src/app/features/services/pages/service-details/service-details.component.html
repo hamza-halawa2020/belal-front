@@ -10,11 +10,11 @@
             {{ errorMessage }}
         </div>
 
-        <div *ngIf="!isLoading && service" class="details-card animate__animated animate__fadeInUp">
+        <div *ngIf="!isLoading && service" class="details-card">
             <div class="img-container" *ngIf="getImageUrl(service)">
                 <img [src]="getImageUrl(service)" [alt]="service.title">
                 <div class="overlay"></div>
-                <div class="title-wrapper animate__animated animate__fadeIn">
+                <div class="title-wrapper">
                     <div class="badges" *ngIf="service.status !== undefined">
                         <div class="status-badge mb-3" [class.active]="service.status === 1">
                             <i class="fa-solid" [ngClass]="service.status === 1 ? 'fa-check-circle' : 'fa-clock'"></i>

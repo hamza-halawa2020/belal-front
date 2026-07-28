@@ -58,8 +58,8 @@
 
         <section class="reviews-area">
             <div class="row" *ngIf="!isLoading">
-                <div class="col-lg-6 col-md-12 mb-4" *ngFor="let review of reviews; let i = index">
-                    <div class="review-card animate__animated animate__fadeInUp" [style.animation-delay]="i * 0.1 + 's'">
+                <div class="col-lg-6 col-md-12 mb-4" *ngFor="let review of reviews">
+                    <div class="review-card">
                         <div class="quote-icon">
                             <i class="fa-solid fa-quote-left"></i>
                         </div>

@@ -11,19 +11,19 @@
         </div>
 
         <div *ngIf="!isLoading && opportunity">
-            <div class="details-header animate__animated animate__fadeIn">
+            <div class="details-header">
                 <img [src]="getImageUrl(opportunity)" [alt]="opportunity.title" class="main-img" *ngIf="getImageUrl(opportunity)">
-                <h1 class="animate__animated animate__fadeInUp">{{ opportunity.title }}</h1>
+                <h1>{{ opportunity.title }}</h1>
             </div>
 
-            <div class="content-wrapper animate__animated animate__fadeInUp">
+            <div class="content-wrapper">
                 <div class="content-section" *ngIf="opportunity.description">
                     <h3>{{ 'DESCRIPTION' | translate }}</h3>
                     <div [innerHTML]="opportunity.description"></div>
                 </div>
             </div>
 
-            <div class="back-btn-container animate__animated animate__fadeIn">
+            <div class="back-btn-container">
                 <a routerLink="/investment-opportunities" class="back-btn">
                     <i class="fa-solid fa-arrow-left"></i>
                     {{ 'BACK_TO_OPPORTUNITIES' | translate }}

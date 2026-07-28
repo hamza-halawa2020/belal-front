@@ -7,10 +7,11 @@
     margin-bottom: 36px;
 
     .category-img {
+        background: #f7f6f8;
         border-radius: 8px;
         box-shadow: 0 10px 28px rgba(20, 20, 20, 0.06);
         height: 360px;
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
     }
 

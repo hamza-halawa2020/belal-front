@@ -4,7 +4,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { FinancialMetricItem, parseFinancialMetrics } from '../../../../shared/utils/financial-metrics.util';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
+import { parseJsonStringList } from '../../../../shared/utils/json-list.util';
 import { WorkSamplesApi } from '../../data-access/work-samples.api';
 import { WorkSample } from '../../models/work-sample.model';
 
@@ -19,6 +21,8 @@ export class WorkSampleDetailsComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
     workSample: WorkSample | null = null;
+    providedServices: string[] = [];
+    financialMetrics: FinancialMetricItem[] = [];
     isLoading = false;
     errorMessage = '';
 
@@ -45,9 +49,13 @@ export class WorkSampleDetailsComponent implements OnInit {
         ).subscribe({
             next: response => {
                 this.workSample = response.data;
+                this.providedServices = parseJsonStringList(response.data.services);
+                this.financialMetrics = parseFinancialMetrics(response.data.financial_metrics);
             },
             error: () => {
                 this.workSample = null;
+                this.providedServices = [];
+                this.financialMetrics = [];
                 this.errorMessage = 'Failed to load work sample details.';
             }
         });

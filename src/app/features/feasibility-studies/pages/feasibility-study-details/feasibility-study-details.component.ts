@@ -4,7 +4,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { FinancialMetricItem, parseFinancialMetrics } from '../../../../shared/utils/financial-metrics.util';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
+import { parseJsonStringList } from '../../../../shared/utils/json-list.util';
 import { FeasibilityStudiesApi } from '../../data-access/feasibility-studies.api';
 import { FeasibilityStudy } from '../../models/feasibility-study.model';
 
@@ -19,6 +21,8 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
     study: FeasibilityStudy | null = null;
+    providedServices: string[] = [];
+    financialMetrics: FinancialMetricItem[] = [];
     isLoading = false;
     errorMessage = '';
 
@@ -45,9 +49,13 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
         ).subscribe({
             next: response => {
                 this.study = response.data;
+                this.providedServices = parseJsonStringList(response.data.services);
+                this.financialMetrics = parseFinancialMetrics(response.data.financial_metrics);
             },
             error: () => {
                 this.study = null;
+                this.providedServices = [];
+                this.financialMetrics = [];
                 this.errorMessage = 'Failed to load feasibility study details.';
             }
         });

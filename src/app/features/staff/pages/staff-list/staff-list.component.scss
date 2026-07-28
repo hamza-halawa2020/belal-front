@@ -41,12 +41,13 @@
     }
 
     .staff-image {
+        background: #f7f6f8;
         height: 240px;
         overflow: hidden;
 
         img {
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             width: 100%;
         }
     }
