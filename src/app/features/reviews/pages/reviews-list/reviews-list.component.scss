@@ -1,0 +1,215 @@
+.review-area {
+    background-color: #fbfbfc;
+    padding: 56px 0;
+}
+
+.skeleton-loader {
+    animation: loading 1.5s infinite;
+    background: linear-gradient(90deg, #f0f0f2 25%, #e7e7ea 50%, #f0f0f2 75%);
+    background-size: 200% 100%;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    height: 280px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.stats-section {
+    margin-bottom: 28px;
+
+    .stat-item {
+        background: #fff;
+        border: 1px solid #eeeeee;
+        border-radius: 8px;
+        box-shadow: 0 10px 28px rgba(20, 20, 20, 0.04);
+        height: 100%;
+        padding: 18px;
+        text-align: center;
+
+        .stat-icon {
+            align-items: center;
+            background: #f4f2f5;
+            border-radius: 8px;
+            color: #4c0048;
+            display: inline-flex;
+            height: 42px;
+            justify-content: center;
+            margin-bottom: 12px;
+            width: 42px;
+        }
+
+        .stat-number {
+            color: #241f26;
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #5f5a66;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.reviews-area {
+    margin-bottom: 28px;
+}
+
+.review-card {
+    background: #fff;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(20, 20, 20, 0.05);
+    height: 100%;
+    padding: 24px;
+    position: relative;
+
+    .quote-icon {
+        align-items: center;
+        background: #f4f2f5;
+        border-radius: 8px;
+        color: #4c0048;
+        display: inline-flex;
+        height: 36px;
+        justify-content: center;
+        margin-bottom: 14px;
+        width: 36px;
+    }
+
+    .review-content {
+        margin-bottom: 18px;
+
+        .review-text {
+            color: #5f5a66;
+            font-size: 0.95rem;
+            font-style: italic;
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+    }
+
+    .reviewer-info {
+        align-items: center;
+        display: flex;
+
+        .reviewer-avatar {
+            align-items: center;
+            background: #4c0048;
+            border-radius: 50%;
+            display: flex;
+            flex-shrink: 0;
+            height: 42px;
+            justify-content: center;
+            margin-right: 12px;
+            width: 42px;
+
+            span {
+                color: #fff;
+                font-size: 0.86rem;
+                font-weight: 600;
+            }
+        }
+
+        .reviewer-name {
+            color: #241f26;
+            font-size: 0.98rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .review-date {
+            color: #5f5a66;
+            font-size: 0.82rem;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cta-section {
+    background: #fff;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(20, 20, 20, 0.04);
+    padding: 22px;
+
+    .cta-content {
+        h2 {
+            color: #241f26;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: #5f5a66;
+            margin-bottom: 0;
+        }
+    }
+
+    .cta-btn {
+        align-items: center;
+        background: #4c0048;
+        border-radius: 8px;
+        color: #fff;
+        display: inline-flex;
+        font-size: 0.9rem;
+        font-weight: 600;
+        gap: 8px;
+        padding: 9px 18px;
+        text-decoration: none;
+    }
+}
+
+.alert {
+    border-radius: 8px;
+    font-size: 0.95rem;
+    padding: 18px;
+
+    i {
+        margin-right: 8px;
+    }
+}
+
+:host-context([dir="rtl"]) {
+    .reviewer-info .reviewer-avatar {
+        margin-left: 12px;
+        margin-right: 0;
+    }
+
+    .cta-btn i {
+        transform: rotate(180deg);
+    }
+
+    .alert i {
+        margin-left: 8px;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .review-area {
+        padding: 34px 0;
+    }
+
+    .cta-section {
+        text-align: center;
+
+        .cta-content {
+            margin-bottom: 16px;
+        }
+    }
+}

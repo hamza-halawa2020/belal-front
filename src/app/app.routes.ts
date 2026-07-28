@@ -55,7 +55,7 @@ export const routes: Routes = [
 
     {
         path: 'team',
-        loadComponent: () => import('./pages/staff-page/staff-list/staff-list.component').then(m => m.StaffListComponent)
+        loadChildren: () => import('./features/staff/staff.routes').then(m => m.staffRoutes)
     },
 
     {
@@ -65,7 +65,7 @@ export const routes: Routes = [
 
     {
         path: 'testimonials',
-        loadComponent: () => import('./pages/reviews-page/reviews-list/reviews-list.component').then(m => m.ReviewsListComponent)
+        loadChildren: () => import('./features/reviews/reviews.routes').then(m => m.reviewsRoutes)
     },
 
     { path: '**', component: ErrorPageComponent },
