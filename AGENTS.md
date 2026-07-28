@@ -59,6 +59,16 @@ Run at least:
 npm.cmd run build
 ```
 
+For UI, SEO, accessibility, or performance changes, run the dev server first and then:
+
+```bash
+npm.cmd run lighthouse
+```
+
+Prefer `npm.cmd run lighthouse:prod` for performance baselines because it measures a production build instead of the Angular dev server.
+
+Lighthouse requires Chrome and a Node.js command available in the terminal PATH.
+
 For test-related changes, also run:
 
 ```bash

@@ -114,6 +114,14 @@ export class HomePageComponent implements OnInit {
         return getStoredImageUrl(imageUrl, image) || fallback;
     }
 
+    getPartnerLogoUrl(logoUrl?: string): string {
+        if (logoUrl?.includes('logo.clearbit.com')) {
+            return this.logoImageFallback;
+        }
+
+        return this.getImageUrl(logoUrl, this.logoImageFallback);
+    }
+
     getStarsArray(rating?: number): number[] {
         const validRating = Math.max(0, Math.min(5, Math.floor(rating || 0)));
         return Array(validRating).fill(0);

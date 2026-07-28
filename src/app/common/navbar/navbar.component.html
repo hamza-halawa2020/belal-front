@@ -3,7 +3,7 @@
         <!-- Brand Logo -->
         <div class="navbar-brand">
             <a routerLink="/" (click)="closeMobileMenu()">
-                <img src="assets/images/logo.svg" alt="Belal" class="logo">
+                <img src="assets/images/logo.svg" alt="Belal" class="logo" width="41" height="34">
                 <span class="brand-text">{{ 'Belal' | translate }}</span>
             </a>
         </div>
@@ -31,6 +31,7 @@
                         class="lang-btn" 
                         ngbDropdownToggle 
                         id="languageDropdown"
+                        [attr.aria-label]="getCurrentLanguageData().name"
                     >
                         <span class="lang-name">{{ getCurrentLanguageData().name }}</span>
                         <i class="fas fa-chevron-down"></i>
@@ -72,6 +73,8 @@
             class="mobile-toggle" 
             (click)="toggleMobileMenu()"
             [class.active]="!isCollapsed"
+            [attr.aria-label]="isCollapsed ? ('MENU' | translate) : ('CLOSE' | translate)"
+            [attr.aria-expanded]="!isCollapsed"
         >
             <span></span>
             <span></span>

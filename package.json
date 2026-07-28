@@ -7,6 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "lighthouse": "npm run lighthouse:mobile && npm run lighthouse:desktop",
+    "lighthouse:mobile": "node scripts/run-lighthouse.mjs mobile",
+    "lighthouse:desktop": "node scripts/run-lighthouse.mjs desktop",
+    "lighthouse:prod": "npm run build -- --output-path dist/belal-lighthouse && node scripts/lighthouse-prod.mjs",
     "serve:ssr:belal": "node dist/belal/server/server.mjs"
   },
   "private": true,
@@ -17,6 +21,7 @@
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
     "@angular/forms": "^18.0.0",
+    "@angular/localize": "18.2.13",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/platform-server": "^18.0.0",
@@ -54,6 +59,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lighthouse": "^13.4.1",
     "typescript": "~5.4.2"
   }
 }

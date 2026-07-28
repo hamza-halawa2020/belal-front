@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="about-cta">
-                            <a routerLink="/about" class="btn btn-primary">
+                            <a routerLink="/about" class="btn btn-primary" [attr.aria-label]="('READ_MORE' | translate) + ' - ' + ('ABOUT_US' | translate)">
                                 {{ 'READ_MORE' | translate }}
                                 <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="about-image">
-                        <img src="assets/images/about-image.jpeg" [alt]="'ABOUT_US' | translate" class="img-fluid rounded-3">
+                        <img src="assets/images/about-image.jpeg" [alt]="'ABOUT_US' | translate" class="img-fluid rounded-3" width="549" height="549">
                         <div class="experience-badge">
                             <div class="badge-content">
                                 <h3>{{ homeData.stats.yearsExperience }}+</h3>
@@ -97,7 +97,7 @@
                         <div class="service-content">
                             <h4>{{ service.title }}</h4>
                             <p>{{ service.description }}</p>
-                            <a [routerLink]="service.link" class="service-link">
+                            <a [routerLink]="service.link" class="service-link" [attr.aria-label]="('READ_MORE' | translate) + ' - ' + service.title">
                                 {{ 'READ_MORE' | translate }}
                                 <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
@@ -167,9 +167,9 @@
                     <div class="work-sample-card">
                         <div class="work-image">
                             <img [src]="getImageUrl(sample.image_url, contentImageFallback, sample.image)" 
-                                 [alt]="sample.title" class="img-fluid" [appImageFallback]="contentImageFallback">
+                                 [alt]="sample.title" class="img-fluid" width="359" height="250" [appImageFallback]="contentImageFallback">
                             <div class="work-overlay">
-                                <a [routerLink]="['/work-samples', sample.id]" class="work-link">
+                                <a [routerLink]="['/work-samples', sample.id]" class="work-link" [attr.aria-label]="('READ_MORE' | translate) + ' - ' + sample.title">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                             </div>
@@ -203,7 +203,7 @@
                     <div class="team-card text-center">
                         <div class="team-image">
                             <img [src]="getImageUrl(member.image_url, contentImageFallback, member.image)" 
-                                 [alt]="member.name" class="img-fluid rounded-circle" [appImageFallback]="contentImageFallback">
+                                 [alt]="member.name" class="img-fluid rounded-circle" width="120" height="120" [appImageFallback]="contentImageFallback">
                         </div>
                         <div class="team-content">
                             <h4>{{ member.name }}</h4>
@@ -270,7 +270,7 @@
                     <div class="post-card">
                         <div class="post-image">
                             <img [src]="getImageUrl(post.image_url, contentImageFallback, post.image)" 
-                                 [alt]="post.title" class="img-fluid" [appImageFallback]="contentImageFallback">
+                                 [alt]="post.title" class="img-fluid" width="359" height="250" [appImageFallback]="contentImageFallback">
                             <div class="post-date">
                                 <span class="date-day">{{ formatDate(post.created_at).split(' ')[0] }}</span>
                                 <span class="date-month">{{ formatDate(post.created_at).split(' ')[1] }}</span>
@@ -282,7 +282,7 @@
                                 <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
                             </h4>
                             <p class="post-excerpt">{{ truncateText(post.excerpt || post.content, 120) }}</p>
-                            <a [routerLink]="['/posts', post.id]" class="post-link">
+                            <a [routerLink]="['/posts', post.id]" class="post-link" [attr.aria-label]="('READ_MORE' | translate) + ' - ' + post.title">
                                 {{ 'READ_MORE' | translate }}
                                 <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
@@ -310,7 +310,7 @@
                 </div>
                 <div class="col-lg-4 text-center">
                     <div class="cta-buttons">
-                        <a routerLink="/request-feasibility-study" class="btn btn-light btn-lg me-3">
+                        <a routerLink="/request-feasibility-study" class="btn btn-light btn-lg me-3" [attr.aria-label]="'REQUEST_STUDY' | translate">
                             {{ 'REQUEST_STUDY' | translate }}
                             <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                         </a>
@@ -335,8 +335,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let partner of homeData.partners | slice:0:3">
                     <div class="partner-item text-center">
-                        <img [src]="getImageUrl(partner.logo_url, logoImageFallback)" 
-                             [alt]="partner.name" class="img-fluid" [appImageFallback]="logoImageFallback">
+                        <img [src]="getPartnerLogoUrl(partner.logo_url)" 
+                             [alt]="partner.name" class="img-fluid" width="359" height="297" [appImageFallback]="logoImageFallback">
                     </div>
                 </div>
             </div>

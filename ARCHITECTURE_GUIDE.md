@@ -503,6 +503,10 @@ Application code should not decide which environment file is active. Angular bui
 
 - Prefer a Node.js LTS version for local development and production builds.
 - The project currently builds and serves successfully, but odd-numbered Node.js versions show a warning and should not be used for production.
+- Use `npm.cmd run lighthouse` to measure performance, accessibility, best practices, and SEO after starting the dev server on `http://localhost:4200/`.
+- Prefer `npm.cmd run lighthouse:prod` for performance baselines because it measures a production build instead of the Angular dev server.
+- Lighthouse reports are generated under `reports/lighthouse` and should not be committed.
+- Lighthouse requires Chrome and a Node.js command available in the terminal PATH.
 - If the dev server reports a PostCSS/Vite config parsing error under `.angular/vite-root`, first restart the dev server.
 - If the error persists, clear Angular's local cache and rebuild before changing application code.
 - Avoid running multiple Angular dev/build/watch processes against the same `dist/` or cache folders because it can cause transient file locks on Windows.
@@ -644,6 +648,8 @@ AGENTS.md
 - Normalized success partner images through `getStoredImageUrl()` and `ImageFallbackDirective`.
 - Normalized success partner detail API typing to return `ApiResponse<SuccessPartner>`.
 - Removed the unused `magnific-popup` dependency from project manifests.
+- Added Lighthouse scripts for mobile and desktop performance, accessibility, best practices, and SEO checks.
+- Fixed first Lighthouse accessibility findings: main landmark, accessible icon links, explicit image dimensions, and noisy Clearbit fallback logo requests on the home page.
 - Production build succeeds with `npm.cmd run build`.
 
 ### Next Improvement Areas
@@ -659,6 +665,7 @@ AGENTS.md
 - Keep `src/assets/js` empty unless a reviewed static asset requires it.
 - Keep passive CSS assets out of `src/assets/css`; add styles through `angular.json` or component SCSS intentionally.
 - Add linting rules or AI instructions that block `any`, `environment.development`, and new files outside the agreed architecture.
+- Use Lighthouse after UI/SEO/performance changes and compare generated reports before and after meaningful UI updates.
 
 ## Recommended First Refactor
 
@@ -699,3 +706,4 @@ A new feature is considered complete only when:
 - It uses shared components where appropriate.
 - It imports `environment`, not `environment.development`.
 - It builds successfully with `npm run build`.
+- UI, SEO, accessibility, or performance changes include a Lighthouse check when a browser environment is available.

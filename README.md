@@ -28,6 +28,19 @@ npm.cmd run build
 npm.cmd test -- --watch=false --browsers=ChromeHeadless
 ```
 
+Lighthouse checks for performance, accessibility, best practices, and SEO:
+
+```bash
+npm.cmd run lighthouse
+npm.cmd run lighthouse:mobile
+npm.cmd run lighthouse:desktop
+npm.cmd run lighthouse:prod
+```
+
+Run the Angular dev server first on `http://localhost:4200/`. Reports are generated under `reports/lighthouse`.
+Lighthouse requires Chrome and a Node.js command available in the terminal PATH.
+Use `npm.cmd run lighthouse:prod` for the most useful performance baseline because it measures a production build instead of the dev server.
+
 Use a Node.js LTS version when possible. Odd-numbered Node versions can work locally, but they are not recommended for production.
 
 ## Project Structure
