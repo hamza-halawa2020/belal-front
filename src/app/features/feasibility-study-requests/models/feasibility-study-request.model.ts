@@ -3,3 +3,8 @@ export interface FeasibilityStudyRequestPayload {
     phone: string;
     message: string;
 }
+
+export interface FeasibilityStudyRequestResult {
+    id?: number;
+    message?: string;
+}

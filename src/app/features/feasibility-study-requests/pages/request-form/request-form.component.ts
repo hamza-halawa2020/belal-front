@@ -1,12 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
+import { ApiErrorResponse } from '../../../../core/api/api.types';
 import { FeasibilityStudyRequestsApi } from '../../data-access/feasibility-study-requests.api';
 import { FeasibilityStudyRequestPayload } from '../../models/feasibility-study-request.model';
+
+type FeasibilityStudyRequestForm = {
+    name: FormControl<string>;
+    phone: FormControl<string>;
+    message: FormControl<string>;
+};
 
 @Component({
     selector: 'app-feasibility-study-request-form',
@@ -16,14 +23,14 @@ import { FeasibilityStudyRequestPayload } from '../../models/feasibility-study-r
     styleUrls: ['./request-form.component.scss']
 })
 export class FeasibilityStudyRequestFormComponent {
-    requestForm: FormGroup;
+    requestForm: FormGroup<FeasibilityStudyRequestForm>;
     successMessage = '';
     errorMessage = '';
     isSubmitting = false;
 
     constructor(
         private readonly feasibilityStudyRequestsApi: FeasibilityStudyRequestsApi,
-        private readonly fb: FormBuilder,
+        private readonly fb: NonNullableFormBuilder,
         private readonly translate: TranslateService
     ) {
         this.requestForm = this.fb.group({
@@ -50,11 +57,8 @@ export class FeasibilityStudyRequestFormComponent {
             })
         ).subscribe({
             next: () => {
-                this.successMessage = this.translate.instant('REQUEST_SUCCESS_MESSAGE');
                 this.requestForm.reset();
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 7000);
+                this.showSuccess(this.translate.instant('REQUEST_SUCCESS_MESSAGE'));
             },
             error: (error: HttpErrorResponse) => {
                 this.showError(this.getErrorMessage(error));
@@ -62,10 +66,10 @@ export class FeasibilityStudyRequestFormComponent {
         });
     }
 
-    getFieldError(fieldName: string): string {
-        const field = this.requestForm.get(fieldName);
+    getFieldError(fieldName: keyof FeasibilityStudyRequestForm): string {
+        const field = this.requestForm.controls[fieldName];
 
-        if (!field?.errors || !field.touched) {
+        if (!field.errors || !field.touched) {
             return '';
         }
 
@@ -83,28 +87,29 @@ export class FeasibilityStudyRequestFormComponent {
     }
 
     private getPayload(): FeasibilityStudyRequestPayload {
-        return {
-            name: this.requestForm.value.name,
-            phone: this.requestForm.value.phone,
-            message: this.requestForm.value.message
-        };
+        return this.requestForm.getRawValue();
     }
 
     private markFormGroupTouched(): void {
-        Object.values(this.requestForm.controls).forEach(control => {
-            control.markAsTouched();
-        });
+        this.requestForm.markAllAsTouched();
+    }
+
+    private showSuccess(message: string): void {
+        this.successMessage = message;
+        window.setTimeout(() => {
+            this.successMessage = '';
+        }, 7000);
     }
 
     private showError(message: string): void {
         this.errorMessage = message;
-        setTimeout(() => {
+        window.setTimeout(() => {
             this.errorMessage = '';
         }, 5000);
     }
 
     private getErrorMessage(error: HttpErrorResponse): string {
-        const responseError = error.error;
+        const responseError = error.error as ApiErrorResponse | undefined;
 
         if (responseError?.errors) {
             return Object.values(responseError.errors)
