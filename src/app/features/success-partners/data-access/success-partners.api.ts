@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { PaginatedResponse } from '../../../core/api/api.types';
+import { ApiResponse, PaginatedResponse } from '../../../core/api/api.types';
 import { SuccessPartner } from '../models/success-partner.model';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class SuccessPartnersApi {
         return this.http.get<PaginatedResponse<SuccessPartner>>(`${this.apiUrl}/success-partners?page=${page}`);
     }
 
-    getPartner(id: string): Observable<SuccessPartner> {
-        return this.http.get<SuccessPartner>(`${this.apiUrl}/success-partners/${id}`);
+    getPartner(id: string): Observable<ApiResponse<SuccessPartner>> {
+        return this.http.get<ApiResponse<SuccessPartner>>(`${this.apiUrl}/success-partners/${id}`);
     }
 }

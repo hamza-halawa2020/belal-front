@@ -641,6 +641,7 @@ AGENTS.md
 - Removed demo placeholder image CSS and replaced broken home fallback image paths with existing assets.
 - Removed the old global template stylesheet from `src/assets/css/style.css`; the app now relies on vendor CSS, `src/styles.scss`, and component SCSS.
 - Normalized success partner images through `getStoredImageUrl()` and `ImageFallbackDirective`.
+- Normalized success partner detail API typing to return `ApiResponse<SuccessPartner>`.
 - Removed the unused `magnific-popup` dependency from project manifests.
 - Production build succeeds with `npm.cmd run build`.
 
