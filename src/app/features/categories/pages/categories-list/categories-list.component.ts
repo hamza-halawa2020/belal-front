@@ -51,7 +51,7 @@ export class CategoriesListComponent implements OnInit {
             error: () => {
                 this.categories = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load categories.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

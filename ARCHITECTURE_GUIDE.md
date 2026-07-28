@@ -318,6 +318,7 @@ Rules:
 - API services should not show messages.
 - API services should not call `window`, `document`, or router navigation unless there is a strong reason.
 - If the backend returns JSON encoded inside string fields, parse it into typed component state before rendering; do not show raw JSON in templates.
+- Browser-only APIs such as `window`, `document`, and `localStorage` must be guarded with `isPlatformBrowser()` in components or wrapped in shared utilities.
 
 ## List Page Pattern
 
@@ -345,10 +346,10 @@ loadPage(page = 1): void {
     next: response => {
       this.items = response.data;
       this.meta = response.meta;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToPageTop();
     },
     error: () => {
-      this.errorMessage = 'Failed to load data.';
+      this.errorMessage = 'UNEXPECTED_ERROR';
     }
   });
 }
@@ -362,6 +363,7 @@ Rules:
 - Do not duplicate pagination page-number calculation inside pages. Use the shared pagination component.
 - Use `canLoadPage(meta, page)` for pagination guards.
 - Use `scrollToPageTop()` after successful page loads.
+- Store translation keys such as `UNEXPECTED_ERROR` in page error state and render them with the `translate` pipe.
 
 ## Details Page Pattern
 
@@ -394,7 +396,7 @@ ngOnInit(): void {
       this.item = response.data;
     },
     error: () => {
-      this.errorMessage = 'Failed to load details.';
+      this.errorMessage = 'UNEXPECTED_ERROR';
     }
   });
 }

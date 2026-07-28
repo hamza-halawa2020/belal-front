@@ -54,7 +54,7 @@ export class SuccessPartnersListComponent implements OnInit {
             error: () => {
                 this.partners = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load partners.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

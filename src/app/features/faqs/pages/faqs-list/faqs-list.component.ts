@@ -52,7 +52,7 @@ export class FaqsListComponent implements OnInit {
             error: () => {
                 this.faqs = [];
                 this.meta = null;
-                this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

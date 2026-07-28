@@ -6,7 +6,7 @@
         </div>
 
         <div class="alert alert-danger text-center" *ngIf="errorMessage">
-            {{ errorMessage }}
+            {{ errorMessage | translate }}
         </div>
 
         <div class="row" *ngIf="isLoading">

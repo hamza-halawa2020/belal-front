@@ -7,7 +7,7 @@
         </div>
 
         <div class="alert alert-danger text-center" *ngIf="!isLoading && errorMessage">
-            {{ errorMessage }}
+            {{ errorMessage | translate }}
         </div>
 
         <div *ngIf="!isLoading && category">

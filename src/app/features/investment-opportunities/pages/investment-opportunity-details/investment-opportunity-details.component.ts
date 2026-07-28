@@ -49,7 +49,7 @@ export class InvestmentOpportunityDetailsComponent implements OnInit {
             },
             error: () => {
                 this.opportunity = null;
-                this.errorMessage = 'Failed to load investment opportunity details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -50,7 +50,7 @@ export class WorkSamplesListComponent implements OnInit {
             error: () => {
                 this.workSamples = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load work samples.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -62,7 +62,7 @@ export class WorkSampleDetailsComponent implements OnInit {
                 this.providedServices = [];
                 this.studyContentItems = [];
                 this.financialMetrics = [];
-                this.errorMessage = 'Failed to load work sample details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

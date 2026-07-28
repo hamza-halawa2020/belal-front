@@ -50,7 +50,7 @@ export class PostsListComponent implements OnInit {
             error: () => {
                 this.posts = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load posts.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -51,7 +51,7 @@ export class StaffListComponent implements OnInit {
             error: () => {
                 this.staff = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load team members.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

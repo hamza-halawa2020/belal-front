@@ -50,7 +50,7 @@ export class FeasibilityStudiesListComponent implements OnInit {
             error: () => {
                 this.studies = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load feasibility studies.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -50,7 +50,7 @@ export class CategoryDetailsComponent implements OnInit {
             },
             error: () => {
                 this.category = null;
-                this.errorMessage = 'Failed to load category details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

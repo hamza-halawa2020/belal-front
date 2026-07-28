@@ -49,7 +49,7 @@ export class ServiceDetailsComponent implements OnInit {
             },
             error: () => {
                 this.service = null;
-                this.errorMessage = 'Failed to load service details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

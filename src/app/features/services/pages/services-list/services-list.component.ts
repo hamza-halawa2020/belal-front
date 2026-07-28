@@ -50,7 +50,7 @@ export class ServicesListComponent implements OnInit {
             error: () => {
                 this.services = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load services.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

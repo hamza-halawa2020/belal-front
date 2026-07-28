@@ -49,7 +49,7 @@ export class ReviewsListComponent implements OnInit {
             error: () => {
                 this.reviews = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load reviews.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

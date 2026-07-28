@@ -50,7 +50,7 @@ export class InvestmentOpportunitiesListComponent implements OnInit {
             error: () => {
                 this.opportunities = [];
                 this.meta = null;
-                this.errorMessage = 'Failed to load investment opportunities.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -29,6 +29,7 @@ src/app
 - Use `getStoredImageUrl()` from `src/app/shared/utils/image-url.util.ts`.
 - Use `getApiErrorMessage()` from `src/app/shared/utils/api-error-message.util.ts`.
 - Use `showTransientMessage()` and `clearTransientMessage()` for temporary form messages.
+- Guard browser-only APIs with `isPlatformBrowser()` or shared utilities.
 
 ## UI Direction
 

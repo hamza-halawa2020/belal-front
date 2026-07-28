@@ -49,7 +49,7 @@ export class PostDetailsComponent implements OnInit {
             },
             error: () => {
                 this.post = null;
-                this.errorMessage = 'Failed to load post details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

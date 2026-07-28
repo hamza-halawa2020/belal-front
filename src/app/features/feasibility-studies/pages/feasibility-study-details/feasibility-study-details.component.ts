@@ -62,7 +62,7 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
                 this.providedServices = [];
                 this.studyContentItems = [];
                 this.financialMetrics = [];
-                this.errorMessage = 'Failed to load feasibility study details.';
+                this.errorMessage = 'UNEXPECTED_ERROR';
             }
         });
     }

@@ -35,7 +35,7 @@
 
         <div class="alert alert-danger text-center" *ngIf="!isLoading && errorMessage">
             <i class="fa-solid fa-triangle-exclamation"></i>
-            {{ errorMessage }}
+            {{ errorMessage | translate }}
         </div>
 
         <div class="row" *ngIf="!isLoading && !errorMessage">
