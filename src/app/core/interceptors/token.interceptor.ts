@@ -1,12 +1,12 @@
 import {
+    HttpEvent,
+    HttpHandlerFn,
     HttpInterceptorFn,
     HttpRequest,
-    HttpHandlerFn,
-    HttpEvent,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 export const tokenInterceptor: HttpInterceptorFn = (
     req: HttpRequest<unknown>,
@@ -15,14 +15,13 @@ export const tokenInterceptor: HttpInterceptorFn = (
     const cookieService = inject(CookieService);
     const token = cookieService.get('token');
 
-    if (token) {
-        const authReq = req.clone({
-            setHeaders: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return next(authReq);
+    if (!token) {
+        return next(req);
     }
 
-    return next(req);
+    return next(req.clone({
+        setHeaders: {
+            Authorization: `Bearer ${token}`,
+        },
+    }));
 };

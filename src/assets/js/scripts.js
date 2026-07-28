@@ -20,13 +20,12 @@
 				type: 'iframe'
 			});
 			$('.magnific_popup').magnificPopup({
-				disableOn: 700,
+				disableOn: 300,
 				type: 'iframe',
 				mainClass: 'mfp-fade',
 				removalDelay: 160,
 				preloader: false,
-				fixedContentPos: false,
-				disableOn: 300
+				fixedContentPos: false
 			});	
 		}
 		/*END VIDEO JS*/	

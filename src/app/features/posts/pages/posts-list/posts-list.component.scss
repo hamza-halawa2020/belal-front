@@ -1,0 +1,35 @@
+.posts-area {
+    background-color: #fbfbfc;
+    padding: 56px 0;
+}
+
+.section-title {
+    margin-bottom: 28px;
+}
+
+.skeleton-loader {
+    background: #f0f0f2;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+        animation: shimmer 1.5s infinite;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

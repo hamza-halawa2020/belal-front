@@ -16,11 +16,7 @@ export const routes: Routes = [
 
     {
         path: 'services',
-        loadComponent: () => import('./pages/services-page/services-list/services-list.component').then(m => m.ServicesListComponent)
-    },
-    {
-        path: 'services/:id',
-        loadComponent: () => import('./pages/services-page/service-details/service-details.component').then(m => m.ServiceDetailsComponent)
+        loadChildren: () => import('./features/services/services.routes').then(m => m.servicesRoutes)
     },
 
     {
@@ -34,11 +30,7 @@ export const routes: Routes = [
 
     {
         path: 'posts',
-        loadComponent: () => import('./pages/posts-page/posts-list/posts-list.component').then(m => m.PostsListComponent)
-    },
-    {
-        path: 'posts/:id',
-        loadComponent: () => import('./pages/posts-page/post-details/post-details.component').then(m => m.PostDetailsComponent)
+        loadChildren: () => import('./features/posts/posts.routes').then(m => m.postsRoutes)
     },
 
     {

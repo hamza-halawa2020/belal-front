@@ -1,18 +1,21 @@
 <section class="service-details-area">
-    <div class="container ">
-        <!-- Loading State -->
+    <div class="container">
         <div class="text-center py-5" *ngIf="isLoading">
             <div class="spinner-grow text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
 
+        <div class="alert alert-danger text-center" *ngIf="!isLoading && errorMessage">
+            {{ errorMessage }}
+        </div>
+
         <div *ngIf="!isLoading && service" class="details-card animate__animated animate__fadeInUp">
-            <div class="img-container">
-                <img [src]="service.image_url" [alt]="service.title">
+            <div class="img-container" *ngIf="service.image_url || service.image">
+                <img [src]="service.image_url || service.image" [alt]="service.title">
                 <div class="overlay"></div>
-                <div class="title-wrapper animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
-                    <div class="badges">
+                <div class="title-wrapper animate__animated animate__fadeIn">
+                    <div class="badges" *ngIf="service.status !== undefined">
                         <div class="status-badge mb-3" [class.active]="service.status === 1">
                             <i class="fa-solid" [ngClass]="service.status === 1 ? 'fa-check-circle' : 'fa-clock'"></i>
                             {{ service.status === 1 ? ('ACTIVE' | translate) : ('INACTIVE' | translate) }}
@@ -22,12 +25,15 @@
                 </div>
             </div>
 
-            <div class="content-container animate__animated animate__fadeIn" style="animation-delay: 0.5s;">
-                <!-- Using innerHTML to render HTML content from API -->
+            <div class="title-block" *ngIf="!service.image_url && !service.image">
+                <h1>{{ service.title }}</h1>
+            </div>
+
+            <div class="content-container" *ngIf="service.description">
                 <div [innerHTML]="service.description"></div>
             </div>
 
-            <div class="actions animate__animated animate__fadeIn" style="animation-delay: 0.7s;">
+            <div class="actions">
                 <a routerLink="/services" class="back-btn">
                     <i class="fa-solid fa-arrow-left"></i>
                     {{ 'BACK_TO_SERVICES' | translate }}
