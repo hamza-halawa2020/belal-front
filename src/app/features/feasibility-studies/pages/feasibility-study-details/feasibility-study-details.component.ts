@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { FeasibilityStudiesApi } from '../../data-access/feasibility-studies.api';
 import { FeasibilityStudy } from '../../models/feasibility-study.model';
 
@@ -50,14 +50,6 @@ export class FeasibilityStudyDetailsComponent implements OnInit {
     }
 
     getImageUrl(study: FeasibilityStudy): string {
-        if (study.image_url) {
-            return study.image_url;
-        }
-
-        if (study.image) {
-            return `${environment.imgUrl}storage/${study.image}`;
-        }
-
-        return '';
+        return getStoredImageUrl(study.image_url, study.image);
     }
 }

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { environment } from '../../../../environments/environment';
+import { getStoredImageUrl } from '../../utils/image-url.util';
 
 export interface ContentCardItem {
     id: number;
@@ -25,18 +25,6 @@ export class ContentCardComponent {
     @Input() animationDelay: number = 0;
 
     getImageUrl(): string {
-        if (!this.item) return '';
-        
-        // If image_url exists, use it directly
-        if (this.item.image_url) {
-            return this.item.image_url;
-        }
-        
-        // If only image filename exists, construct the full URL
-        if (this.item.image) {
-            return `${environment.imgUrl}storage/${this.item.image}`;
-        }
-        
-        return '';
+        return getStoredImageUrl(this.item?.image_url, this.item?.image);
     }
 }

@@ -5,7 +5,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Va
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
-import { ApiErrorResponse } from '../../../../core/api/api.types';
+import { getApiErrorMessage } from '../../../../shared/utils/api-error-message.util';
 import { FeasibilityStudyRequestsApi } from '../../data-access/feasibility-study-requests.api';
 import { FeasibilityStudyRequestPayload } from '../../models/feasibility-study-request.model';
 
@@ -61,7 +61,7 @@ export class FeasibilityStudyRequestFormComponent {
                 this.showSuccess(this.translate.instant('REQUEST_SUCCESS_MESSAGE'));
             },
             error: (error: HttpErrorResponse) => {
-                this.showError(this.getErrorMessage(error));
+                this.showError(getApiErrorMessage(error, this.translate.instant('REQUEST_UNEXPECTED_ERROR')));
             }
         });
     }
@@ -108,19 +108,4 @@ export class FeasibilityStudyRequestFormComponent {
         }, 5000);
     }
 
-    private getErrorMessage(error: HttpErrorResponse): string {
-        const responseError = error.error as ApiErrorResponse | undefined;
-
-        if (responseError?.errors) {
-            return Object.values(responseError.errors)
-                .flat()
-                .join(' | ');
-        }
-
-        if (responseError?.message) {
-            return responseError.message;
-        }
-
-        return this.translate.instant('REQUEST_UNEXPECTED_ERROR');
-    }
 }

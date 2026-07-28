@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
-import { ApiErrorResponse } from '../../../../core/api/api.types';
+import { getApiErrorMessage } from '../../../../shared/utils/api-error-message.util';
 import { ContactApi } from '../../data-access/contact.api';
 import { ContactMessagePayload } from '../../models/contact-message.model';
 
@@ -65,7 +65,7 @@ export class ContactPageComponent {
                 this.showSuccess(this.translate.instant('CONTACT_SUCCESS_MESSAGE'));
             },
             error: (error: HttpErrorResponse) => {
-                this.showError(this.getErrorMessage(error));
+                this.showError(getApiErrorMessage(error, this.translate.instant('CONTACT_UNEXPECTED_ERROR')));
             }
         });
     }
@@ -106,15 +106,4 @@ export class ContactPageComponent {
         }, 5000);
     }
 
-    private getErrorMessage(error: HttpErrorResponse): string {
-        const responseError = error.error as ApiErrorResponse | undefined;
-
-        if (responseError?.errors) {
-            return Object.values(responseError.errors)
-                .flat()
-                .join(' | ');
-        }
-
-        return responseError?.message || this.translate.instant('CONTACT_UNEXPECTED_ERROR');
-    }
 }
