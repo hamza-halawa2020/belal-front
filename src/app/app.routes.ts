@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeDemoOneComponent } from './demos/home-demo-one/home-demo-one.component';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { TermsConditionsPageComponent } from './pages/terms-conditions-page/terms-conditions-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -13,7 +11,10 @@ export const routes: Routes = [
         path: 'privacy-policy',
         loadChildren: () => import('./features/privacy-policy/privacy-policy.routes').then(m => m.privacyPolicyRoutes)
     },
-    { path: 'terms-conditions', component: TermsConditionsPageComponent },
+    {
+        path: 'terms-conditions',
+        loadChildren: () => import('./features/terms-conditions/terms-conditions.routes').then(m => m.termsConditionsRoutes)
+    },
     {
         path: 'contacts',
         loadChildren: () => import('./features/contact/contact.routes').then(m => m.contactRoutes)
@@ -74,5 +75,8 @@ export const routes: Routes = [
         loadChildren: () => import('./features/reviews/reviews.routes').then(m => m.reviewsRoutes)
     },
 
-    { path: '**', component: ErrorPageComponent },
+    {
+        path: '**',
+        loadComponent: () => import('./core/pages/error-page/error-page.component').then(m => m.ErrorPageComponent)
+    },
 ];
