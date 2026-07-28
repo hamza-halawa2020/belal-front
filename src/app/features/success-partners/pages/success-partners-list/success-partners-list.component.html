@@ -1,0 +1,69 @@
+<section class="partners-page">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'SUCCESS_PARTNERS' | translate }}</h2>
+            <p>{{ 'PARTNERS_SUBTITLE' | translate }}</p>
+        </div>
+
+        <div class="row" *ngIf="isLoading">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-loader"></div>
+            </div>
+        </div>
+
+        <div class="partners-summary" *ngIf="!isLoading && partners.length > 0">
+            <div class="summary-copy">
+                <h3>{{ 'WHY_PARTNER_WITH_US' | translate }}</h3>
+                <p>{{ 'PARTNERSHIP_INTRO' | translate }}</p>
+            </div>
+
+            <div class="summary-points">
+                <div class="summary-point">
+                    <i class="fa-solid fa-handshake"></i>
+                    <span>{{ 'MUTUAL_SUCCESS' | translate }}</span>
+                </div>
+                <div class="summary-point">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>{{ 'GROWTH_OPPORTUNITIES' | translate }}</span>
+                </div>
+                <div class="summary-point">
+                    <i class="fa-solid fa-users"></i>
+                    <span>{{ 'COLLABORATIVE_APPROACH' | translate }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger text-center" *ngIf="!isLoading && errorMessage">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            {{ errorMessage }}
+        </div>
+
+        <div class="row" *ngIf="!isLoading && !errorMessage">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let partner of partners">
+                <article class="partner-card">
+                    <div class="partner-image">
+                        <img [src]="partner.image_url" [alt]="partner.name">
+                    </div>
+
+                    <div class="partner-info">
+                        <h3>{{ partner.name }}</h3>
+
+                        <button type="button" class="partner-link" (click)="openPartnerLink(partner.link)" *ngIf="partner.link">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>{{ 'VISIT_WEBSITE' | translate }}</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-12 text-center py-5" *ngIf="partners.length === 0">
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-info-circle"></i>
+                    {{ 'NO_PARTNERS_FOUND' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)" *ngIf="!isLoading && meta"></app-pagination>
+    </div>
+</section>

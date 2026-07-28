@@ -60,7 +60,7 @@ export const routes: Routes = [
 
     {
         path: 'partners',
-        loadComponent: () => import('./pages/success-partners-page/success-partners-list/success-partners-list.component').then(m => m.SuccessPartnersListComponent)
+        loadChildren: () => import('./features/success-partners/success-partners.routes').then(m => m.successPartnersRoutes)
     },
 
     {
