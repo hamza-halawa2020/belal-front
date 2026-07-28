@@ -32,7 +32,6 @@
                         ngbDropdownToggle 
                         id="languageDropdown"
                     >
-                        <span class="flag">{{ getCurrentLanguageData().flag }}</span>
                         <span class="lang-name">{{ getCurrentLanguageData().name }}</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
@@ -43,7 +42,6 @@
                             [class.active]="lang.code === currentLanguage"
                             (click)="switchLanguage(lang.code)"
                         >
-                            <span class="flag">{{ lang.flag }}</span>
                             <span>{{ lang.name }}</span>
                             <i class="fas fa-check" *ngIf="lang.code === currentLanguage"></i>
                         </button>

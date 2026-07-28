@@ -14,8 +14,8 @@ import { auditTime } from 'rxjs/operators';
 export class BackToTopComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
 
-    isShow: boolean = false;
-    topPosToStartShowing = 100;
+    isShow = false;
+    private readonly topPosToStartShowing = 100;
 
     ngOnInit(): void {
         fromEvent(window, 'scroll').pipe(
@@ -26,16 +26,15 @@ export class BackToTopComponent implements OnInit {
         });
     }
 
-    checkScroll() {
+    checkScroll(): void {
         const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
         this.isShow = scrollPosition >= this.topPosToStartShowing;
     }
 
-    scrollToTop() {
+    scrollToTop(): void {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     }
-
 }

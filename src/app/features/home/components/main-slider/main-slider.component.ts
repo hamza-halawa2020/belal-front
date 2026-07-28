@@ -32,50 +32,47 @@ export class MainSlider implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
     sliderData: MainSliderItem[] | null = null;
 
-    // Reference to the OwlCarousel component
     @ViewChild('owlCarousel', { static: false })
     owlCarousel!: CarouselComponent;
 
     currentOptions: OwlOptions;
 
-    feedbackSlides: OwlOptions = {
+    readonly feedbackSlides: OwlOptions = {
         items: 1,
-        nav: false, // Disable default nav buttons
+        nav: false,
         loop: true,
-        // margin: 25,
         dots: true,
-        autoplay: true,
+        autoplay: false,
         autoplayHoverPause: true,
         autoHeight: false,
         responsive: {
             0: {
                 autoHeight: false,
-                autoplay: true,
+                autoplay: false,
             },
         },
     };
 
-    feedbackSlides2: OwlOptions = {
+    readonly feedbackSlides2: OwlOptions = {
         items: 1,
-        nav: false, // Disable default nav buttons
+        nav: false,
         loop: true,
-        // margin: 25,
         dots: true,
-        autoplay: true,
+        autoplay: false,
         autoplayHoverPause: true,
         rtl: true,
         autoHeight: false,
         responsive: {
             0: {
                 autoHeight: false,
-                autoplay: true,
+                autoplay: false,
             },
         },
     };
 
     constructor(
-        private mainSliderApi: MainSliderApi,
-        public translate: TranslateService
+        private readonly mainSliderApi: MainSliderApi,
+        public readonly translate: TranslateService
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'

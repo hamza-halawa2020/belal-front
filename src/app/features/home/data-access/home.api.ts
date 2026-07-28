@@ -71,10 +71,10 @@ export interface HomePartner {
   providedIn: 'root'
 })
 export class HomeApi {
-  private apiUrl = environment.backEndUrl;
+  private readonly apiUrl = environment.backEndUrl;
 
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
   ) {}
 
 
@@ -103,7 +103,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<WorkSample>>(`${this.apiUrl}/work-samples?limit=3`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -113,7 +113,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<StaffMember>>(`${this.apiUrl}/staff?limit=4`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -133,7 +133,7 @@ export class HomeApi {
             rating: review.rating
           }));
         }),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -143,7 +143,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<HomePost>>(`${this.apiUrl}/posts?limit=3`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -162,7 +162,7 @@ export class HomeApi {
             status: partner.status
           }));
         }),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -181,7 +181,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<Service>>(`${this.apiUrl}/services?limit=3`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -191,7 +191,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<FeasibilityStudy>>(`${this.apiUrl}/feasibility-studies?limit=3`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -201,7 +201,7 @@ export class HomeApi {
     return this.http.get<HomeApiListResponse<InvestmentOpportunity>>(`${this.apiUrl}/investment-opportunities?limit=3`)
       .pipe(
         map(response => response.data || []),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );

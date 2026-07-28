@@ -1,46 +1,49 @@
 .go-top {
+    right: 24px;
+    bottom: 24px;
     z-index: 999;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    bottom: 30px; // تحسين الموضع
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: #4c0048 !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(76, 0, 72, 0.14);
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(20, 20, 20, 0.1);
     cursor: pointer;
-    background: linear-gradient(135deg, #667eea, #764ba2) !important; // تحسين اللون
-    color: #ffffff !important;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    border: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 
     i {
-        left: 0;
-        top: 50%;
-        right: 0;
-        margin-top: 0;
-        position: absolute;
-        transform: translateY(-50%);
-        font-size: 16px;
-        color: #ffffff !important;
+        font-size: 14px;
+        line-height: 1;
     }
-    
-    &:hover {
-        background: linear-gradient(135deg, #5a6fd8, #6a4190) !important;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+
+    &:hover,
+    &:focus-visible {
         color: #ffffff !important;
+        background: #4c0048 !important;
+        border-color: #4c0048;
+        box-shadow: 0 10px 24px rgba(20, 20, 20, 0.14);
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(76, 0, 72, 0.18);
+        outline-offset: 3px;
     }
 }
 
-/* Max width 767px */
 @media only screen and (max-width: 767px) {
     .go-top {
-        right: 20px;
-        width: 45px;
+        right: 16px;
         bottom: 20px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
 
         i {
-            margin-top: 0;
-            font-size: 14px;
+            font-size: 13px;
         }
     }
 }

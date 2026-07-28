@@ -1,7 +1,10 @@
-<div
+<button
     *ngIf="isShow"
+    type="button"
     (click)="scrollToTop()"
     class="go-top bg-white text-center rounded-circle position-fixed"
+    aria-label="Back to top"
+    title="Back to top"
 >
     <i class="fa-solid fa-chevron-up"></i>
-</div>
+</button>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-whatsapp-float',
@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./whatsapp-float.component.scss']
 })
 export class WhatsappFloatComponent {
-    phone: string = '201034100565'; // رقم الواتساب بدون علامة +
+    readonly phone = '201034100565';
+    readonly message = 'Hello, I would like to ask about your services';
 
-    openWhatsApp() {
-        const message = encodeURIComponent('مرحباً، أريد الاستفسار عن خدماتكم');
-        const whatsappUrl = `https://wa.me/${this.phone}?text=${message}`;
-        window.open(whatsappUrl, '_blank');
+    openWhatsApp(): void {
+        const whatsappUrl = `https://wa.me/${this.phone}?text=${encodeURIComponent(this.message)}`;
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }
 }

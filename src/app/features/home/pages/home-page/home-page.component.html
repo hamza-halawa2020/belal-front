@@ -109,14 +109,9 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="stats-section section-padding" #statsSection>
+    <section class="stats-section section-padding">
         <div class="container">
             <!-- زر اختبار العداد -->
-            <div class="text-center mb-4" *ngIf="!hasAnimated">
-                <button class="btn btn-light" (click)="testCounter()">
-                    <i class="fa-solid fa-play"></i> {{ 'START_COUNTER' | translate }}
-                </button>
-            </div>
             
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -124,7 +119,7 @@
                         <div class="stat-icon">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
-                        <div class="stat-number">{{ animatedStats.completedStudies }}+</div>
+                        <div class="stat-number">{{ homeData.stats.completedStudies }}+</div>
                         <div class="stat-label">{{ 'COMPLETED_STUDIES' | translate }}</div>
                     </div>
                 </div>
@@ -133,7 +128,7 @@
                         <div class="stat-icon">
                             <i class="fa-solid fa-users"></i>
                         </div>
-                        <div class="stat-number">{{ animatedStats.satisfiedClients }}+</div>
+                        <div class="stat-number">{{ homeData.stats.satisfiedClients }}+</div>
                         <div class="stat-label">{{ 'SATISFIED_CLIENTS' | translate }}</div>
                     </div>
                 </div>
@@ -142,7 +137,7 @@
                         <div class="stat-icon">
                             <i class="fa-solid fa-trophy"></i>
                         </div>
-                        <div class="stat-number">{{ animatedStats.yearsExperience }}+</div>
+                        <div class="stat-number">{{ homeData.stats.yearsExperience }}+</div>
                         <div class="stat-label">{{ 'YEARS_EXPERIENCE' | translate }}</div>
                     </div>
                 </div>
@@ -151,7 +146,7 @@
                         <div class="stat-icon">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
-                        <div class="stat-number">{{ animatedStats.successPartners }}+</div>
+                        <div class="stat-number">{{ homeData.stats.successPartners }}+</div>
                         <div class="stat-label">{{ 'SUCCESS_PARTNERS_COUNT' | translate }}</div>
                     </div>
                 </div>
