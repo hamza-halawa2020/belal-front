@@ -2,15 +2,13 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ChangeDetector
 import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
-import { FooterComponent } from '../../common/footer/footer.component';
-import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
-import { MainSlider } from '../../common/main-slider/main-slider.component';
-import { HomeService, HomeData } from './home.service';
+import { MainSlider } from '../../../../common/main-slider/main-slider.component';
+import { HomeApi, HomeData } from '../../data-access/home.api';
 
 @Component({
-    selector: 'app-home-demo-one',
+    selector: 'app-home-page',
     standalone: true,
     imports: [
         RouterLink,
@@ -22,13 +20,11 @@ import { HomeService, HomeData } from './home.service';
         TranslateModule,
         CarouselModule,
         MainSlider,
-        FooterComponent,
-        BackToTopComponent,
     ],
-    templateUrl: './home-demo-one.component.html',
-    styleUrl: './home-demo-one.component.scss',
+    templateUrl: './home-page.component.html',
+    styleUrl: './home-page.component.scss',
 })
-export class HomeDemoOneComponent implements OnInit, AfterViewInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
     @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
     @ViewChild('testimonialsCarousel', { static: false }) testimonialsCarousel!: CarouselComponent;
     @ViewChild('partnersCarousel', { static: false }) partnersCarousel!: CarouselComponent;
@@ -53,7 +49,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         successPartners: 75
     };
 
-    defaultServices: any[] = [];
+    defaultServices: Array<{ id: number; title: string; description: string; icon: string; link: string }> = [];
 
     partnersCarouselOptions: OwlOptions = {
         loop: true,
@@ -113,7 +109,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     };
     constructor(
         public translate: TranslateService,
-        private homeService: HomeService,
+        private homeApi: HomeApi,
         private cdr: ChangeDetectorRef
     ) {}
 
@@ -150,7 +146,7 @@ loadHomeData(): void {
         this.isLoading = true;
         this.error = null;
 
-        this.homeService.getHomeData().subscribe({
+        this.homeApi.getHomeData().subscribe({
             next: (data) => {
                 if (!this.homeData) {
                     this.homeData = {
@@ -249,7 +245,7 @@ loadHomeData(): void {
         ];
     }
 
-    formatDate(dateString: string): string {
+    formatDate(dateString?: string): string {
         if (!dateString) return '';
         const date = new Date(dateString);
         const day = date.getDate();
@@ -257,12 +253,12 @@ loadHomeData(): void {
         return `${day} ${month}`;
     }
 
-    truncateText(text: string, maxLength: number = 100): string {
+    truncateText(text?: string, maxLength: number = 100): string {
         if (!text) return '';
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     }
 
-    getImageUrl(imageUrl: string, fallback: string = 'assets/images/placeholder.jpg'): string {
+    getImageUrl(imageUrl?: string, fallback: string = 'assets/images/placeholder.jpg'): string {
         return imageUrl || fallback;
     }
 
@@ -296,7 +292,7 @@ loadHomeData(): void {
         }, 100);
     }
 
-    getStarsArray(rating: number): number[] {
+    getStarsArray(rating?: number): number[] {
         const validRating = Math.max(0, Math.min(5, Math.floor(rating || 0)));
         return Array(validRating).fill(0);
     }

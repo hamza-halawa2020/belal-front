@@ -212,15 +212,7 @@
                         </div>
                         <div class="team-content">
                             <h4>{{ member.name }}</h4>
-                            <p class="team-position">{{ member.position }}</p>
-                            <div class="team-social" *ngIf="member.social_links">
-                                <a [href]="member.social_links.linkedin" class="social-link" *ngIf="member.social_links.linkedin" target="_blank">
-                                    <i class="fa-brands fa-linkedin"></i>
-                                </a>
-                                <a [href]="member.social_links.twitter" class="social-link" *ngIf="member.social_links.twitter" target="_blank">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
-                            </div>
+                            <p class="team-position">{{ member.position || member.job_title }}</p>
                         </div>
                     </div>
                 </div>
