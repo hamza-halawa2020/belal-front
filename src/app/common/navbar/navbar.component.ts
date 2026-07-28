@@ -1,5 +1,5 @@
 import { NgClass, NgIf, CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
@@ -110,11 +110,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 })
         );
 
-        // Update currentLanguage when language changes
-        this.translate.onLangChange.subscribe((event) => {
-            this.currentLanguage = event.lang;
-            this.applyLanguageDirection(event.lang);
-        });
+        this.subscriptions.add(
+            this.translate.onLangChange.subscribe(event => {
+                this.currentLanguage = event.lang;
+                this.applyLanguageDirection(event.lang);
+            })
+        );
     }
 
     ngOnDestroy() {

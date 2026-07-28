@@ -1,14 +1,14 @@
 import { CommonModule, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, DestroyRef, inject, OnInit, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import {
     CarouselComponent,
     CarouselModule,
     OwlOptions,
 } from 'ngx-owl-carousel-o';
-import { MainSliderService } from './main-slider.service';
-import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { MainSliderApi } from './main-slider.api';
+import { MainSliderItem } from './main-slider.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -20,18 +20,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         CarouselModule,
         NgIf,
         NgClass,
-        HttpClientModule,
         NgOptimizedImage,
         TranslateModule
     ],
     templateUrl: './main-slider.component.html',
     styleUrls: ['./main-slider.component.scss'],
-    providers: [MainSliderService],
+    providers: [MainSliderApi],
 })
 export class MainSlider implements OnInit {
-    sliderData: any;
-    // image = environment.imgUrl;
-    image = '';
+    private readonly destroyRef = inject(DestroyRef);
+    sliderData: MainSliderItem[] | null = null;
 
     // Reference to the OwlCarousel component
     @ViewChild('owlCarousel', { static: false })
@@ -75,48 +73,47 @@ export class MainSlider implements OnInit {
     };
 
     constructor(
-        public router: Router,
-        private mainSliderService: MainSliderService,
+        private mainSliderApi: MainSliderApi,
         public translate: TranslateService
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'
                 ? this.feedbackSlides2
                 : this.feedbackSlides;
-        this.translate.onLangChange.subscribe((event) => {
-            this.currentOptions =
-                event.lang === 'ar'
-                    ? this.feedbackSlides2
-                    : this.feedbackSlides;
-        });
+        this.translate.onLangChange
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(event => {
+                this.currentOptions =
+                    event.lang === 'ar'
+                        ? this.feedbackSlides2
+                        : this.feedbackSlides;
+            });
     }
 
     ngOnInit(): void {
         this.fetchSliderData();
     }
 
-    fetchSliderData() {
-        this.mainSliderService.index().subscribe({
-            next: (response: any) => {
-                // The API returns data in response.data
+    fetchSliderData(): void {
+        this.mainSliderApi.getSlides().pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
+            next: response => {
                 this.sliderData = response.data || [];
-                // Since API returns full image_url, we don't need to prepend imgUrl
-                this.image = '';
             },
-            error: (error) => {
+            error: () => {
                 this.sliderData = [];
             }
         });
     }
 
-    // Methods to navigate the carousel
-    prevSlide() {
+    prevSlide(): void {
         if (this.owlCarousel) {
             this.owlCarousel.prev();
         }
     }
 
-    nextSlide() {
+    nextSlide(): void {
         if (this.owlCarousel) {
             this.owlCarousel.next();
         }

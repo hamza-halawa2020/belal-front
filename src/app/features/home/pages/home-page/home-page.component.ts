@@ -1,10 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
-import { MainSlider } from '../../../../common/main-slider/main-slider.component';
+import { MainSlider } from '../../components/main-slider/main-slider.component';
 import { HomeApi, HomeData } from '../../data-access/home.api';
 
 @Component({
@@ -16,7 +16,6 @@ import { HomeApi, HomeData } from '../../data-access/home.api';
         NgFor,
         NgIf,
         SlicePipe,
-        HttpClientModule,
         TranslateModule,
         CarouselModule,
         MainSlider,
@@ -25,6 +24,8 @@ import { HomeApi, HomeData } from '../../data-access/home.api';
     styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
+    private readonly destroyRef = inject(DestroyRef);
+
     @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
     @ViewChild('testimonialsCarousel', { static: false }) testimonialsCarousel!: CarouselComponent;
     @ViewChild('partnersCarousel', { static: false }) partnersCarousel!: CarouselComponent;
@@ -117,10 +118,11 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         this.loadHomeData();
         this.updateDefaultServices();
         
-        // Subscribe to language changes
-        this.translate.onLangChange.subscribe(() => {
-            this.updateDefaultServices();
-        });
+        this.translate.onLangChange
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.updateDefaultServices();
+            });
     }
     
     
@@ -146,7 +148,9 @@ loadHomeData(): void {
         this.isLoading = true;
         this.error = null;
 
-        this.homeApi.getHomeData().subscribe({
+        this.homeApi.getHomeData().pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
             next: (data) => {
                 if (!this.homeData) {
                     this.homeData = {
@@ -192,8 +196,7 @@ loadHomeData(): void {
                     }
                 }, 500);
             },
-            error: (error) => {
-                console.error('Error loading home data:', error);
+            error: () => {
                 if (!this.homeData) {
                     this.homeData = {
                         stats: this.defaultStats,

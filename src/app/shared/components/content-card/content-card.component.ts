@@ -4,6 +4,14 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 
+export interface ContentCardItem {
+    id: number;
+    title: string;
+    description?: string;
+    image?: string;
+    image_url?: string;
+}
+
 @Component({
     selector: 'app-content-card',
     standalone: true,
@@ -12,7 +20,7 @@ import { environment } from '../../../../environments/environment';
     styleUrls: ['./content-card.component.scss']
 })
 export class ContentCardComponent {
-    @Input() item: any;
+    @Input() item: ContentCardItem | null = null;
     @Input() routePath: string = '';
     @Input() animationDelay: number = 0;
 

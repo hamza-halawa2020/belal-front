@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaginationMeta } from '../../../core/api/api.types';
 
 @Component({
     selector: 'app-pagination',
@@ -9,10 +10,10 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent {
-    @Input() meta: any;
+    @Input() meta: PaginationMeta | null = null;
     @Output() pageChange = new EventEmitter<number>();
 
-    onPageClick(page: number) {
+    onPageClick(page: number): void {
         if (this.meta && page >= 1 && page <= this.meta.last_page && page !== this.meta.current_page) {
             this.pageChange.emit(page);
         }
@@ -22,7 +23,7 @@ export class PaginationComponent {
         if (!this.meta) return [];
         const total = this.meta.last_page;
         const current = this.meta.current_page;
-        const pages = [];
+        const pages: number[] = [];
 
         if (total <= 7) {
             for (let i = 1; i <= total; i++) pages.push(i);

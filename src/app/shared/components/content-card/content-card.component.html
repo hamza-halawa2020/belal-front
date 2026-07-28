@@ -1,4 +1,4 @@
-<div class="content-card animate__animated animate__fadeInUp" [style.animation-delay]="animationDelay + 's'">
+<div class="content-card animate__animated animate__fadeInUp" [style.animation-delay]="animationDelay + 's'" *ngIf="item">
     <div class="card-img">
         <img [src]="getImageUrl()" [alt]="item.title">
         <div class="overlay"></div>

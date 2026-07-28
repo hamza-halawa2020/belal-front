@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
+import { MainSliderResponse } from './main-slider.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class MainSliderService {
-    private apiUrl = environment.backEndUrl;
-    private data = '/main-sliders';
+export class MainSliderApi {
+    private readonly apiUrl = environment.backEndUrl;
 
-    constructor(private http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
-    index() {
-        return this.http.get(`${this.apiUrl}${this.data}`);
+    getSlides(): Observable<MainSliderResponse> {
+        return this.http.get<MainSliderResponse>(`${this.apiUrl}/main-sliders`);
     }
 }
