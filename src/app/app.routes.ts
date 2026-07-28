@@ -6,7 +6,6 @@ import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-
 import { TermsConditionsPageComponent } from './pages/terms-conditions-page/terms-conditions-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
-
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
     { path: 'about', component: AboutPageComponent },
@@ -58,11 +57,7 @@ export const routes: Routes = [
 
     {
         path: 'categories',
-        loadComponent: () => import('./pages/categories-page/categories-list/categories-list.component').then(m => m.CategoriesListComponent)
-    },
-    {
-        path: 'categories/:id',
-        loadComponent: () => import('./pages/categories-page/category-details/category-details.component').then(m => m.CategoryDetailsComponent)
+        loadChildren: () => import('./features/categories/categories.routes').then(m => m.categoriesRoutes)
     },
 
     {
@@ -84,7 +79,6 @@ export const routes: Routes = [
         path: 'testimonials',
         loadComponent: () => import('./pages/reviews-page/reviews-list/reviews-list.component').then(m => m.ReviewsListComponent)
     },
-
 
     { path: '**', component: ErrorPageComponent },
 ];

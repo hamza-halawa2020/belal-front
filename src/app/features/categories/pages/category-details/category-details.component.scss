@@ -1,0 +1,143 @@
+.category-details-area {
+    background-color: #fff;
+    padding: 56px 0;
+}
+
+.category-header {
+    margin-bottom: 36px;
+
+    .category-img {
+        border-radius: 8px;
+        box-shadow: 0 10px 28px rgba(20, 20, 20, 0.06);
+        height: 360px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .category-info {
+        padding-left: 32px;
+
+        h1 {
+            color: #241f26;
+            font-size: 1.85rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-bottom: 14px;
+        }
+
+        .studies-count {
+            align-items: center;
+            color: #5f5a66;
+            display: flex;
+            font-size: 0.95rem;
+            gap: 10px;
+
+            i {
+                color: #4c0048;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.studies-section {
+    margin-bottom: 32px;
+
+    .section-title {
+        margin-bottom: 28px;
+        text-align: center;
+
+        h2 {
+            color: #241f26;
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #5f5a66;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+    }
+}
+
+.no-studies {
+    margin-bottom: 32px;
+
+    .alert {
+        border-radius: 8px;
+        font-size: 0.95rem;
+        padding: 20px;
+
+        i {
+            margin-right: 8px;
+        }
+    }
+}
+
+.back-btn-container {
+    margin-top: 28px;
+
+    .back-btn {
+        align-items: center;
+        background: #f4f2f5;
+        border-radius: 8px;
+        color: #241f26;
+        display: inline-flex;
+        font-size: 0.9rem;
+        font-weight: 600;
+        gap: 8px;
+        padding: 9px 18px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #4c0048;
+            color: #fff;
+        }
+    }
+}
+
+:host-context([dir="rtl"]) {
+    .category-info {
+        padding-left: 0;
+        padding-right: 32px;
+    }
+
+    .back-btn i {
+        transform: rotate(180deg);
+    }
+
+    .no-studies .alert i {
+        margin-left: 8px;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .category-details-area {
+        padding: 34px 0;
+    }
+
+    .category-header {
+        .category-img {
+            height: 260px;
+        }
+
+        .category-info {
+            margin-top: 22px;
+            padding-left: 0;
+            text-align: center;
+        }
+    }
+
+    :host-context([dir="rtl"]) {
+        .category-info {
+            padding-right: 0;
+        }
+    }
+}
