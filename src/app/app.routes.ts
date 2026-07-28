@@ -50,7 +50,7 @@ export const routes: Routes = [
 
     {
         path: 'faqs',
-        loadComponent: () => import('./pages/faqs-page/faqs-page.component').then(m => m.FaqsPageComponent)
+        loadChildren: () => import('./features/faqs/faqs.routes').then(m => m.faqsRoutes)
     },
 
     {

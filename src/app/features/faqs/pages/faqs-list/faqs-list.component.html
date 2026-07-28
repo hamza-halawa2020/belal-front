@@ -1,0 +1,47 @@
+<section class="faqs-page" [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'FREQUENTLY_ASKED_QUESTIONS' | translate }}</h2>
+            <p>{{ 'FAQ_DESC' | translate }}</p>
+        </div>
+
+        <div class="row justify-content-center" *ngIf="isLoading">
+            <div class="col-lg-10">
+                <div class="skeleton-loader" *ngFor="let item of [1,2,3,4]"></div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger text-center" *ngIf="!isLoading && errorMessage">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            {{ errorMessage }}
+        </div>
+
+        <div class="row justify-content-center" *ngIf="!isLoading && !errorMessage">
+            <div class="col-lg-10 col-sm-12">
+                <div ngbAccordion [closeOthers]="true" class="faqs-accordion">
+                    <div ngbAccordionItem *ngFor="let faq of faqs" class="faq-item">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton class="faq-question">
+                                <i class="fa-solid fa-circle-question"></i>
+                                <span>{{ faq.question }}</span>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div class="accordion-body faq-answer" [innerHTML]="faq.answer"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center py-5" *ngIf="faqs.length === 0">
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle"></i>
+                        {{ 'NO_FAQS_FOUND' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-pagination [meta]="meta" (pageChange)="onPageChange($event)" *ngIf="!isLoading && meta"></app-pagination>
+    </div>
+</section>
