@@ -40,11 +40,7 @@ export const routes: Routes = [
 
     {
         path: 'investment-opportunities',
-        loadComponent: () => import('./pages/investment-opportunities-page/investment-opportunities-list/investment-opportunities-list.component').then(m => m.InvestmentOpportunitiesListComponent)
-    },
-    {
-        path: 'investment-opportunities/:id',
-        loadComponent: () => import('./pages/investment-opportunities-page/investment-opportunities-details/investment-opportunities-details.component').then(m => m.InvestmentOpportunitiesDetailsComponent)
+        loadChildren: () => import('./features/investment-opportunities/investment-opportunities.routes').then(m => m.investmentOpportunitiesRoutes)
     },
 
     {

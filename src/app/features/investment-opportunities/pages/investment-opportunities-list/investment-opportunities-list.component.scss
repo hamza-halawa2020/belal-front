@@ -1,0 +1,29 @@
+.investment-opportunities-area {
+    background-color: #fbfbfc;
+    padding: 56px 0;
+}
+
+.skeleton-loader {
+    animation: loading 1.5s infinite;
+    background: linear-gradient(90deg, #f0f0f2 25%, #e7e7ea 50%, #f0f0f2 75%);
+    background-size: 200% 100%;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    height: 300px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .investment-opportunities-area {
+        padding: 34px 0;
+    }
+}
