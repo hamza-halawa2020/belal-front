@@ -9,7 +9,7 @@ import { auditTime } from 'rxjs/operators';
     standalone: true,
     imports: [NgIf],
     templateUrl: './back-to-top.component.html',
-    styleUrl: './back-to-top.component.scss'
+    styleUrls: ['./back-to-top.component.scss']
 })
 export class BackToTopComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);

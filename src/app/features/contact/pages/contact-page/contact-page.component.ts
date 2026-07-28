@@ -55,6 +55,15 @@ export class ContactPageComponent implements OnDestroy {
         clearTransientMessage(this.errorMessageTimeoutId);
     }
 
+    clearMessages(): void {
+        clearTransientMessage(this.successMessageTimeoutId);
+        clearTransientMessage(this.errorMessageTimeoutId);
+        this.successMessageTimeoutId = null;
+        this.errorMessageTimeoutId = null;
+        this.successMessage = '';
+        this.errorMessage = '';
+    }
+
     onSubmit(): void {
         if (this.contactForm.invalid) {
             this.contactForm.markAllAsTouched();
@@ -63,8 +72,7 @@ export class ContactPageComponent implements OnDestroy {
         }
 
         this.isSubmitting = true;
-        this.successMessage = '';
-        this.errorMessage = '';
+        this.clearMessages();
 
         this.contactApi.sendMessage(this.getPayload()).pipe(
             finalize(() => {

@@ -10,7 +10,7 @@
                 <div class="toast-header" [class.success]="successMessage" [class.error]="errorMessage">
                     <i class="fa-solid me-2" [ngClass]="successMessage ? 'fa-check-circle' : 'fa-exclamation-triangle'"></i>
                     <strong class="me-auto">{{ (successMessage ? 'SUCCESS' : 'ERROR') | translate }}</strong>
-                    <button type="button" class="btn-close btn-close-white" (click)="successMessage = ''; errorMessage = ''"></button>
+                    <button type="button" class="btn-close btn-close-white" (click)="clearMessages()"></button>
                 </div>
                 <div class="toast-body">
                     {{ successMessage || errorMessage }}

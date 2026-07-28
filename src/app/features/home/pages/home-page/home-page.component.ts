@@ -22,7 +22,7 @@ import { HomeApi, HomeData } from '../../data-access/home.api';
         MainSlider,
     ],
     templateUrl: './home-page.component.html',
-    styleUrl: './home-page.component.scss',
+    styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);

@@ -7,6 +7,7 @@ import {
     CarouselModule,
     OwlOptions,
 } from 'ngx-owl-carousel-o';
+import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { MainSliderApi } from './main-slider.api';
 import { MainSliderItem } from './main-slider.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -99,7 +100,10 @@ export class MainSlider implements OnInit {
             takeUntilDestroyed(this.destroyRef)
         ).subscribe({
             next: response => {
-                this.sliderData = response.data || [];
+                this.sliderData = (response.data || []).map(slide => ({
+                    ...slide,
+                    image_url: getStoredImageUrl(slide.image_url)
+                }));
             },
             error: () => {
                 this.sliderData = [];

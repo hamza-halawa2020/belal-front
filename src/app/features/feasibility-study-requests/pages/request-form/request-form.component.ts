@@ -51,6 +51,15 @@ export class FeasibilityStudyRequestFormComponent implements OnDestroy {
         clearTransientMessage(this.errorMessageTimeoutId);
     }
 
+    clearMessages(): void {
+        clearTransientMessage(this.successMessageTimeoutId);
+        clearTransientMessage(this.errorMessageTimeoutId);
+        this.successMessageTimeoutId = null;
+        this.errorMessageTimeoutId = null;
+        this.successMessage = '';
+        this.errorMessage = '';
+    }
+
     onSubmit(): void {
         if (this.requestForm.invalid) {
             this.markFormGroupTouched();
@@ -59,8 +68,7 @@ export class FeasibilityStudyRequestFormComponent implements OnDestroy {
         }
 
         this.isSubmitting = true;
-        this.errorMessage = '';
-        this.successMessage = '';
+        this.clearMessages();
 
         this.feasibilityStudyRequestsApi.submitRequest(this.getPayload()).pipe(
             finalize(() => {
