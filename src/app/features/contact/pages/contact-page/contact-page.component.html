@@ -1,0 +1,123 @@
+<section class="contact-page">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ 'GET_IN_TOUCH' | translate }}</h2>
+            <p>{{ 'CONTACT_INFO_TITLE' | translate }}</p>
+        </div>
+
+        <div class="toast-container position-fixed top-0 end-0 p-3" *ngIf="successMessage || errorMessage">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header" [class.success]="successMessage" [class.error]="errorMessage">
+                    <i class="fa-solid me-2" [ngClass]="successMessage ? 'fa-check-circle' : 'fa-exclamation-triangle'"></i>
+                    <strong class="me-auto">{{ (successMessage ? 'SUCCESS' : 'ERROR') | translate }}</strong>
+                    <button type="button" class="btn-close btn-close-white" (click)="successMessage = ''; errorMessage = ''"></button>
+                </div>
+                <div class="toast-body">
+                    {{ successMessage || errorMessage }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 contact-info-row">
+            <div class="col-lg-4 col-md-6">
+                <article class="contact-info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>{{ 'OUR_LOCATION' | translate }}</h3>
+                    <p>{{ 'LOCATION_ADDRESS' | translate }}</p>
+                </article>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <article class="contact-info-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>{{ 'TELEPHONE' | translate }}</h3>
+                    <p><a href="tel:{{ phone1 }}">{{ phone1 }}</a></p>
+                    <p><a href="tel:{{ phone2 }}">{{ phone2 }}</a></p>
+                </article>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <article class="contact-info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>{{ 'SEND_EMAIL' | translate }}</h3>
+                    <p><a href="mailto:{{ infoEmail }}">{{ infoEmail }}</a></p>
+                    <p><a href="mailto:{{ adminEmail }}">{{ adminEmail }}</a></p>
+                </article>
+            </div>
+        </div>
+
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-8">
+                <div class="contact-form-wrapper">
+                    <div class="form-header">
+                        <h3>{{ 'CONTACT_FORM_TITLE' | translate }}</h3>
+                        <p>{{ 'EMAIL_DISCLAIMER' | translate }}</p>
+                    </div>
+
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">{{ 'FULL_NAME' | translate }} *</label>
+                            <input
+                                type="text"
+                                id="name"
+                                [placeholder]="'ENTER_YOUR_NAME' | translate"
+                                class="form-control"
+                                [class.is-invalid]="contactForm.controls.name.invalid && contactForm.controls.name.touched"
+                                formControlName="name"
+                            />
+                            <div class="invalid-feedback" *ngIf="getFieldError('name')">
+                                {{ getFieldError('name') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">{{ 'PHONE_NUMBER' | translate }} *</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                [placeholder]="'ENTER_YOUR_PHONE' | translate"
+                                class="form-control"
+                                [class.is-invalid]="contactForm.controls.phone.invalid && contactForm.controls.phone.touched"
+                                formControlName="phone"
+                            />
+                            <div class="invalid-feedback" *ngIf="getFieldError('phone')">
+                                {{ getFieldError('phone') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">{{ 'MESSAGE' | translate }} *</label>
+                            <textarea
+                                id="message"
+                                rows="6"
+                                class="form-control"
+                                [class.is-invalid]="contactForm.controls.message.invalid && contactForm.controls.message.touched"
+                                [placeholder]="'WRITE_YOUR_MESSAGE' | translate"
+                                formControlName="message"
+                            ></textarea>
+                            <div class="invalid-feedback" *ngIf="getFieldError('message')">
+                                {{ getFieldError('message') }}
+                            </div>
+                        </div>
+
+                        <button class="submit-btn" type="submit" [disabled]="isSubmitting || contactForm.invalid">
+                            <i class="fa-solid" [ngClass]="isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'"></i>
+                            <span>{{ (isSubmitting ? 'SENDING' : 'SEND_MESSAGE') | translate }}</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="map-card">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d31.123456!3d30.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDA3JzI0LjQiTiAzMcKwMDcnMjQuNCJF!5e0!3m2!1sen!2seg!4v1234567890123"
+                        title="Location map"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
