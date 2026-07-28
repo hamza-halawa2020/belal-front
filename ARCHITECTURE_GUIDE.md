@@ -169,6 +169,7 @@ Examples:
 
 - pagination component
 - content card component
+- check-list and key-value-list display components
 - pipes
 - directives
 - generic models
@@ -179,6 +180,7 @@ Rules:
 - `shared/` must not contain business API services.
 - `shared/` must not depend on feature folders.
 - Shared components should be typed and configurable through inputs/outputs.
+- Use `CheckListComponent` and `KeyValueListComponent` for parsed JSON string list/key-value fields instead of duplicating list markup in feature pages.
 
 ### `features/`
 
@@ -315,6 +317,7 @@ Rules:
 - API services should not control UI loading state.
 - API services should not show messages.
 - API services should not call `window`, `document`, or router navigation unless there is a strong reason.
+- If the backend returns JSON encoded inside string fields, parse it into typed component state before rendering; do not show raw JSON in templates.
 
 ## List Page Pattern
 
@@ -533,6 +536,7 @@ The current direction is:
 - Keep cards simple with light borders and soft shadows.
 - Show content images fully with `object-fit: contain` by default; use `cover` only when the crop is intentional, such as a decorative background.
 - Image fallbacks must point to real files under `src/assets`; do not reference demo placeholder filenames that are not committed.
+- Use `ImageFallbackDirective` for API-driven images so broken backend URLs fall back to a real local asset.
 - Keep forms clean, readable, and focused.
 - Avoid visual clutter, large decorative elements, and unnecessary animation.
 - Do not use global animation libraries for basic page reveals; `animate.css` was removed to keep the UI lighter and calmer.

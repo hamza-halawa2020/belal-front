@@ -1,6 +1,6 @@
 <div class="content-card" *ngIf="item">
     <div class="card-img">
-        <img [src]="getImageUrl()" [alt]="item.title">
+        <img [src]="getImageUrl()" [alt]="item.title" appImageFallback>
     </div>
     <div class="card-content">
         <h3>

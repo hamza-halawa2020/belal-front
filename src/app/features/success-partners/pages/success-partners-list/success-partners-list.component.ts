@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { SuccessPartnersApi } from '../../data-access/success-partners.api';
 import { SuccessPartner } from '../../models/success-partner.model';
@@ -12,7 +13,7 @@ import { SuccessPartner } from '../../models/success-partner.model';
 @Component({
     selector: 'app-success-partners-list',
     standalone: true,
-    imports: [CommonModule, TranslateModule, PaginationComponent],
+    imports: [CommonModule, TranslateModule, PaginationComponent, ImageFallbackDirective],
     templateUrl: './success-partners-list.component.html',
     styleUrls: ['./success-partners-list.component.scss']
 })

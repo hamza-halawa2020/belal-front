@@ -20,7 +20,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let member of staff">
                     <div class="staff-card">
                         <div class="staff-image" *ngIf="getImageUrl(member)">
-                            <img [src]="getImageUrl(member)" [alt]="member.name">
+                            <img [src]="getImageUrl(member)" [alt]="member.name" appImageFallback>
                         </div>
                         <div class="staff-info">
                             <h3>{{ member.name }}</h3>

@@ -12,7 +12,7 @@
 
         <div *ngIf="!isLoading && study">
             <div class="details-header">
-                <img [src]="getImageUrl(study)" [alt]="study.title" class="main-img" *ngIf="getImageUrl(study)">
+                <img [src]="getImageUrl(study)" [alt]="study.title" class="main-img" *ngIf="getImageUrl(study)" appImageFallback>
                 <h1>{{ study.title }}</h1>
                 <div class="category-badge" *ngIf="study.category">
                     <span class="badge">{{ study.category.title }}</span>
@@ -29,12 +29,7 @@
 
                         <div class="content-section" *ngIf="study.services">
                             <h3>{{ 'SERVICES' | translate }}</h3>
-                            <ul class="services-list" *ngIf="providedServices.length > 0; else rawServices">
-                                <li *ngFor="let service of providedServices">
-                                    <i class="fa-solid fa-check"></i>
-                                    <span>{{ service }}</span>
-                                </li>
-                            </ul>
+                            <app-check-list *ngIf="providedServices.length > 0; else rawServices" [items]="providedServices" />
                             <ng-template #rawServices>
                                 <div [innerHTML]="study.services"></div>
                             </ng-template>
@@ -42,17 +37,15 @@
 
                         <div class="content-section" *ngIf="study.study_content">
                             <h3>{{ 'STUDY_CONTENT' | translate }}</h3>
-                            <div [innerHTML]="study.study_content"></div>
+                            <app-check-list *ngIf="studyContentItems.length > 0; else rawStudyContent" [items]="studyContentItems" />
+                            <ng-template #rawStudyContent>
+                                <div [innerHTML]="study.study_content"></div>
+                            </ng-template>
                         </div>
 
                         <div class="content-section" *ngIf="study.financial_metrics">
                             <h3>{{ 'FINANCIAL_METRICS' | translate }}</h3>
-                            <div class="metrics-list" *ngIf="financialMetrics.length > 0; else rawFinancialMetrics">
-                                <div class="metric-row" *ngFor="let metric of financialMetrics">
-                                    <span class="metric-label">{{ metric.label }}</span>
-                                    <strong class="metric-value">{{ metric.value }}</strong>
-                                </div>
-                            </div>
+                            <app-key-value-list *ngIf="financialMetrics.length > 0; else rawFinancialMetrics" [items]="financialMetrics" />
                             <ng-template #rawFinancialMetrics>
                                 <div [innerHTML]="study.financial_metrics"></div>
                             </ng-template>

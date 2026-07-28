@@ -167,7 +167,7 @@
                     <div class="work-sample-card">
                         <div class="work-image">
                             <img [src]="getImageUrl(sample.image_url, contentImageFallback, sample.image)" 
-                                 [alt]="sample.title" class="img-fluid">
+                                 [alt]="sample.title" class="img-fluid" [appImageFallback]="contentImageFallback">
                             <div class="work-overlay">
                                 <a [routerLink]="['/work-samples', sample.id]" class="work-link">
                                     <i class="fa-solid fa-eye"></i>
@@ -203,7 +203,7 @@
                     <div class="team-card text-center">
                         <div class="team-image">
                             <img [src]="getImageUrl(member.image_url, contentImageFallback, member.image)" 
-                                 [alt]="member.name" class="img-fluid rounded-circle">
+                                 [alt]="member.name" class="img-fluid rounded-circle" [appImageFallback]="contentImageFallback">
                         </div>
                         <div class="team-content">
                             <h4>{{ member.name }}</h4>
@@ -270,7 +270,7 @@
                     <div class="post-card">
                         <div class="post-image">
                             <img [src]="getImageUrl(post.image_url, contentImageFallback, post.image)" 
-                                 [alt]="post.title" class="img-fluid">
+                                 [alt]="post.title" class="img-fluid" [appImageFallback]="contentImageFallback">
                             <div class="post-date">
                                 <span class="date-day">{{ formatDate(post.created_at).split(' ')[0] }}</span>
                                 <span class="date-month">{{ formatDate(post.created_at).split(' ')[1] }}</span>
@@ -336,7 +336,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let partner of homeData.partners | slice:0:3">
                     <div class="partner-item text-center">
                         <img [src]="getImageUrl(partner.logo_url, logoImageFallback)" 
-                             [alt]="partner.name" class="img-fluid">
+                             [alt]="partner.name" class="img-fluid" [appImageFallback]="logoImageFallback">
                     </div>
                 </div>
             </div>

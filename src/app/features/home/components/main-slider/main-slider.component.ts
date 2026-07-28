@@ -8,6 +8,7 @@ import {
     OwlOptions,
 } from 'ngx-owl-carousel-o';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { MainSliderApi } from './main-slider.api';
 import { MainSliderItem } from './main-slider.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -22,7 +23,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         NgIf,
         NgClass,
         NgOptimizedImage,
-        TranslateModule
+        TranslateModule,
+        ImageFallbackDirective
     ],
     templateUrl: './main-slider.component.html',
     styleUrls: ['./main-slider.component.scss'],

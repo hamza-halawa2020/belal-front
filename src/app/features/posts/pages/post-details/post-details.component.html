@@ -12,7 +12,7 @@
 
         <div *ngIf="!isLoading && post">
             <div class="details-header">
-                <img [src]="getImageUrl(post)" [alt]="post.title" class="main-img" *ngIf="getImageUrl(post)">
+                <img [src]="getImageUrl(post)" [alt]="post.title" class="main-img" *ngIf="getImageUrl(post)" appImageFallback>
                 <h1>{{ post.title }}</h1>
             </div>
 

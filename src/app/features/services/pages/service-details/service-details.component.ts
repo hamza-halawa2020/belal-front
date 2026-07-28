@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { ServicesApi } from '../../data-access/services.api';
 import { Service } from '../../models/service.model';
@@ -11,7 +12,7 @@ import { Service } from '../../models/service.model';
 @Component({
     selector: 'app-service-details',
     standalone: true,
-    imports: [CommonModule, TranslateModule, RouterLink],
+    imports: [CommonModule, TranslateModule, RouterLink, ImageFallbackDirective],
     templateUrl: './service-details.component.html',
     styleUrls: ['./service-details.component.scss']
 })

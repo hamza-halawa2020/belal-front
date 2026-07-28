@@ -38,6 +38,7 @@ src/app
 - Keep forms clear and focused.
 - Show content images fully with `object-fit: contain` by default; use `cover` only for intentional decorative cropping.
 - Image fallbacks must point to real committed files under `src/assets`.
+- Use `ImageFallbackDirective` for API-driven images.
 - Preserve mobile readability.
 
 ## Do Not

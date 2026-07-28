@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { PaginationMeta } from '../../../../core/api/api.types';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { canLoadPage, scrollToPageTop } from '../../../../shared/utils/pagination.util';
 import { CategoriesApi } from '../../data-access/categories.api';
@@ -14,7 +15,7 @@ import { Category } from '../../models/category.model';
 @Component({
     selector: 'app-categories-list',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslateModule, PaginationComponent],
+    imports: [CommonModule, RouterLink, TranslateModule, PaginationComponent, ImageFallbackDirective],
     templateUrl: './categories-list.component.html',
     styleUrls: ['./categories-list.component.scss']
 })

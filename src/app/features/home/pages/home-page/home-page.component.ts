@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { MainSlider } from '../../components/main-slider/main-slider.component';
 import { HomeApi, HomeData, HomeStats } from '../../data-access/home.api';
 
@@ -27,6 +28,7 @@ interface DefaultService {
         SlicePipe,
         TranslateModule,
         MainSlider,
+        ImageFallbackDirective,
     ],
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],

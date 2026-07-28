@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { InvestmentOpportunitiesApi } from '../../data-access/investment-opportunities.api';
 import { InvestmentOpportunity } from '../../models/investment-opportunity.model';
@@ -11,7 +12,7 @@ import { InvestmentOpportunity } from '../../models/investment-opportunity.model
 @Component({
     selector: 'app-investment-opportunity-details',
     standalone: true,
-    imports: [CommonModule, TranslateModule, RouterLink],
+    imports: [CommonModule, TranslateModule, RouterLink, ImageFallbackDirective],
     templateUrl: './investment-opportunity-details.component.html',
     styleUrls: ['./investment-opportunity-details.component.scss']
 })

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 import { getStoredImageUrl } from '../../utils/image-url.util';
 
 export interface ContentCardItem {
@@ -15,7 +16,7 @@ export interface ContentCardItem {
 @Component({
     selector: 'app-content-card',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslateModule],
+    imports: [CommonModule, RouterLink, TranslateModule, ImageFallbackDirective],
     templateUrl: './content-card.component.html',
     styleUrls: ['./content-card.component.scss']
 })

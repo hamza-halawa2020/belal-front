@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, finalize, map, switchMap } from 'rxjs';
 import { ContentCardComponent } from '../../../../shared/components/content-card/content-card.component';
+import { ImageFallbackDirective } from '../../../../shared/directives/image-fallback.directive';
 import { getStoredImageUrl } from '../../../../shared/utils/image-url.util';
 import { CategoriesApi } from '../../data-access/categories.api';
 import { Category } from '../../models/category.model';
@@ -12,7 +13,7 @@ import { Category } from '../../models/category.model';
 @Component({
     selector: 'app-category-details',
     standalone: true,
-    imports: [CommonModule, TranslateModule, RouterLink, ContentCardComponent],
+    imports: [CommonModule, TranslateModule, RouterLink, ContentCardComponent, ImageFallbackDirective],
     templateUrl: './category-details.component.html',
     styleUrls: ['./category-details.component.scss']
 })

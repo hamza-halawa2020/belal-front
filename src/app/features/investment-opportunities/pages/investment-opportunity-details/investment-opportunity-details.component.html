@@ -12,7 +12,7 @@
 
         <div *ngIf="!isLoading && opportunity">
             <div class="details-header">
-                <img [src]="getImageUrl(opportunity)" [alt]="opportunity.title" class="main-img" *ngIf="getImageUrl(opportunity)">
+                <img [src]="getImageUrl(opportunity)" [alt]="opportunity.title" class="main-img" *ngIf="getImageUrl(opportunity)" appImageFallback>
                 <h1>{{ opportunity.title }}</h1>
             </div>
 

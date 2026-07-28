@@ -12,7 +12,7 @@
 
         <div *ngIf="!isLoading && service" class="details-card">
             <div class="img-container" *ngIf="getImageUrl(service)">
-                <img [src]="getImageUrl(service)" [alt]="service.title">
+                <img [src]="getImageUrl(service)" [alt]="service.title" appImageFallback>
                 <div class="overlay"></div>
                 <div class="title-wrapper">
                     <div class="badges" *ngIf="service.status !== undefined">

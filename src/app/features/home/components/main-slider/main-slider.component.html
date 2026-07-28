@@ -23,7 +23,7 @@
                         <div class="image-container">
                             <!-- Main Image -->
                             <img [ngSrc]="slide.image_url" class="carousel-image" [alt]="slide.title || 'Slider Image'"
-                                [priority]="i === 0" fill sizes="100vw" />
+                                [priority]="i === 0" fill sizes="100vw" appImageFallback />
 
                             <!-- Gradient Overlay -->
                             <div class="gradient-overlay"></div>

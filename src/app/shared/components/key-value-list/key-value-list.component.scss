@@ -1,0 +1,39 @@
+.key-value-list {
+    display: grid;
+    gap: 10px;
+}
+
+.key-value-row {
+    align-items: center;
+    background: #fbfbfc;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 12px 14px;
+}
+
+.key-label {
+    color: #5f5a66;
+    font-size: 0.9rem;
+}
+
+.key-value {
+    color: #241f26;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: end;
+}
+
+@media only screen and (max-width: 767px) {
+    .key-value-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .key-value {
+        text-align: start;
+    }
+}

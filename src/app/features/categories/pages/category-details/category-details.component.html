@@ -14,7 +14,7 @@
             <div class="category-header">
                 <div class="row align-items-center">
                     <div class="col-lg-6" *ngIf="getImageUrl(category)">
-                        <img [src]="getImageUrl(category)" [alt]="category.title" class="category-img">
+                        <img [src]="getImageUrl(category)" [alt]="category.title" class="category-img" appImageFallback>
                     </div>
                     <div [class.col-lg-6]="getImageUrl(category)" [class.col-lg-12]="!getImageUrl(category)">
                         <div class="category-info">
