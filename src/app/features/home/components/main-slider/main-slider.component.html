@@ -22,7 +22,7 @@
                     <a [href]="slide.link || '#'" class="slide-link">
                         <div class="image-container">
                             <!-- Main Image -->
-                            <img [ngSrc]="slide.image_url" class="carousel-image" [alt]="slide.title || 'Slider Image'"
+                            <img [ngSrc]="slide.image_url" class="carousel-image" [alt]="slide.title || ('SLIDER_IMAGE' | translate)"
                                 [priority]="i === 0" fill sizes="100vw" appImageFallback />
 
                             <!-- Gradient Overlay -->

@@ -557,6 +557,7 @@
   "CREATE_ACCOUNT": "إنشاء حساب",
   "CONFIRM_PASSWORD": "تأكيد كلمة المرور *",
   "NO_SLIDER_IMAGES": "لا توجد صور في السلايدر حالياً",
+  "SLIDER_IMAGE": "صورة السلايدر",
   "SLIDER_LOADING": "جاري تحميل الصور...",
   "DO_YOU_HAVE_ACCOUNT": "هل لديك حساب؟",
   "WORK_SAMPLES": "نماذج الأعمال",
