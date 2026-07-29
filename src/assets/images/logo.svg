@@ -1,13 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="logo-title logo-desc">
   <title id="logo-title">Belal</title>
-  <desc id="logo-desc">Belal logo using the site colors</desc>
+  <desc id="logo-desc">Belal investment and feasibility studies logo</desc>
   <defs>
-    <linearGradient id="belal-mark" x1="12" y1="8" x2="52" y2="58" gradientUnits="userSpaceOnUse">
+    <linearGradient id="mark-gradient" x1="12" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#4c0048"/>
       <stop offset="1" stop-color="#161718"/>
     </linearGradient>
   </defs>
-  <path d="M14 43c3.2 6.2 9.7 10 18.1 10h10.7c6.9 0 11.8-4.5 11.8-10.8 0-6.6-5.1-10.9-12.2-10.9H31.8c-3.2 0-5.1-1.7-5.1-4.4V13h-9.2v15.1c0 7.4 5.3 12 13.3 12h11.3c2.1 0 3.4 1 3.4 2.5 0 1.6-1.3 2.6-3.4 2.6H31.8c-4.8 0-8.4-2.1-10.2-5.6L14 43Z" fill="url(#belal-mark)"/>
-  <circle cx="31.7" cy="58" r="3.2" fill="#4c0048"/>
-  <circle cx="40.8" cy="58" r="3.2" fill="#4c0048"/>
+  <path d="M32 6 54 18.7v25.4L32 57 10 44.1V18.7L32 6Z" fill="none" stroke="url(#mark-gradient)" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M20 40h5.8V29.5H20V40Zm9.1 0h5.8V23.7h-5.8V40Zm9.1 0H44V18h-5.8V40Z" fill="url(#mark-gradient)"/>
+  <path d="M19.5 45.2c9.1-1.4 18-6.3 26.7-14.7" fill="none" stroke="url(#mark-gradient)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M40.1 30.3h7.1v7.1" fill="none" stroke="url(#mark-gradient)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
